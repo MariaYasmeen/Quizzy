@@ -18,7 +18,6 @@ app.use(cors(corsOptions));
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/quizzes', quizRouter);
 app.use('/api/v1/qna', questionAnswerRouter);
-// app.use('/api/v1/', quizRouter);
 
 app.all('*', (req, res, next) => {
   res.status(404).json({
