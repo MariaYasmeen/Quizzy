@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap styles
 import Navbar from '../Components/Navbar';
+import heroimage from "../assets/herimg.png"
 
 const Hero = () => {
   return (
@@ -17,7 +18,7 @@ const Hero = () => {
             <button className="btn btn-dark">Explore Quizzes</button>
           </div>
           <div className="col-md-6 text-center mt-4 mt-md-0">
-            <img src="/path-to-your-hero-image.png" alt="Hero Illustration" className="img-fluid" />
+            <img src={heroimage} alt="Hero Illustration" style={{width:"500px"}} className="img-fluid" />
           </div>
         </div>
       </div>
