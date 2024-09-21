@@ -1,9 +1,8 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap styles
-
+import 'bootstrap/dist/css/bootstrap.min.css';  
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg ">
       <div className="container">
         <a className="navbar-brand d-flex align-items-center" href="#">
           <img src="/path-to-your-logo.png" alt="Logo" height="40" className="me-2" />
