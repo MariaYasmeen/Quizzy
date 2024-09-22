@@ -51,3 +51,29 @@
    }
  }
  
+ /* Optional: Customize specific styles */
+.feature-card img {
+   width: 50px;
+   height: 50px;
+ }
+ 
+ .bg-light-yellow {
+   background-color: #fffae6;
+ }
+ 
+ .bg-light-blue {
+   background-color: #e3f2fd;
+ }
+ 
+ .bg-light-gray {
+   background-color: #f2f2f2;
+ }
+ 
+ .bg-light-dark {
+   background-color: #eeeeee;
+ }
+ 
+ h2 {
+   color: #333;
+ }
+ 
