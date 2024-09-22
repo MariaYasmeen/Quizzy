@@ -1,22 +1,53 @@
  .lightbgctr{
-    background: linear-gradient(90deg, #c5bebe, #f3f1ef); /* Horizontal gradient */
+    background: linear-gradient(90deg, #969191, #f1efef); /* Horizontal gradient */
     padding: 27px;
     width: 95%;
     border-radius: 25px;
  }
  .textsection{
-    display: flex;
+    display: flex; 
     align-items: center;
     justify-content: center;
  }
 
  .herosection{
     display: flex;
-    height: 500px;
+    height: 450px;
     justify-content: center;
 }
 .heroh2{
-   
-    font-size: 48px ;
+   line-height: 40px;
+    font-size: 50px ;
 
 }
+
+/* QuizFeatureSection.css */
+ 
+ .card-title {
+   font-weight: bold;
+ }
+ 
+ .card-text {
+   font-size: 0.9rem;
+   color: #555;
+ }
+ 
+ img {
+   width: 80px;
+   height: 80px;
+ }
+ 
+ .card {
+   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .card-body {
+   padding: 20px;
+ }
+ 
+ @media (max-width: 768px) {
+   .card-body {
+     padding: 15px;
+   }
+ }
+ 

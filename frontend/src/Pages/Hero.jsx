@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap styles
 import Navbar from '../Components/Navbar';
 import heroimage from "../assets/herimg.png"
 import "./Pages.css"
+import QuizFeatureSection from './QuizFeatureSection';
 
 const Hero = () => {
   return (
@@ -19,12 +20,13 @@ const Hero = () => {
             </p>
             <button className="btn btn-dark">Explore Quizzes</button>
           </div>
-          <div className="col-md-6 text-center mt-4 mt-md-0">
-            <img src={heroimage} alt="Hero Illustration" style={{width:"300px"}} className="img-fluid" />
+          <div className="col-md-6 text-center mt-md-5">
+            <img src={heroimage} alt="Hero Illustration" style={{width:"500px"}} className="img-fluid" />
           </div>
         </div>
       </div>
     </section>
+    <QuizFeatureSection />
     </>
   );
 };
