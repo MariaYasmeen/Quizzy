@@ -5,4 +5,6 @@
 /.env
 
 # Development Date
-dev-data   
+/dev-data   
+
+/workout.MD
