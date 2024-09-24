@@ -4,6 +4,8 @@ import Navbar from '../Components/Navbar';
 import heroimage from "../assets/herimg.png"
 import "./Pages.css"
 import QuizFeatureSection from './QuizFeatureSection';
+import PlatformFeatures from './PlatformFeatures';
+import CreateQuizSection from './CreateQuizSection';
 
 const Hero = () => {
   return (
@@ -27,6 +29,8 @@ const Hero = () => {
       </div>
     </section>
     <QuizFeatureSection />
+    <PlatformFeatures/>
+    <CreateQuizSection />
     </>
   );
 };

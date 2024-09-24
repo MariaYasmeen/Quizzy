@@ -86,3 +86,4 @@ The application includes several accessibility options, classified into two cate
 ## API Documentation
 
 _Further details on the API can be provided in this section._
+[API](https://documenter.getpostman.com/view/37500173/2sAXqp9jPW)

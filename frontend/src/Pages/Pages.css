@@ -51,3 +51,129 @@
    }
  }
  
+ /* Optional: Customize specific styles */
+.feature-card img {
+   width: 50px;
+   height: 50px;
+ }
+ 
+ .bg-light-yellow {
+   background-color: #fffae6;
+ }
+ 
+ .bg-light-blue {
+   background-color: #e3f2fd;
+ }
+ 
+ .bg-light-gray {
+   background-color: #f2f2f2;
+ }
+ 
+ .bg-light-dark {
+   background-color: #eeeeee;
+ }
+ 
+ h2 {
+   color: #333;
+ }
+ 
+
+ .create-quiz-section {
+   background-color: #f9f9f9;
+ }
+ 
+ .create-quiz-section img {
+   width: 100%;
+   height: auto;
+ }
+ 
+ .create-quiz-section h2 {
+   font-size: 2.5rem;
+   color: #000;
+ }
+ 
+ .create-quiz-section .btn-outline-dark {
+   padding: 10px 20px;
+   border-radius: 5px;
+ }
+ 
+
+ /* Container for the entire layout */
+.container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: #f4f4f4; 
+   width: 100%;
+   box-sizing: border-box;
+ }
+ 
+ /* Header section */
+ .header {
+   text-align: center;
+   margin-bottom: 30px;
+ }
+ 
+ .header h2 {
+   font-size: 24px;
+   color: #333;
+ }
+ 
+ .cta-button {
+   background-color: #333;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   cursor: pointer;
+   font-size: 16px;
+   margin-top: 10px;
+   display: inline-block;
+   transition: background-color 0.3s;
+ }
+ 
+ .cta-button:hover {
+   background-color: #555;
+ }
+ 
+ .cta-button .arrow {
+   margin-left: 5px;
+ }
+ 
+ /* Feature Box */
+ .features-box {
+   background: linear-gradient(90deg, #f4f4f4, #e6e6e6);
+   padding: 50px;
+   border-radius: 10px;
+   max-width: 900px;
+   width: 100%;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Feature List */
+ .features-list {
+   list-style: none;
+   padding: 0;
+ }
+ 
+ .features-list li {
+   margin-bottom: 15px;
+   font-size: 16px;
+   color: #333;
+ }
+ 
+ /* Responsive Design */
+ @media (max-width: 768px) {
+   .header h2 {
+     font-size: 20px;
+   }
+ 
+   .cta-button {
+     font-size: 14px;
+     padding: 8px 16px;
+   }
+ 
+   .features-list li {
+     font-size: 14px;
+   }
+ }
+ 
