@@ -33,14 +33,3 @@ exports.getResult = catchAsync(async (req, res, next) => {
     result
   });
 });
-
-// exports.getAllResult = catchAsync(async (req, res, next) => {
-//   req.body.student = '66ddb868e219d6e63c1db72e';
-//   const result = await Result.findOne({
-//     student: req.body.student
-//   });
-//   res.status(200).json({
-//     status: 'success',
-//     result
-//   });
-// });

@@ -3,12 +3,6 @@ const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const Question = require('./../models/questionModel');
 
-exports.handle = (req, res, next) => {
-  res.status(200).json({
-    message: 'question'
-  });
-};
-
 // GET ALL QUESTIONS
 
 exports.getAllQuestion = catchAsync(async (req, res, next) => {
@@ -42,13 +36,6 @@ exports.getQuestion = catchAsync(async (req, res, next) => {
     }
   });
 });
-// {
-//     "questionText" : "what is the sum of 1 and 3" ,
-//      "options" : [   {"text": "4",
-//       "isCorrect": true} , {"text": "5",
-//       "isCorrect": false} , {"text": "3",
-//       "isCorrect": false}]
-// }
 
 // CREATE QUESTION
 exports.createQuestion = catchAsync(async (req, res, next) => {

@@ -43,10 +43,7 @@ const quizSchema = new mongoose.Schema({
 });
 
 quizSchema.pre(/^find/, function(next) {
-  // /  const now = Date.now();
-
   this.find();
-
   next();
 });
 const Quiz = mongoose.model('Quiz', quizSchema);

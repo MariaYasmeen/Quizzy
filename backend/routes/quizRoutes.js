@@ -12,19 +12,38 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
+// for authorized users
 router.use(authController.protect);
+
 router
   .route('/')
-  .get(quizController.getAllQuiz)
-  .post(quizController.createQuiz);
+  .get(quizController.publicQuizOnly, quizController.getAllQuiz)
+  .post(
+    authController.restrictTo('teacher', 'admin'), // creating quiz is for only teacher and admin
+    quizController.addCurrentUser,
+    quizController.createQuiz
+  );
 router
-  .route('/:id')
-  .get(quizController.getQuiz)
+  .route('/allAvailableQuiz')
+  .get(authController.restrictTo('admin'), quizController.getAllQuiz);
+
+// for teachers (owner of the quiz)
+router.get('/myQuiz', quizController.addCurrentUser, quizController.getAllQuiz);
+// for admins
+
+router.get('/:id', quizController.publicQuizOnly, quizController.getQuiz);
+router
+  .route('/allAvailableQuiz/:id')
+  .get(authController.restrictTo('admin'), quizController.getQuiz)
+  .delete(authController.restrictTo('admin').quizController.deleteQuiz);
+router
+  .route('/myQuiz/:id')
+  .get(quizController.addCurrentUser, quizController.getQuiz)
   .patch(quizController.updateQuiz)
   .delete(quizController.deleteQuiz);
 
+// later
 router.use('/:quizId/questions', questionRouter);
-
 router.use('/:quizId/take', resultRouter);
 router.use('/:quizId/results', resultRouter);
 

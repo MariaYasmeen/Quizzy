@@ -18,7 +18,7 @@ const questionSchema = new mongoose.Schema({
   ],
   questionType: {
     type: String,
-    enum: ['multiple-choice', 'true/false', 'short-answer'],
+    enum: ['multiple-choice', 'true/false'],
     default: 'multiple-choice',
     required: true
   },
@@ -27,7 +27,7 @@ const questionSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+// ADD DIFFICULTY OF QUESTION [EASY , MEDIUM , HARD]
 const Question = mongoose.model('Question', questionSchema);
 
 module.exports = Question;
