@@ -2,6 +2,7 @@
 const User = require('../models/userModel');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
+const factory = require('./handlerFactory');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -19,7 +20,6 @@ exports.getMe = (req, res, next) => {
 
 // update current user
 exports.updateMe = catchAsync(async (req, res, next) => {
-  // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -28,16 +28,12 @@ exports.updateMe = catchAsync(async (req, res, next) => {
       )
     );
   }
-
   const filteredBody = filterObj(req.body, 'name', 'email');
   if (req.file) filteredBody.photo = req.file.filename;
-
-  // 3) Update user document
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,
     runValidators: true
   });
-
   res.status(200).json({
     status: 'success',
     data: {
@@ -53,31 +49,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: null
-  });
-});
-
-// this have to be in the factory function
-
-//  get all users
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-  res.status(200).json({
-    status: 'success',
-    data: {
-      users
-    }
-  });
-});
-
-// get only one user
-exports.getUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const users = await User.findById(id);
-  res.status(200).json({
-    status: 'success',
-    data: {
-      users
-    }
   });
 });
 
@@ -104,12 +75,11 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
+//  get all users
+exports.getAllUsers = factory.getAll(User);
+// get only one user
+exports.getUser = factory.getOne(User);
 // delete the user
-exports.deleteUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const user = await User.findByIdAndDelete(id);
-  if (!user) return next(new AppError('There is no user with this Id.', 404));
-  res.status(204).json({
-    status: 'success'
-  });
-});
+exports.deleteUser = factory.deleteOne(User);
+// create user
+exports.createUser = factory.createOne(User);

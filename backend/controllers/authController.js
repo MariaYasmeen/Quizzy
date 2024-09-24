@@ -19,13 +19,13 @@ const signToken = user => {
 // create and send token
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  // res.cookie('jwt', token, {
-  //   expires: new Date(
-  //     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-  //   ),
-  //   httpOnly: true,
-  //   secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
-  // });
+  res.cookie('jwt', token, {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
+  });
   user.password = undefined;
   res.status(statusCode).json({
     status: 'success',
@@ -172,27 +172,14 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, req, res);
 });
 
-// create use from admin side
-exports.createUser = catchAsync(async (req, res, next) => {
-  const user = await User.create(req.body);
-  const token = signToken(user);
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
-});
-
 // update password
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id).select('+password');
-  if (!(await user.passwordCorrect(req.body.passwordCurrent, user.password))) {
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(new AppError('your current password is wrong', 401));
   }
   user.password = req.body.password;
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
 });
