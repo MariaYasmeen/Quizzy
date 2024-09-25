@@ -11,4 +11,5 @@ router
   .get(resultController.getResult)
   .post(resultController.createResult);
 
+router.patch('/:id', resultController.updateResult);
 module.exports = router;
