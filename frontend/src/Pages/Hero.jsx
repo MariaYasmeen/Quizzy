@@ -11,7 +11,7 @@ const Hero = () => {
   return (
     <>
     <Navbar />
-    <section className="  herosection ">
+    <section className="  herosection     ">
       <div className="  lightbgctr textsection">
         <div className="row align-items-center ">
           <div className="col-md-6 text-md-start  ">
