@@ -3,13 +3,13 @@ const questionAnswerController = require('./../controllers/questionAnswerControl
 const authController = require('./../controllers/authController');
 
 const router = express.Router();
-
+// get ten frequently asked questions
 router.get('/ten-faq', questionAnswerController.tenFrequentlyAskedQuestions);
 
-router.route('/').get(questionAnswerController.getAllQuestionAnswer);
-router.route('/:id').get(questionAnswerController.getQuestionAnswer);
+router.get('/', questionAnswerController.getAllQuestionAnswer);
+router.get('/:id', questionAnswerController.getQuestionAnswer);
 router.use(authController.protect);
-router.route('/').post(questionAnswerController.createQuestionAnswer);
+router.post('/', questionAnswerController.createQuestionAnswer);
 // POST /api/v1/qna/:id/vote
 
 router

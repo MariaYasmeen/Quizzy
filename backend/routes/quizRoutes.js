@@ -35,12 +35,12 @@ router.get('/:id', quizController.publicQuizOnly, quizController.getQuiz);
 router
   .route('/allAvailableQuiz/:id')
   .get(authController.restrictTo('admin'), quizController.getQuiz)
-  .delete(authController.restrictTo('admin').quizController.deleteQuiz);
+  .delete(authController.restrictTo('admin'), quizController.deleteQuiz);
 router
   .route('/myQuiz/:id')
   .get(quizController.addCurrentUser, quizController.getQuiz)
   .patch(quizController.updateQuiz)
-  .delete(quizController.deleteQuiz);
+  .delete(quizController.deleteMyQuiz);
 
 // later
 router.use('/:quizId/questions', questionRouter);

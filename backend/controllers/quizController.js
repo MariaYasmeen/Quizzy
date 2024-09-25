@@ -31,9 +31,8 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
     startDate,
     endDate
   } = req.body;
-
   const quiz = await Quiz.findOneAndUpdate(
-    { id, createdBy: req.user._id },
+    { _id: id, createdBy: req.user._id },
     {
       title,
       description,
@@ -47,7 +46,7 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
       runValidators: true
     }
   );
-  if (!quiz) return next(new AppError('there is no quiz with this ID '));
+  if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
   res.status(200).json({
     status: 'success',
     data: {
@@ -57,8 +56,22 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
 });
 exports.deleteQuiz = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const quiz = await Quiz.findOneAndDelete({ id, createdBy: req.user._id });
-  if (!quiz) return next(new AppError('there is no quiz with this ID '));
+  const quiz = await Quiz.findOneAndDelete({
+    _id: id
+  });
+  if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
+
+  res.status(204).json({
+    status: 'success'
+  });
+});
+exports.deleteMyQuiz = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const quiz = await Quiz.findOneAndDelete({
+    _id: id,
+    createdBy: req.user._id
+  });
+  if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
 
   res.status(204).json({
     status: 'success'
