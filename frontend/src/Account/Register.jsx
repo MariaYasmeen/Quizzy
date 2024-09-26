@@ -31,7 +31,7 @@ const Register = () => {
     setSuccess('');
 
     try {
-      console.log("Submitting form data:", formData); // Debugging: Log form data
+      console.log("Submitting form data:", formData);  
 
       const response = await axios.post('http://localhost:3300/api/v1/users/signup', {
         name: formData.name,
@@ -40,23 +40,22 @@ const Register = () => {
         passwordConfirm: formData.passwordConfirm
       }, { withCredentials: true });
 
-      console.log("Response from server:", response); // Debugging: Log server response
-
-      // Check the response status
+      console.log("Response from server:", response);  
+    
       if (response.data.status === 'success') {
-        setSuccess("Registration successful!"); // Set success message
-        console.log("User registered successfully!"); // Debugging
+        setSuccess("Registration successful!");  
+        console.log("User registered successfully!");  
       } else {
-        throw new Error("Registration failed."); // Trigger error for non-successful status
+        throw new Error("Registration failed.");  
       }
 
     } catch (error) {
       console.error('Error during sign-up:', error);
 
-      // Handle error and set the error message
+   
       const message = error.response?.data?.message || 'An error occurred. Please try again.';
       setError(message);
-      console.log("Error message to display:", message); // Debugging
+      console.log("Error message to display:", message); 
     } finally {
       setLoading(false);
     }
