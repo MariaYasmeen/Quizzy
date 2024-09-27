@@ -9,10 +9,10 @@ const Navbar = () => {
   const { user, logoutUser } = useContext(UserContext);
   const [logoutMessage, setLogoutMessage] = useState("");
   const navigate = useNavigate();
-  // Handle logout
+
   const handleLogout = () => {
     logoutUser();
-    setLogoutMessage("Logout successful! Redirecting to sign-in..."); //   success message
+    setLogoutMessage("Logout successful! Redirecting to sign-in...");
 
     setTimeout(() => {
       setLogoutMessage("");
@@ -48,15 +48,14 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/search">
-                  <i className="fas fa-search"></i>
+                  <i className="bi bi-search"></i>
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/notifications">
-                  <i className="fas fa-bell"></i>
+                  <i className="bi bi-bell"></i>
                 </a>
               </li>
-
               <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -66,7 +65,7 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i className="fas fa-user"></i>
+                  <i className="bi bi-person-circle"></i>
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-end soft-dropdown"
