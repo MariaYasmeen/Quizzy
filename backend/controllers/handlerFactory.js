@@ -39,8 +39,8 @@ exports.getOne = (Model, popOptions) =>
     if (popOptions) {
       query = query.populate(popOptions);
     }
-    if (req.query.isPublic) {
-      query = query.where({ isPublic: req.query.isPublic });
+    if (req.query.createdBy) {
+      query = query.where({ createdBy: req.query.createdBy });
     }
     const doc = await query;
     if (!doc) {

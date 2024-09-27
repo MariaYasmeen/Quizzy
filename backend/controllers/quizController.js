@@ -32,7 +32,7 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
     endDate
   } = req.body;
   const quiz = await Quiz.findOneAndUpdate(
-    { _id: id, createdBy: req.user._id },
+    { _id: id },
     {
       title,
       description,
