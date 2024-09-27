@@ -42,10 +42,12 @@ const quizSchema = new mongoose.Schema({
   }
 });
 
-quizSchema.pre(/^find/, function(next) {
-  this.find();
-  next();
-});
+// quizSchema.pre(/^find/, function(next) {
+//   this.find();
+//   next();
+// });
+
+// ADD A DIFFICULTY FOR QUIZ
 const Quiz = mongoose.model('Quiz', quizSchema);
 
 module.exports = Quiz;
