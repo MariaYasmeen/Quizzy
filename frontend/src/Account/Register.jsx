@@ -31,6 +31,8 @@ const Register = () => {
     setSuccess("");
 
     try {
+      console.log("Submitting form data:", formData);
+
       const response = await axios.post(
         "http://localhost:3300/api/v1/users/signup",
         {
@@ -84,6 +86,7 @@ const Register = () => {
                     className="form-control"
                     id="name"
                     name="name"
+                    placeholder="Name"
                     value={formData.name}
                     onChange={handleChange}
                     required
@@ -98,6 +101,7 @@ const Register = () => {
                     type="email"
                     className="form-control"
                     id="email"
+                    placeholder="Email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
@@ -114,6 +118,7 @@ const Register = () => {
                     className="form-control"
                     id="password"
                     name="password"
+                    placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
                     required
@@ -129,6 +134,7 @@ const Register = () => {
                     className="form-control"
                     id="passwordConfirm"
                     name="passwordConfirm"
+                    placeholder="Confirm Password"
                     value={formData.passwordConfirm}
                     onChange={handleChange}
                     required
