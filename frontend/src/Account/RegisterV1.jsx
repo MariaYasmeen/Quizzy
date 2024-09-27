@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./account.css";
 import { useForm } from "react-hook-form";
-import Navbar from "../Components/Navbar";
 import useSignUp from "./useSignUp";
 const Register = () => {
   const { register, handleSubmit } = useForm();
@@ -12,7 +11,6 @@ const Register = () => {
   }
   return (
     <>
-      <Navbar />
       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="col-md-5">
