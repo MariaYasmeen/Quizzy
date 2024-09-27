@@ -1,9 +1,10 @@
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./account.css";
 import { useForm } from "react-hook-form";
 import useSignUp from "./useSignUp";
 const Register = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { isLoading, signup } = useSignUp();
 
   function onSubmit(data) {
@@ -18,10 +19,9 @@ const Register = () => {
               <h2 className="text-center mb-4">Create an Account</h2>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Name
-                  </label>
+                  
                   <input
+                  placeholder="name"
                     type="text"
                     className="form-control"
                     id="name"
@@ -31,10 +31,8 @@ const Register = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
+                     <input
+                     placeholder="email"
                     type="email"
                     className="form-control"
                     id="email"
@@ -44,10 +42,8 @@ const Register = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <input
+                   <input
+                   placeholder="password"
                     type="password"
                     className="form-control"
                     id="password"
@@ -57,10 +53,8 @@ const Register = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="passwordConfirm" className="form-label">
-                    Confirm Password
-                  </label>
-                  <input
+                   <input
+                   placeholder="confirm password"
                     type="password"
                     className="form-control"
                     id="passwordConfirm"

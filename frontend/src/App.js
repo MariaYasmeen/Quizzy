@@ -8,11 +8,15 @@ import Register from "./Account/Register";
 import RegisterV1 from "./Account/RegisterV1";
 import Signin from "./Account/Signin";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { UserProvider } from "./Context/userContext";
 const queryClient = new QueryClient();
+
+
 function App() {
   return (
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
+      <UserProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Hero />} />
@@ -21,6 +25,7 @@ function App() {
             <Route path="/account/signin" element={<Signin />} />
           </Routes>
         </BrowserRouter>
+        </UserProvider>
       </QueryClientProvider>
     </React.StrictMode>
   );
