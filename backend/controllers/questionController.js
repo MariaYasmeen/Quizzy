@@ -2,6 +2,7 @@
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
 const Question = require('./../models/questionModel');
+const Quiz = require('./../models/quizModel');
 
 // GET ALL QUESTIONS
 
@@ -39,11 +40,19 @@ exports.getQuestion = catchAsync(async (req, res, next) => {
 
 // CREATE QUESTION
 exports.createQuestion = catchAsync(async (req, res, next) => {
+  // Assign the quiz ID from params if not provided in the body
   if (!req.body.quiz) {
     req.body.quiz = req.params.quizId;
   }
   const question = await Question.create(req.body);
-
+  const quiz = await Quiz.findByIdAndUpdate(
+    req.body.quiz,
+    { $push: { questions: question._id } },
+    { new: true }
+  );
+  if (!quiz) {
+    return next(new AppError('No quiz found with that ID', 404));
+  }
   res.status(201).json({
     status: 'success',
     data: {
