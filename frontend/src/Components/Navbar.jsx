@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/userContext";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -20,9 +20,23 @@ const Navbar = () => {
     }, 1000);
   };
 
+  // Function to get user's initials
+  const getUserInitials = (name) => {
+    const names = name.split(" ");
+    return names.map(n => n.charAt(0).toUpperCase()).join("");
+  };
+
+  // Effect to check user state changes
+  useEffect(() => {
+    console.log("User state has changed:", user);
+    if (user) {
+      setLogoutMessage(""); // Clear logout message if user is present
+    }
+  }, [user]); // This dependency ensures it runs whenever 'user' changes
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbarcttr">
+      <nav className="navbar navbar-expand-lg navbar-light   soft-ui">
         <div className="container">
           <a className="navbar-brand d-flex align-items-center" href="/">
             <img src={logo} alt="Logo" className="me-1 img-fluid logoimg" />
@@ -58,14 +72,20 @@ const Navbar = () => {
               </li>
               <li className="nav-item dropdown">
                 <a
-                  className="nav-link dropdown-toggle"
+                  className="nav-link"
                   href="#"
                   id="userDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i className="bi bi-person-circle"></i>
+                  {user ? (
+                    <div className="user-initials">
+                      {getUserInitials(user.name)}
+                    </div>
+                  ) : (
+                    <i className="bi bi-person-circle"></i>
+                  )}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-end soft-dropdown"
@@ -74,10 +94,7 @@ const Navbar = () => {
                   {user ? (
                     <>
                       <li className="dropdown-item-text">
-                        Logged in as: {user?.name}
-                      </li>
-                      <li className="dropdown-item-text">
-                        Email: {user?.email}
+                        <span style={{ fontSize: "14px" }}>Logged in as: </span> {user.name}
                       </li>
                       <li>
                         <a
@@ -97,7 +114,7 @@ const Navbar = () => {
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/account/register">
+                        <a className="dropdown-item" href="/account/register2">
                           Signup
                         </a>
                       </li>

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Pages.css'; 
+import './Hero.css'; 
 
 import img1 from "../assets/img1.png"
 import img2 from "../assets/img2.png"

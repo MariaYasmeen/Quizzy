@@ -3,9 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap styles
 import Navbar from '../Components/Navbar';
 import heroimage from "../assets/herimg.png"
 import "./Pages.css"
-import QuizFeatureSection from './QuizFeatureSection';
-import PlatformFeatures from './PlatformFeatures';
-import CreateQuizSection from './CreateQuizSection';
+import QuizFeatureSection from '../Hero/QuizFeatureSection';
+import PlatformFeatures from '../Hero/PlatformFeatures';
+import CreateQuizSection from '../Hero/CreateQuizSection';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -20,7 +21,7 @@ const Hero = () => {
             <p className="mb-4">
               Test your knowledge, track progress while unlocking your learning potential with every quiz!
             </p>
-            <button className="btn btn-dark">Explore Quizzes</button>
+            <Link  to="/createquiz" className="btn btn-dark">Start creating a Quiz</Link>
           </div>
           <div className="col-md-6 text-center mt-md-5">
             <img src={heroimage} alt="Hero Illustration" style={{width:"500px"}} className="img-fluid" />

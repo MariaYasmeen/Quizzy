@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-
-import './Pages.css'; // Optional for custom styles
+import './Hero.css'; 
 
 const CreateQuizSection = () => {
   return (
