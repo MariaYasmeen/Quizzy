@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Pages.css'; // Optional for custom styling
+import './Hero.css'; // Optional for custom styling
 
 const PlatformFeatures = () => {
   return (

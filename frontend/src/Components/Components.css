@@ -41,4 +41,17 @@
     font-size: 1.25rem;
     color: #333;
   }
-  
+  /* Components.css */
+.user-initials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px; /* Adjust the size as needed */
+  height: 25px; /* Adjust the size as needed */
+  border-radius: 50%;
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white; 
+  font-size: 0.8rem; /* Adjust the font size as needed */
+}
+
+ 

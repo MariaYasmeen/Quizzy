@@ -1,24 +1,28 @@
 // src/contexts/UserContext.js
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
-// Create the context
 export const UserContext = createContext();
 
-// Create the provider component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser && storedUser !== 'undefined' ? JSON.parse(storedUser) : null;
+  });
 
-  // Function to save user details
   const saveUser = (userData) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  // Function to logout user
   const logoutUser = () => {
     setUser(null);
-    localStorage.removeItem('authToken'); // Remove token from localStorage if needed
-    localStorage.removeItem('user');      // Remove user data from localStorage if needed
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
   };
+
+  useEffect(() => {
+    console.log("User state has changed:", user);
+  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, saveUser, logoutUser }}>
