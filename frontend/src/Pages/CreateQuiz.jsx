@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuiz } from "../Context/QuizContext";
-import CreateQuizForm from "../CreateQuiz/CreateQuizForm";
+import CreateQuizForm from "../CreateQuiz/QuizInputs";
 import QuestionForm from "../CreateQuiz/QuestionForm";
 import axios from "axios";
 import Navbar from "../Components/Navbar";

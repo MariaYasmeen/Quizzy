@@ -21,7 +21,7 @@ const Hero = () => {
             <p className="mb-4">
               Test your knowledge, track progress while unlocking your learning potential with every quiz!
             </p>
-            <Link  to="/createquiz" className="btn btn-dark">Start creating a Quiz</Link>
+            <Link  to="/createquiz2" className="btn btn-dark">Start creating a Quiz</Link>
           </div>
           <div className="col-md-6 text-center mt-md-5">
             <img src={heroimage} alt="Hero Illustration" style={{width:"500px"}} className="img-fluid" />

@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useQuiz } from "../Context/QuizContext";
 
 const OptionForm = ({ questionIndex }) => {
@@ -13,17 +12,25 @@ const OptionForm = ({ questionIndex }) => {
 
   const handleOptionChange = (questionIndex, optionIndex, value) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].options[optionIndex].text = value;
-    setQuestions(newQuestions);
+    if (newQuestions[questionIndex] && newQuestions[questionIndex].options) {
+      newQuestions[questionIndex].options[optionIndex].text = value;
+      setQuestions(newQuestions);
+    }
   };
 
   const setCorrectAnswer = (questionIndex, optionIndex) => {
     const newQuestions = [...questions];
-    newQuestions[questionIndex].options = newQuestions[questionIndex].options.map(
-      (option, i) => ({ ...option, isCorrect: i === optionIndex })
-    );
-    setQuestions(newQuestions);
+    if (newQuestions[questionIndex] && newQuestions[questionIndex].options) {
+      newQuestions[questionIndex].options = newQuestions[questionIndex].options.map(
+        (option, i) => ({ ...option, isCorrect: i === optionIndex })
+      );
+      setQuestions(newQuestions);
+    }
   };
+
+   if (!questions[questionIndex] || !questions[questionIndex].options) {
+    return null; 
+  }
 
   return (
     <div>
@@ -37,7 +44,7 @@ const OptionForm = ({ questionIndex }) => {
               onChange={(e) =>
                 handleOptionChange(questionIndex, optionIndex, e.target.value)
               }
-              placeholder={`Option ${String.fromCharCode(97 + optionIndex)}`}
+              placeholder={`Option ${String.fromCharCode(97 + optionIndex)}`} // a, b, c, ...
               required
             />
           </div>

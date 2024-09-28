@@ -4,11 +4,11 @@ import { createQuiz as createQuizApi } from "../../services/apiQuiz";
 function useCreateQuiz() {
   const { isLoading, mutate: createQuiz } = useMutation({
     mutationFn: createQuizApi,
-    onSuccess: () => {
-      console.log("success");
+    onSuccess: (data) => {
+      console.log("Quiz created successfully", data);
     },
     onError: (err) => {
-      console.log(err.message);
+      console.error("Error creating quiz:", err);
     },
   });
 
