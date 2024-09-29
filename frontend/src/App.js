@@ -10,8 +10,8 @@ import Signin from "./Account/Signin";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QuizProvider } from "./Context/QuizContext";
 import { UserProvider } from "./Context/userContext";
-import CreateQuiz from "./features/quiz/CreateQuiz";
-import CreateQuestion from "./features/question/CreateQuestion";
+import CreateQuizPage from "./Pages/CreateQuizPage";
+ import CreateQuestion from "./features/question/CreateQuestion";
 const queryClient = new QueryClient();
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
                 <Route path="/account/register" element={<Register />} />
                 <Route path="/account/register2" element={<RegisterV1 />} />
                 <Route path="/account/signin" element={<Signin />} />
-                <Route path="/createquiz" element={<CreateQuiz />} />
+                 <Route path="/createquizpage" element={<CreateQuizPage />} />
                 <Route
                   path="/createquiz/:quizId"
                   element={<CreateQuestion />}
