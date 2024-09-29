@@ -35,7 +35,7 @@ const CreateQuizForm = () => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-
+  
       const quizData = {
         title,
         description,
@@ -43,18 +43,28 @@ const CreateQuizForm = () => {
         startDate,
         endDate,
       };
-
+  
       createQuiz(quizData, {
         onSuccess: (quizResponse) => {
-          console.log("Quiz created successfully", quizResponse);
-
-          const quizId = quizResponse.data._id;
-
+          // Log the entire quizResponse to inspect its structure
+          console.log("Full Quiz Response:", quizResponse);
+  
+          // Check where quizId is located in the response
+          const quizId = quizResponse?.data?.quiz?._id || quizResponse?.data?._id;
+          console.log("Quiz ID:", quizId);
+  
+          if (!quizId) {
+            alert("Quiz ID is missing or could not be retrieved from the response!");
+            setLoading(false);
+            return;
+          }
+  
+          // Proceed to add questions if quizId is valid
           addQuestions({ quizId, questions: data.questions }, {
             onSuccess: () => {
               console.log("Questions successfully added");
               alert("Quiz and questions added successfully!");
-              reset();
+              reset();  // Resets the form after successful submission
             },
             onError: (error) => {
               console.error("Error adding questions:", error);
@@ -76,6 +86,7 @@ const CreateQuizForm = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
