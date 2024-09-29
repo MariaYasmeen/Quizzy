@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/userContext";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -23,7 +23,7 @@ const Navbar = () => {
   // Function to get user's initials
   const getUserInitials = (name) => {
     const names = name.split(" ");
-    return names.map(n => n.charAt(0).toUpperCase()).join("");
+    return names.map((n) => n.charAt(0).toUpperCase()).join("");
   };
 
   // Effect to check user state changes
@@ -94,7 +94,8 @@ const Navbar = () => {
                   {user ? (
                     <>
                       <li className="dropdown-item-text">
-                        <span style={{ fontSize: "14px" }}>Logged in as: </span> {user.name}
+                        <span style={{ fontSize: "14px" }}>Logged in as: </span>{" "}
+                        {user.name}
                       </li>
                       <li>
                         <a

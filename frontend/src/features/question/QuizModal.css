@@ -1,0 +1,31 @@
+/* QuizModal.css */
+
+.option-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option-group .form-control {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.checkbox-icon {
+  cursor: pointer;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 600px;
+}

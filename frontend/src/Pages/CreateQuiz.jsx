@@ -4,7 +4,7 @@ import CreateQuizForm from "../CreateQuiz/QuizInputs";
 import QuestionForm from "../CreateQuiz/QuestionForm";
 import axios from "axios";
 import Navbar from "../Components/Navbar";
-import './Pages.css';
+import "./Pages.css";
 
 const CreateQuiz = () => {
   const [message, setMessage] = useState("");
@@ -38,9 +38,9 @@ const CreateQuiz = () => {
       const response = await axios.post(
         "http://127.0.0.1:3300/api/v1/quizzes",
         { title, description, isPublic, startDate, endDate, questions },
-        { 
+        {
           headers: { "Content-Type": "application/json" },
-          timeout: 10000  // 10 seconds timeout
+          timeout: 10000, // 10 seconds timeout
         }
       );
 
@@ -51,7 +51,9 @@ const CreateQuiz = () => {
     } catch (error) {
       if (error.response) {
         console.error("Response error:", error.response.data);
-        setMessage(`Error: ${error.response.data.message || 'Failed to create quiz.'}`);
+        setMessage(
+          `Error: ${error.response.data.message || "Failed to create quiz."}`
+        );
       } else if (error.request) {
         console.error("Request error, no response:", error.request);
         setMessage("Server is not responding. Please try again later.");
@@ -76,7 +78,11 @@ const CreateQuiz = () => {
             <QuestionForm />
 
             {loading ? (
-              <button className="btn btn-primary w-100 mt-4" type="submit" disabled>
+              <button
+                className="btn btn-primary w-100 mt-4"
+                type="submit"
+                disabled
+              >
                 Creating Quiz...
               </button>
             ) : (

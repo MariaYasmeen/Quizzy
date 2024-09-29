@@ -1,13 +1,17 @@
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import useCreateQuizQuestions from "./useCreateQuestions"; 
+import useCreateQuizQuestions from "./useCreateQuestions";
 import OptionForm from "../../CreateQuiz/OptionForm"; // Ensure this has no <form>
+import { useParams } from "react-router-dom";
 
 const CreateQuestion = () => {
-  const { isLoading, createQuizQuestions } = useCreateQuizQuestions();
+  const { quizId } = useParams();
+  const { isLoading, createQuizQuestions } = useCreateQuizQuestions(quizId);
   const { handleSubmit, register, control } = useForm({
     defaultValues: {
-      questions: [{ questionText: "", options: [{ text: "", isCorrect: false }] }],
+      questions: [
+        { questionText: "", options: [{ text: "", isCorrect: false }] },
+      ],
     },
   });
 
@@ -16,7 +20,7 @@ const CreateQuestion = () => {
     name: "questions",
   });
 
-   const handleAddQuestion = () => {
+  const handleAddQuestion = () => {
     append({ questionText: "", options: [{ text: "", isCorrect: false }] });
   };
 
@@ -27,7 +31,6 @@ const CreateQuestion = () => {
 
   return (
     <div>
-        
       <form onSubmit={handleSubmit(onSubmit)} className="container">
         {questions.map((question, questionIndex) => (
           <div key={question.id} className="mb-4">
@@ -35,15 +38,21 @@ const CreateQuestion = () => {
             <input
               type="text"
               className="form-control mb-3"
-              {...register(`questions.${questionIndex}.questionText`, { required: true })}
+              {...register(`questions.${questionIndex}.questionText`, {
+                required: true,
+              })}
               placeholder="Enter question"
             />
 
-             <OptionForm questionIndex={questionIndex} control={control} register={register} />
+            <OptionForm
+              questionIndex={questionIndex}
+              control={control}
+              register={register}
+            />
           </div>
         ))}
 
-         <button
+        <button
           type="button"
           className="btn btn-secondary btn-sm mb-3"
           onClick={handleAddQuestion}
@@ -51,7 +60,7 @@ const CreateQuestion = () => {
           Add More Question
         </button>
 
-         <button type="submit" className="btn btn-primary" disabled={isLoading}>
+        <button type="submit" className="btn btn-primary" disabled={isLoading}>
           Submit Questions
         </button>
       </form>
