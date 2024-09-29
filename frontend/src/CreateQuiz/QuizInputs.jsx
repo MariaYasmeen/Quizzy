@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 
 const QuizInputs = ({ title, setTitle, description, setDescription, isPublic, setIsPublic, startDate, setStartDate, endDate, setEndDate }) => {
   return (

@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./account.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate(); // Initialize navigate
 
   // Handle input changes
   const handleChange = (e) => {
@@ -29,6 +31,13 @@ const Register = () => {
     setLoading(true);
     setError("");
     setSuccess("");
+
+    // Check if passwords match
+    if (formData.password !== formData.passwordConfirm) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
 
     try {
       console.log("Submitting form data:", formData);
@@ -49,6 +58,11 @@ const Register = () => {
       if (response.data.status === "success") {
         setSuccess("Registration successful!");
         console.log("User registered successfully!");
+        
+        // Redirect to another page after successful registration
+        setTimeout(() => {
+          navigate("/login"); // Change the route as needed
+        }, 2000);
       } else {
         throw new Error("Registration failed.");
       }

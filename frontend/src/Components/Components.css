@@ -1,57 +1,56 @@
  /* Navbar.css */
 
-.navbar {
-    background-color: none; /* Light background for soft look */
-     }
-  
-  .navbar .nav-link {
-    color: #333; /* Darker text for better contrast */
-    transition: color 0.3s ease;
-  }
-  
-  .navbar .nav-link:hover {
-    color: #007bff; /* Soft hover effect */
-  }
-  
-  .navbar .dropdown-toggle {
-    cursor: pointer;
-  }
-  
-  .soft-dropdown {
-    border-radius: 10px; /* Rounded corners for soft UI */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  }
-  
-  .dropdown-item {
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .dropdown-item:hover {
-    background-color: #f1f1f1; /* Light hover effect */
-  }
-  
-  .navbar .navbar-toggler {
-    border: none;
-  }
-  
-  .navbar .navbar-toggler-icon {
-    background-image: none;
-    font-size: 1.25rem;
-    color: #333;
-  }
-  /* Components.css */
-.user-initials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25px; /* Adjust the size as needed */
-  height: 25px; /* Adjust the size as needed */
-  border-radius: 50%;
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white; 
-  font-size: 0.8rem; /* Adjust the font size as needed */
+ .navbar {
+  background-color: none; /* Light background for soft look */
+   }
+
+.navbar .nav-link {
+  color: #333; /* Darker text for better contrast */
+  transition: color 0.3s ease;
 }
 
- 
+.navbar .nav-link:hover {
+  color: #007bff; /* Soft hover effect */
+}
+
+.navbar .dropdown-toggle {
+  cursor: pointer;
+}
+
+.soft-dropdown {
+  border-radius: 10px; /* Rounded corners for soft UI */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1; /* Light hover effect */
+}
+
+.navbar .navbar-toggler {
+  border: none;
+}
+
+.navbar .navbar-toggler-icon {
+  background-image: none;
+  font-size: 1.25rem;
+  color: #333;
+}
+/* Components.css */
+.user-initials {
+display: flex;
+justify-content: center;
+align-items: center;
+width: 25px; /* Adjust the size as needed */
+height: 25px; /* Adjust the size as needed */
+border-radius: 50%;
+background-color: #007bff; /* Bootstrap primary color */
+color: white; 
+font-size: 0.8rem; /* Adjust the font size as needed */
+}
+
