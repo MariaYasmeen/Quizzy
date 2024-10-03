@@ -11,6 +11,7 @@ import Signin from "./Account/Signin";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QuizProvider } from "./Context/QuizContext";
 import { UserProvider } from "./Context/userContext";
+import PublicQuizzes from "./Pages/PublicQuizzes";
 import CreateQuizPage from "./Pages/CreateQuizPage";
  import CreateQuestion from "./features/question/CreateQuestion";
 import QuestionModalWrapper from "./features/question/CreateQuestion";
@@ -26,6 +27,8 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Hero />} />
+                <Route path="/publicquizzes" element={<PublicQuizzes />} />
+
                 <Route path="/createquiz/:quizId" element={<QuestionModalWrapper />} />
                 <Route path="/account/register" element={<Register />} />
                 <Route path="/account/register2" element={<RegisterV1 />} />
