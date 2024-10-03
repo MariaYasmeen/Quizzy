@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { fetchPublicQuizzes } from "../services/publicQuiz"; 
+import { fetchPublicQuizzes } from "../services/publicQuiz";
 
 const PublicQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     const getQuizzes = async () => {
       try {
-        const quizData = await fetchPublicQuizzes(); 
-        setQuizzes(quizData);  
+        const quizData = await fetchPublicQuizzes();
+        console.log(quizData);
+        setQuizzes(quizData);
       } catch (err) {
-        setError(err.message); 
+        setError(err.message);
       } finally {
-        setLoading(false);  
+        setLoading(false);
       }
     };
 
-    getQuizzes(); 
+    getQuizzes();
   }, []);
 
-   if (loading) return <p>Loading quizzes...</p>;
+  if (loading) return <p>Loading quizzes...</p>;
 
-     if (error) return <p>Error: {error}</p>;
+  if (error) return <p>Error: {error}</p>;
 
-   return (
+  return (
     <div>
       <h2>Public Quizzes</h2>
       <ul>
