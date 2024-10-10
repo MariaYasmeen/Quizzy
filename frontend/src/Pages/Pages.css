@@ -1,3 +1,41 @@
+.card {
+  transition: all 0.3s ease;
+  border-radius: 5px !important;
+  box-shadow: 1px 1px 5px rgba(54, 52, 52, 0.2) !important;
+  border: none !important;
+padding: 10px;
+ }
+
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(54, 52, 52, 0.2) !important;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.29rem;
+}
+
+.card-text {
+  font-size: 0.9rem !important; 
+  color: #6c757d;
+}
+
+.btn-primary {
+  box-shadow: none !important;
+  background: linear-gradient(90deg, #424040, #a09a9a) !important;
+  border: none;
+  margin: 2px;
+  color: rgb(248, 247, 247);
+  padding: 7px 12px !important;
+  transition:  0.5s ease !important; 
+}
+
+.btn-primary:hover {
+  box-shadow: none!important;
+  background: linear-gradient(90deg, #b9b3b3, #4e4b4b) !important;
+}
+
 /* QuizDetails.css */
 
 .quiz-container {

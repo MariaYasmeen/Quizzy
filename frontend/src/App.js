@@ -14,9 +14,8 @@ import { UserProvider } from "./Context/userContext";
 import PublicQuizzes from "./Pages/PublicQuizzes";
 import CreateQuizPage from "./Pages/CreateQuizPage";
  import CreateQuestion from "./features/question/CreateQuestion";
-import QuestionModalWrapper from "./features/question/CreateQuestion";
-import QuizDetails from "./Pages/QuizDetails";
- 
+ import QuizDetails from "./Pages/QuizDetails";
+  
 const queryClient = new QueryClient();
 
 function App() {
@@ -31,7 +30,7 @@ function App() {
                 <Route path="/publicquizzes" element={<PublicQuizzes />} />
                 <Route path="/quiz/:quizId" element={<QuizDetails />} />
                 <Route path="/account/register" element={<Register />} />
-                <Route path="/account/register2" element={<RegisterV1 />} />
+                 <Route path="/account/register2" element={<RegisterV1 />} />
                 <Route path="/account/signin" element={<Signin />} />
                  <Route path="/createquizpage" element={<CreateQuizPage />} />
                 <Route

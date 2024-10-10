@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchPublicQuizzes } from "../services/publicQuiz";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
+import { Spinner, Container, Row, Col, Card, Button } from "react-bootstrap";
+import './Pages.css';  // For any custom styles
 
 const PublicQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -24,26 +27,45 @@ const PublicQuizzes = () => {
     getQuizzes();
   }, []);
 
-  if (loading) return <p>Loading quizzes...</p>;
+  const handleQuizClick = (quizId) => {
+    navigate(`/quiz/${quizId}`);
+    console.log(quizId);
+  };
+
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
 
   if (error) return <p>Error: {error}</p>;
 
-  const handleQuizClick = (quizId) => {
-     navigate(`/quiz/${quizId}`);
-     console.log(quizId);
-  };
-
   return (
     <div>
-      <h2>Public Quizzes</h2>
-      <ul>
-        {quizzes.map((quiz) => (
-          <li key={quiz._id} onClick={() => handleQuizClick(quiz._id)} style={{ cursor: 'pointer' }}>
-            <h3>{quiz.title}</h3>
-            <p>{quiz.description}</p>
-          </li>
-        ))}
-      </ul>
+      <Navbar />
+      <Container className="py-4">
+        <h2 className="text-center mb-5">Public Quizzes</h2>
+        <Row>
+          {quizzes.map((quiz) => (
+            <Col lg={4} md={6} sm={12} className="mb-4" key={quiz._id}>
+              <Card className="h-100 " style={{ borderRadius: '15px' }}>
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title className="text-center">{quiz.title}</Card.Title>
+                  <Card.Text>{quiz.description}</Card.Text>
+                  <button
+                    variant="primary"
+                    className="mt-auto btn-primary"
+                    onClick={() => handleQuizClick(quiz._id)}
+                   >
+                    Take Quiz
+                  </button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };
