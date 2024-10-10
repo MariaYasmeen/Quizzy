@@ -76,7 +76,7 @@ const PublicQuizzes = () => {
                   <Card.Title>{quiz.title}</Card.Title>
                   <Card.Text>{quiz.description}</Card.Text>
                   <AnimatedButton
-                    text="Take Quiz"
+                    text="Start Quiz"
                     onClick={() => handleQuizClick(quiz._id)}
                     color="black"
                     borderColor="grey"

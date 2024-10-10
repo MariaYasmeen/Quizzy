@@ -14,9 +14,7 @@ const ResultModal = ({ show, handleClose, score, totalQuestions }) => {
         <p>Your percentage: {percentage}%</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Ok
-        </Button>
+         <button onClick={handleClose}> </button>
       </Modal.Footer>
     </Modal>
   );

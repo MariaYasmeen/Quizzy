@@ -2,9 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ResultModal from "../Components/ResultModal";
 import { fetchQuizDetails } from "../services/publicQuiz";
-import { calculateScore } from "../services/calculateScores";
-import './Pages.css';
 import Navbar from "../Components/Navbar";
+import { calculateScore } from "../services/calculateScores";
+import { 
+  calculateMarkedIndices,
+  calculateUnattemptedIndices,
+  toggleMarkForReview,
+  navigateToQuestion 
+} from "../services/quizUtils";  
+import QuestionDropdown from "../Components/QuestionDropdown";
+import QuestionDisplay from "../Components/QuestionDisplay";
+import './Pages.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuizDetails = () => {
   const { quizId } = useParams();
@@ -13,6 +22,8 @@ const QuizDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
+  const [markedForReview, setMarkedForReview] = useState({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -33,71 +44,102 @@ const QuizDetails = () => {
     loadQuizDetails();
   }, [quizId]);
 
-  const handleChange = (questionId, optionId) => {
-    setUserAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: optionId,
-    }));
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-     const calculatedScore = calculateScore(quizDetails, userAnswers);
-
+    const calculatedScore = calculateScore(quizDetails, userAnswers);
     setScore(calculatedScore);
     setSubmitted(true);
-    setShowModal(true);   
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    navigate("/");   
+    navigate("/");
+  };
+
+  const handleToggleMarkForReview = (questionId) => {
+    setMarkedForReview(prev => toggleMarkForReview(prev, questionId));
+  };
+
+  const handleNavigateToQuestion = (index) => {
+    navigateToQuestion(setCurrentQuestionIndex, index);
   };
 
   if (loading) return <p>Loading quiz details...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!quizDetails) return <p>No quiz details available.</p>;
 
+  const currentQuestion = quizDetails.questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === quizDetails.questions.length - 1;
+  const isFirstQuestion = currentQuestionIndex === 0;
+
+  const markedIndices = calculateMarkedIndices(quizDetails.questions, markedForReview);
+  const unattemptedIndices = calculateUnattemptedIndices(quizDetails.questions, userAnswers);
+
   return (
     <>
-    <Navbar/>
-    <div className="quiz-container">
-      <h2 className="text-center">{quizDetails.title}</h2>
-      <p className="text-center">{quizDetails.description}</p>
+      <Navbar />
+      <div className="quiz-container">
+        <h2 className="text-center">{quizDetails.title}</h2>
+        <p className="text-center">{quizDetails.description}</p>
 
-      <form onSubmit={handleSubmit}>
-        <ul className="question-list">
-          {quizDetails.questions.map((question) => (
-            <li key={question._id} className="question-item">
-              <h6 className="questi ons">{question.questionText}</h6>
-              <div className="options-container">
-                {question.options.map((option) => (
-                  <label key={option._id} className="option-label">
-                    <input
-                      type="radio"
-                      name={question._id}
-                      value={option._id}
-                      onChange={() => handleChange(question._id, option._id)}
-                      checked={userAnswers[question._id] === option._id}
-                    />
-                    <span className="option-text">{option.text}</span>
-                  </label>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
+         <div className="d-flex justify-content-between mb-3">
+          <QuestionDropdown 
+            indices={markedIndices} 
+            title="Marked Questions" 
+            navigateToQuestion={handleNavigateToQuestion} 
+           />
+          <QuestionDropdown 
+            indices={unattemptedIndices} 
+            title="Unattempted Questions" 
+            navigateToQuestion={handleNavigateToQuestion} 
+           />
+        </div>
 
-      <ResultModal 
-        show={showModal} 
-        handleClose={handleCloseModal} 
-        score={score} 
-        totalQuestions={quizDetails.questions.length} 
-      />
-    </div>
+        <form onSubmit={handleSubmit}>
+          <QuestionDisplay 
+            question={currentQuestion} 
+            userAnswers={userAnswers} 
+            setUserAnswers={setUserAnswers} 
+            currentQuestionIndex={currentQuestionIndex} 
+            markedForReview={markedForReview} 
+            toggleMarkForReview={handleToggleMarkForReview} 
+          />
+
+          <div className="navigation-buttons">
+            {!isFirstQuestion && (
+              <button
+                type="button"
+                className="ctrlbtns"
+                onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
+              >
+                Back
+              </button>
+            )}
+            {!isLastQuestion && (
+              <button
+                type="button"
+                className="ctrlbtns"
+                onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+              >
+                Next
+              </button>
+            )}
+            {isLastQuestion && (
+              <button type="submit" className="ctrlbtns">
+                Submit
+              </button>
+            )}
+          </div>
+        </form>
+
+        <ResultModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          score={score}
+          totalQuestions={quizDetails.questions.length}
+        />
+      </div>
     </>
   );
 };

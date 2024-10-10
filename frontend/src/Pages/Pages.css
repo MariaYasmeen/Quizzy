@@ -139,3 +139,18 @@ height: 230px !important;
     background-color: #01241e;  
   }
   
+  .ctrlbtns{
+    background-color: transparent;
+    margin: 8px 8px 8px 0px;
+    padding: 12px 21px;
+    border-radius: 25px !important;
+    box-shadow: 1px 1px 5px rgba(54, 52, 52, 0.2) !important;
+
+    border: 1.5px solid rgb(49, 48, 48) ;
+    font-size: 14px;
+  }
+.ctrlbtns:hover{
+  color: white;
+  transition: background-color 0.2s ease; 
+background-color: rgb(49, 48, 48);
+}
