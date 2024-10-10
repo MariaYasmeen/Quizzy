@@ -2,9 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ResultModal from "../Components/ResultModal";
 import { fetchQuizDetails } from "../services/publicQuiz";
-import { calculateScore } from "../services/calculateScores";
-import './Pages.css';
 import Navbar from "../Components/Navbar";
+import { calculateScore } from "../services/calculateScores";
+import { 
+  calculateMarkedIndices,
+  calculateUnattemptedIndices,
+  toggleMarkForReview,
+  navigateToQuestion 
+} from "../services/quizUtils";  
+import QuestionDropdown from "../Components/QuestionDropdown";
+import QuestionDisplay from "../Components/QuestionDisplay";
+import './Pages.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuizDetails = () => {
   const { quizId } = useParams();
@@ -13,7 +22,8 @@ const QuizDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userAnswers, setUserAnswers] = useState({});
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // To track current question
+  const [markedForReview, setMarkedForReview] = useState({});
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -34,24 +44,8 @@ const QuizDetails = () => {
     loadQuizDetails();
   }, [quizId]);
 
-  const handleChange = (questionId, optionId) => {
-    setUserAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: optionId,
-    }));
-  };
-
-  const handleNextQuestion = () => {
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-  };
-
-  const handlePrevQuestion = () => {
-    setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const calculatedScore = calculateScore(quizDetails, userAnswers);
     setScore(calculatedScore);
     setSubmitted(true);
@@ -63,6 +57,14 @@ const QuizDetails = () => {
     navigate("/");
   };
 
+  const handleToggleMarkForReview = (questionId) => {
+    setMarkedForReview(prev => toggleMarkForReview(prev, questionId));
+  };
+
+  const handleNavigateToQuestion = (index) => {
+    navigateToQuestion(setCurrentQuestionIndex, index);
+  };
+
   if (loading) return <p>Loading quiz details...</p>;
   if (error) return <p>Error: {error}</p>;
   if (!quizDetails) return <p>No quiz details available.</p>;
@@ -71,6 +73,9 @@ const QuizDetails = () => {
   const isLastQuestion = currentQuestionIndex === quizDetails.questions.length - 1;
   const isFirstQuestion = currentQuestionIndex === 0;
 
+  const markedIndices = calculateMarkedIndices(quizDetails.questions, markedForReview);
+  const unattemptedIndices = calculateUnattemptedIndices(quizDetails.questions, userAnswers);
+
   return (
     <>
       <Navbar />
@@ -78,44 +83,50 @@ const QuizDetails = () => {
         <h2 className="text-center">{quizDetails.title}</h2>
         <p className="text-center">{quizDetails.description}</p>
 
+         <div className="d-flex justify-content-between mb-3">
+          <QuestionDropdown 
+            indices={markedIndices} 
+            title="Marked Questions" 
+            navigateToQuestion={handleNavigateToQuestion} 
+           />
+          <QuestionDropdown 
+            indices={unattemptedIndices} 
+            title="Unattempted Questions" 
+            navigateToQuestion={handleNavigateToQuestion} 
+           />
+        </div>
+
         <form onSubmit={handleSubmit}>
-          <h6 className="questions">{currentQuestion.questionText}</h6>
-          <div className="options-container">
-            {currentQuestion.options.map((option) => (
-              <label key={option._id} className="option-label">
-                <input
-                  type="radio"
-                  name={currentQuestion._id}
-                  value={option._id}
-                  onChange={() => handleChange(currentQuestion._id, option._id)}
-                  checked={userAnswers[currentQuestion._id] === option._id}
-                />
-                <span className="option-text">{option.text}</span>
-              </label>
-            ))}
-          </div>
+          <QuestionDisplay 
+            question={currentQuestion} 
+            userAnswers={userAnswers} 
+            setUserAnswers={setUserAnswers} 
+            currentQuestionIndex={currentQuestionIndex} 
+            markedForReview={markedForReview} 
+            toggleMarkForReview={handleToggleMarkForReview} 
+          />
 
           <div className="navigation-buttons">
             {!isFirstQuestion && (
               <button
                 type="button"
-                className=" ctrlbtns "
-                onClick={handlePrevQuestion}
+                className="ctrlbtns"
+                onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
               >
-                Previous
+                Back
               </button>
             )}
             {!isLastQuestion && (
               <button
                 type="button"
-                className="  ctrlbtns "
-                onClick={handleNextQuestion}
+                className="ctrlbtns"
+                onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
               >
                 Next
               </button>
             )}
             {isLastQuestion && (
-              <button type="submit" className=" ctrlbtns ">
+              <button type="submit" className="ctrlbtns">
                 Submit
               </button>
             )}
