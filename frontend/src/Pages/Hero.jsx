@@ -21,10 +21,10 @@ const Hero = () => {
             <p className="mb-4">
               Test your knowledge, track progress while unlocking your learning potential with every quiz!
             </p>
-            <Link  to="/createquizpage" className="btn btn-dark p-2">Start creating a Quiz</Link>
-            <Link  to="/publicquizzes" className="btn btn-dark p-2">Explore  Quizzes</Link>
-         
-          </div>
+            
+            <Link  to="/createquizpage" style={{backgroundColor:"#383737", color:"whitesmoke"}} className="btn">Start creating  Quiz</Link>
+            <Link  to="/publicquizzes" className=" btn">Explore  Quizzes</Link>
+        </div>
           <div className="col-md-6 text-center mt-md-5">
             <img src={heroimage} alt="Hero Illustration" style={{width:"500px"}} className="img-fluid" />
           </div>

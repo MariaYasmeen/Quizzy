@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { fetchPublicQuizzes } from "../services/publicQuiz";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
+import { Spinner, Container, Row, Col, Card } from "react-bootstrap";
+import './Pages.css';  // For any custom styles
+import AnimatedButton from "../StyleComponents/AnimBtn";
 
 const PublicQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+   const softColors = [
+    "#f8f9fa",  
+    "#f5e1da",  
+    "#e3fdfd",  
+    "#ffebcc", 
+    "#fff1e6", 
+    "#d4f1f4", 
+    "#ffe6e6",  
+    "#e0f7fa", 
+    "#f3e5f5",  
+  ];
 
   useEffect(() => {
     const getQuizzes = async () => {
@@ -24,26 +40,54 @@ const PublicQuizzes = () => {
     getQuizzes();
   }, []);
 
-  if (loading) return <p>Loading quizzes...</p>;
+  const handleQuizClick = (quizId) => {
+    navigate(`/quiz/${quizId}`);
+    console.log(quizId);
+  };
+
+  const getRandomColor = () => {
+    return softColors[Math.floor(Math.random() * softColors.length)];
+  };
+
+  if (loading)
+    return (
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    );
 
   if (error) return <p>Error: {error}</p>;
 
-  const handleQuizClick = (quizId) => {
-     navigate(`/quiz/${quizId}`);
-     console.log(quizId);
-  };
-
   return (
     <div>
-      <h2>Public Quizzes</h2>
-      <ul>
-        {quizzes.map((quiz) => (
-          <li key={quiz._id} onClick={() => handleQuizClick(quiz._id)} style={{ cursor: 'pointer' }}>
-            <h3>{quiz.title}</h3>
-            <p>{quiz.description}</p>
-          </li>
-        ))}
-      </ul>
+      <Navbar />
+      <Container className="py-4  ">
+        <h2 className="text-center mb-5">Public Quizzes</h2>
+        <Row>
+          {quizzes.map((quiz) => (
+            <Col lg={4} md={6} sm={12} className="mb-3" key={quiz._id}>
+              <Card
+                className="h-100"
+                style={{
+                   backgroundColor: getRandomColor(),  // Set random background color
+                }}
+              >
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title>{quiz.title}</Card.Title>
+                  <Card.Text>{quiz.description}</Card.Text>
+                  <AnimatedButton
+                    text="Take Quiz"
+                    onClick={() => handleQuizClick(quiz._id)}
+                    color="black"
+                    borderColor="grey"
+                    shadowColor="grey"
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };
