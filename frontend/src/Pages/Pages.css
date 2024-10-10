@@ -1,0 +1,63 @@
+/* QuizDetails.css */
+
+.quiz-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Soft background color */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .question-list {
+    list-style-type: none; /* Remove default list style */
+    padding: 0;
+   }
+  
+  .question-item {
+    margin-bottom: 20px; /* Space between questions */
+  }
+  
+  .options-container {
+    display: flex; /* Flexbox for horizontal layout */
+    flex-wrap: wrap; /* Allow wrapping of options */
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  
+  .option-label {
+    background-color: #e0f7fa; /* Soft color for option background */
+    border: 1px solid #00796b; /* Border color */
+    border-radius: 5px;
+    padding: 10px;
+    margin:2px ;
+    margin-right: 10px; /* Space between options */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth background color change */
+  }
+  
+  .option-label:hover {
+    background-color: #b2ebf2; /* Lighter color on hover */
+  }
+  
+  .option-text {
+    margin-left: 5px; /* Space between radio button and text */
+  }
+  
+  .submit-button {
+    background-color: #03584f; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 35px;
+    padding: 14px 17px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease; /* Smooth background color change */
+  }
+  
+  .submit-button:hover {
+    background-color: #01241e; /* Darker color on hover */
+  }
+  
