@@ -42,7 +42,7 @@ const QuizFeatureSection = () => {
         <div className="row">
           {features.map((feature, index) => (
             <div className="col-lg-3 col-md-6 mb-4" key={index}>
-              <div className="card border-0">
+              <div className="  border-0">
                 <div className="card-body">
                   <img
                     src={feature.imgSrc}
