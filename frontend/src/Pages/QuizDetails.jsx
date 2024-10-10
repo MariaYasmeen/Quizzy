@@ -4,6 +4,7 @@ import ResultModal from "../Components/ResultModal";
 import { fetchQuizDetails } from "../services/publicQuiz";
 import { calculateScore } from "../services/calculateScores";
 import './Pages.css';
+import Navbar from "../Components/Navbar";
 
 const QuizDetails = () => {
   const { quizId } = useParams();
@@ -59,6 +60,8 @@ const QuizDetails = () => {
   if (!quizDetails) return <p>No quiz details available.</p>;
 
   return (
+    <>
+    <Navbar/>
     <div className="quiz-container">
       <h2 className="text-center">{quizDetails.title}</h2>
       <p className="text-center">{quizDetails.description}</p>
@@ -67,7 +70,7 @@ const QuizDetails = () => {
         <ul className="question-list">
           {quizDetails.questions.map((question) => (
             <li key={question._id} className="question-item">
-              <h4>{question.questionText}</h4>
+              <h6 className="questi ons">{question.questionText}</h6>
               <div className="options-container">
                 {question.options.map((option) => (
                   <label key={option._id} className="option-label">
@@ -95,6 +98,7 @@ const QuizDetails = () => {
         totalQuestions={quizDetails.questions.length} 
       />
     </div>
+    </>
   );
 };
 

@@ -2,14 +2,27 @@ import React, { useEffect, useState } from "react";
 import { fetchPublicQuizzes } from "../services/publicQuiz";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { Spinner, Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Spinner, Container, Row, Col, Card } from "react-bootstrap";
 import './Pages.css';  // For any custom styles
+import AnimatedButton from "../StyleComponents/AnimBtn";
 
 const PublicQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+   const softColors = [
+    "#f8f9fa",  
+    "#f5e1da",  
+    "#e3fdfd",  
+    "#ffebcc", 
+    "#fff1e6", 
+    "#d4f1f4", 
+    "#ffe6e6",  
+    "#e0f7fa", 
+    "#f3e5f5",  
+  ];
 
   useEffect(() => {
     const getQuizzes = async () => {
@@ -32,6 +45,10 @@ const PublicQuizzes = () => {
     console.log(quizId);
   };
 
+  const getRandomColor = () => {
+    return softColors[Math.floor(Math.random() * softColors.length)];
+  };
+
   if (loading)
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
@@ -44,22 +61,27 @@ const PublicQuizzes = () => {
   return (
     <div>
       <Navbar />
-      <Container className="py-4">
+      <Container className="py-4  ">
         <h2 className="text-center mb-5">Public Quizzes</h2>
         <Row>
           {quizzes.map((quiz) => (
-            <Col lg={4} md={6} sm={12} className="mb-4" key={quiz._id}>
-              <Card className="h-100 " style={{ borderRadius: '15px' }}>
+            <Col lg={4} md={6} sm={12} className="mb-3" key={quiz._id}>
+              <Card
+                className="h-100"
+                style={{
+                   backgroundColor: getRandomColor(),  // Set random background color
+                }}
+              >
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title className="text-center">{quiz.title}</Card.Title>
+                  <Card.Title>{quiz.title}</Card.Title>
                   <Card.Text>{quiz.description}</Card.Text>
-                  <button
-                    variant="primary"
-                    className="mt-auto btn-primary"
+                  <AnimatedButton
+                    text="Take Quiz"
                     onClick={() => handleQuizClick(quiz._id)}
-                   >
-                    Take Quiz
-                  </button>
+                    color="black"
+                    borderColor="grey"
+                    shadowColor="grey"
+                  />
                 </Card.Body>
               </Card>
             </Col>
