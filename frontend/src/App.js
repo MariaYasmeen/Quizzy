@@ -15,6 +15,7 @@ import PublicQuizzes from "./Pages/PublicQuizzes";
 import CreateQuizPage from "./Pages/CreateQuizPage";
  import CreateQuestion from "./features/question/CreateQuestion";
 import QuestionModalWrapper from "./features/question/CreateQuestion";
+import QuizDetails from "./Pages/QuizDetails";
  
 const queryClient = new QueryClient();
 
@@ -28,8 +29,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Hero />} />
                 <Route path="/publicquizzes" element={<PublicQuizzes />} />
-
-                <Route path="/createquiz/:quizId" element={<QuestionModalWrapper />} />
+                <Route path="/quiz/:quizId" element={<QuizDetails />} />
                 <Route path="/account/register" element={<Register />} />
                 <Route path="/account/register2" element={<RegisterV1 />} />
                 <Route path="/account/signin" element={<Signin />} />
@@ -38,7 +38,9 @@ function App() {
                   path="/createquiz/:quizId"
                   element={<CreateQuestion />}
                 />
+                {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
               </Routes>
+          
             </BrowserRouter>
           </QuizProvider>
         </UserProvider>
