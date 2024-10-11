@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../Context/userContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Components.css";
@@ -56,9 +56,9 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link" href="/dashboard">
+                <Link className="nav-link" to="/dashboard/home">
                   Dashboard
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/search">

@@ -1,0 +1,12 @@
+.homelinks{
+    padding: 10px;
+    margin: 10px;
+    color: black;
+}
+
+.homelinks:link{
+    text-decoration: none !important;
+display: flex;
+justify-content: center;
+background-color: rgb(238, 205, 162);
+}

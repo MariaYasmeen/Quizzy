@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ResultModal from "../Components/ResultModal";
-import { fetchQuizDetails } from "../services/publicQuiz";
 import Navbar from "../Components/Navbar";
-import { calculateScore } from "../services/calculateScores";
-import { 
+import QuestionDropdown from "../Components/QuestionDropdown";
+import QuestionDisplay from "../Components/QuestionDisplay";
+import ResultModal from "../Components/ResultModal";
+import { loadQuizDetails } from "../services/quizUtils";
+import {
   calculateMarkedIndices,
   calculateUnattemptedIndices,
   toggleMarkForReview,
-  navigateToQuestion 
-} from "../services/quizUtils";  
-import QuestionDropdown from "../Components/QuestionDropdown";
-import QuestionDisplay from "../Components/QuestionDisplay";
+  navigateToQuestion
+} from "../services/quizUtils";
+import { calculateScore } from "../services/calculateScores";
 import './Pages.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -29,19 +29,7 @@ const QuizDetails = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const loadQuizDetails = async () => {
-      setLoading(true);
-      try {
-        const quiz = await fetchQuizDetails(quizId);
-        setQuizDetails(quiz);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadQuizDetails();
+    loadQuizDetails(quizId, setQuizDetails, setError, setLoading);
   }, [quizId]);
 
   const handleSubmit = (event) => {
@@ -55,14 +43,6 @@ const QuizDetails = () => {
   const handleCloseModal = () => {
     setShowModal(false);
     navigate("/");
-  };
-
-  const handleToggleMarkForReview = (questionId) => {
-    setMarkedForReview(prev => toggleMarkForReview(prev, questionId));
-  };
-
-  const handleNavigateToQuestion = (index) => {
-    navigateToQuestion(setCurrentQuestionIndex, index);
   };
 
   if (loading) return <p>Loading quiz details...</p>;
@@ -83,28 +63,32 @@ const QuizDetails = () => {
         <h2 className="text-center">{quizDetails.title}</h2>
         <p className="text-center">{quizDetails.description}</p>
 
-         <div className="d-flex justify-content-between mb-3">
-          <QuestionDropdown 
-            indices={markedIndices} 
-            title="Marked Questions" 
-            navigateToQuestion={handleNavigateToQuestion} 
-           />
-          <QuestionDropdown 
-            indices={unattemptedIndices} 
-            title="Unattempted Questions" 
-            navigateToQuestion={handleNavigateToQuestion} 
-           />
+        <div className="d-flex justify-content-between mb-3">
+          <QuestionDropdown
+            indices={markedIndices}
+            title="Marked Questions"
+            navigateToQuestion={(index) => navigateToQuestion(setCurrentQuestionIndex, index)}
+          />
+          <QuestionDropdown
+            indices={unattemptedIndices}
+            title="Unattempted Questions"
+            navigateToQuestion={(index) => navigateToQuestion(setCurrentQuestionIndex, index)}
+          />
         </div>
 
         <form onSubmit={handleSubmit}>
-          <QuestionDisplay 
-            question={currentQuestion} 
-            userAnswers={userAnswers} 
-            setUserAnswers={setUserAnswers} 
-            currentQuestionIndex={currentQuestionIndex} 
-            markedForReview={markedForReview} 
-            toggleMarkForReview={handleToggleMarkForReview} 
-          />
+          {currentQuestion ? (
+            <QuestionDisplay
+              question={currentQuestion}
+              userAnswers={userAnswers}
+              setUserAnswers={setUserAnswers}
+              currentQuestionIndex={currentQuestionIndex}
+              markedForReview={markedForReview}
+              toggleMarkForReview={setMarkedForReview}
+            />
+          ) : (
+            <p>No questions available for this quiz.</p>
+          )}
 
           <div className="navigation-buttons">
             {!isFirstQuestion && (

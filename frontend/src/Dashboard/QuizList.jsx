@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { fetchPublicQuizzes } from "../services/publicQuiz";
+import { fetchPrivateQuizzes } from "../services/privateQuiz";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import { Spinner, Container, Row } from "react-bootstrap";
+ import { Spinner, Container, Row } from "react-bootstrap";
 import QuizCard from "../Components/QuizCard";
 import { getRandomColor } from "../services/quizUtils" ;
-import './Pages.css';  // For custom styles
+import './Dashboard.css';  // For custom styles
+import Navbar from "../Components/Navbar";
 
-const PublicQuizzes = () => {
+const QuizList = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ const PublicQuizzes = () => {
   useEffect(() => {
     const getQuizzes = async () => {
       try {
-        const quizData = await fetchPublicQuizzes();
+        const quizData = await fetchPrivateQuizzes();
         setQuizzes(quizData);
       } catch (err) {
         setError(err.message);
@@ -42,16 +42,17 @@ const PublicQuizzes = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
+    <>
+    <Navbar />
     <div>
-      <Navbar />
-      <Container className="py-4">
-        <h2 className="text-center mb-5">Public Quizzes</h2>
+       <Container className="py-4">
+        <h2 className="text-center mb-5">Private Quizzes</h2>
         <Row>
           {quizzes.map((quiz) => (
             <QuizCard
               key={quiz._id}
-              btntxt="Start Quiz"
               quiz={quiz}
+              btntxt="View"
               onClick={() => handleQuizClick(quiz._id)}
               getRandomColor={getRandomColor}
             />
@@ -59,7 +60,8 @@ const PublicQuizzes = () => {
         </Row>
       </Container>
     </div>
+    </>
   );
 };
 
-export default PublicQuizzes;
+export default QuizList;

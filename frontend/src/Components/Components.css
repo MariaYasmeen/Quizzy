@@ -23,7 +23,8 @@
 }
 
 .dropdown-item {
-  padding: 10px 20px;
+
+  padding: 4px 13px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
@@ -53,4 +54,17 @@ background-color: #007bff; /* Bootstrap primary color */
 color: white; 
 font-size: 0.8rem; /* Adjust the font size as needed */
 }
+.buttontxt{
+  font-size: 12px;
+}
 
+.dropdown-toggle{
+  border:none !important;
+  padding: 5px 12px !important;
+  border-radius: 5px !important;
+}
+ .mark-for-review input {
+  color: black;
+  border: none !important;
+  background-color: #979696 !important;
+  }
