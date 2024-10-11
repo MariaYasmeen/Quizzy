@@ -42,6 +42,16 @@ exports.getOne = (Model, popOptions) =>
     if (req.query.createdBy) {
       query = query.where({ createdBy: req.query.createdBy });
     }
+    if (req.query.isPublic) {
+      query = query.where({ isPublic: req.query.isPublic });
+    }
+    if (req.query.participants) {
+      query = query.where({
+        participants: {
+          $in: [req.query.participants]
+        }
+      });
+    }
     const doc = await query;
     if (!doc) {
       return next(
@@ -70,7 +80,13 @@ exports.createOne = Model =>
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
     let filter = {};
-    if (req.params.propertyId) filter = { property: req.params.propertyId };
+    if (req.query.participants) {
+      filter = {
+        participants: {
+          $in: [req.query.participants]
+        }
+      };
+    }
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()

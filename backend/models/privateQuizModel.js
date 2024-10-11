@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const quizSchema = new mongoose.Schema({
+const privateQuizSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -16,28 +16,16 @@ const quizSchema = new mongoose.Schema({
     }
   ],
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true
   },
-  isPublic: {
-    type: Boolean,
-    default: true
-  },
-  participants: {
-    type: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    ]
-    // validate: {
-    //   validator: function(val) {
-    //     return this.isPublic;
-    //   },
-    //   message: 'The participant field is required'
-    // }
-  },
+  participant: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User'
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now
@@ -62,6 +50,6 @@ const quizSchema = new mongoose.Schema({
 // });
 
 // ADD A DIFFICULTY FOR QUIZ
-const Quiz = mongoose.model('Quiz', quizSchema);
+const PrivateQuiz = mongoose.model('PrivateQuiz', privateQuizSchema);
 
-module.exports = Quiz;
+module.exports = PrivateQuiz;

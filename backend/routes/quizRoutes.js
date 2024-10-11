@@ -24,6 +24,9 @@ router
     quizController.createQuiz
   );
 router
+  .route('/privateQuiz')
+  .get(quizController.getMyPrivateQuiz, quizController.getAllQuiz);
+router
   .route('/allAvailableQuiz')
   .get(authController.restrictTo('admin'), quizController.getAllQuiz);
 
@@ -32,6 +35,9 @@ router.get('/myQuiz', quizController.addCurrentUser, quizController.getAllQuiz);
 // for admins
 
 router.get('/:id', quizController.publicQuizOnly, quizController.getQuiz);
+router
+  .route('/privateQuiz/:id')
+  .get(quizController.getMyPrivateQuiz, quizController.getQuiz);
 router
   .route('/allAvailableQuiz/:id')
   .get(authController.restrictTo('admin'), quizController.getQuiz)

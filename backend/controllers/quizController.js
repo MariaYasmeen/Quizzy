@@ -13,6 +13,12 @@ exports.addCurrentUser = (req, res, next) => {
   req.query.createdBy = req.user._id;
   next();
 };
+exports.getMyPrivateQuiz = (req, res, next) => {
+  req.query.participants = req.user._id;
+  req.query.isPublic = false;
+  next();
+};
+
 exports.getAllQuiz = factory.getAll(Quiz);
 exports.getQuiz = factory.getOne(Quiz, [
   { path: 'questions' },
