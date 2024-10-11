@@ -1,12 +1,11 @@
 // QuestionDisplay.js
 import React from 'react';
-
+import "./Components.css";
 const QuestionDisplay = ({ question, userAnswers, setUserAnswers, currentQuestionIndex, markedForReview, toggleMarkForReview }) => {
   return (
     <div>
-      <h6 className="question-number">Q: {currentQuestionIndex + 1}</h6>
-      <h6 className="questions">{question.questionText}</h6>
-      <div className="options-container">
+      <h6 className="question-number questions">Q: {currentQuestionIndex + 1} {question.questionText}</h6>
+       <div className="options-container">
         {question.options.map((option, index) => (
           <label key={option._id} className="option-label">
             <input
@@ -28,7 +27,7 @@ const QuestionDisplay = ({ question, userAnswers, setUserAnswers, currentQuestio
           checked={markedForReview[question._id] || false}
           onChange={() => toggleMarkForReview(question._id)}
         />
-        <label className="form-check-label">Mark for Review</label>
+        <label className="form-check-label" style={{fontSize:"13px"}}>Mark for Review</label>
       </div>
     </div>
   );
