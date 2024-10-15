@@ -9,13 +9,13 @@ export async function fetchPrivateQuizzes() {
     const res = await axios.get(URL);
     console.log("API responses are:", res.data);
 
-    // Filter quizzes that are private (where isPublic is false)
-    const privateQuizzes = res.data.data.data.filter(quiz => !quiz.isPublic);
+     const privateQuizzes = res.data.data.data.filter(quiz => !quiz.isPublic);
     
     console.log("Private quizzes only:", privateQuizzes);
 
-    return privateQuizzes; // Return only private quizzes
-  } catch (error) {
+    return privateQuizzes; 
+  } 
+  catch (error) {
     console.error("Error appeared in fetching all quizzes:", error);
     if (error.response) {
       throw new Error(error.response.data.message || "Failed to fetch ");
