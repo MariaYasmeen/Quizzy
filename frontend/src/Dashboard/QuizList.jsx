@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { fetchPrivateQuizzes } from "../services/privateQuiz";
 import { useNavigate } from "react-router-dom";
-import { Spinner, Container, Row, Alert } from "react-bootstrap"; // Alert for success/error message
+import { Spinner, Container, Row, Alert } from "react-bootstrap"; 
 import QuizCard from "./QuizCard";
 import { getRandomColor } from "../services/quizUtils";
 import { DeleteQuiz } from "../services/quizUD";
-import './Dashboard.css';  // Custom styles
+import './Dashboard.css';   
 import Navbar from "../Components/Navbar";
 
 const QuizList = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null); // For success messages
+  const [success, setSuccess] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const QuizList = () => {
           <h2 className="text-center mb-5">Private Quizzes</h2>
 
           {success && <Alert variant="success">{success}</Alert>}
-          {error && <Alert variant="danger">{error}</Alert>} {/* Handle error */}
+          {error && <Alert variant="danger">{error}</Alert>} 
 
           <Row>
             {quizzes.map((quiz) => (

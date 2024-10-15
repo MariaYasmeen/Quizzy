@@ -9,7 +9,7 @@ const QuizCard = ({ quiz, onClick1,onClick2, getRandomColor ,btntxt1, btntxt2}) 
       <Card
         className="h-100"
         style={{
-          backgroundColor: getRandomColor(), // Set random background color
+          backgroundColor: getRandomColor(), 
         }}
       >
         <Card.Body className="d-flex flex-column">
