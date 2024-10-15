@@ -27,6 +27,10 @@ const QuizDetails = () => {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
+ 
+   const handleToggleMarkForReview = (questionId) => {
+    setMarkedForReview((prevMarked) => toggleMarkForReview(prevMarked, questionId));
+  };
 
   useEffect(() => {
     loadQuizDetails(quizId, setQuizDetails, setError, setLoading);
@@ -78,14 +82,14 @@ const QuizDetails = () => {
 
         <form onSubmit={handleSubmit}>
           {currentQuestion ? (
-            <QuestionDisplay
-              question={currentQuestion}
-              userAnswers={userAnswers}
-              setUserAnswers={setUserAnswers}
-              currentQuestionIndex={currentQuestionIndex}
-              markedForReview={markedForReview}
-              toggleMarkForReview={setMarkedForReview}
-            />
+           <QuestionDisplay
+        question={currentQuestion}
+        userAnswers={userAnswers}
+        setUserAnswers={setUserAnswers}
+        currentQuestionIndex={currentQuestionIndex}
+        markedForReview={markedForReview}
+        toggleMarkForReview={handleToggleMarkForReview}
+      />
           ) : (
             <p>No questions available for this quiz.</p>
           )}

@@ -60,6 +60,7 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </li>
+             
               <li className="nav-item">
                 <a className="nav-link" href="/search">
                   <i className="bi bi-search"></i>
@@ -69,6 +70,11 @@ const Navbar = () => {
                 <a className="nav-link" href="/notifications">
                   <i className="bi bi-bell"></i>
                 </a>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/faqs">
+                  FAQs
+                </Link>
               </li>
               <li className="nav-item dropdown">
                 <a
