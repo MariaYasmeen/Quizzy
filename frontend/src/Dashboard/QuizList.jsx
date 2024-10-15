@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchPrivateQuizzes } from "../services/privateQuiz";
 import { useNavigate } from "react-router-dom";
  import { Spinner, Container, Row } from "react-bootstrap";
-import QuizCard from "../Components/QuizCard";
+import QuizCard from "./QuizCard";
 import { getRandomColor } from "../services/quizUtils" ;
 import './Dashboard.css';  // For custom styles
 import Navbar from "../Components/Navbar";
@@ -32,6 +32,10 @@ const QuizList = () => {
     navigate(`/quiz/${quizId}`);
   };
 
+  const  handleQuizDelete = (quizId) =>{
+
+  }
+
   if (loading)
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
@@ -52,8 +56,10 @@ const QuizList = () => {
             <QuizCard
               key={quiz._id}
               quiz={quiz}
-              btntxt="View"
-              onClick={() => handleQuizClick(quiz._id)}
+              btntxt1="View"
+              btntxt2="Delete Quiz"
+              onClick1={() => handleQuizClick(quiz._id)}
+              onClick2={() =>handleQuizDelete(quiz._id) }
               getRandomColor={getRandomColor}
             />
           ))}
