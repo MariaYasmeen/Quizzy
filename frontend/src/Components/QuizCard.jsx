@@ -1,9 +1,8 @@
- 
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 import AnimatedButton from "../StyleComponents/AnimBtn";
 
-const QuizCard = ({ quiz, onClick, getRandomColor , btntxt}) => {
+const QuizCard = ({ quiz, onClick, getRandomColor, btntxt }) => {
   return (
     <Col lg={4} md={6} sm={12} className="mb-3" key={quiz._id}>
       <Card

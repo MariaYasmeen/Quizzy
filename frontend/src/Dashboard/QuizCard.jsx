@@ -1,15 +1,21 @@
- 
 import React from "react";
 import { Card, Col } from "react-bootstrap";
 import AnimatedButton from "../StyleComponents/AnimBtn";
 
-const QuizCard = ({ quiz, onClick1,onClick2, getRandomColor ,btntxt1, btntxt2}) => {
+const QuizCard = ({
+  quiz,
+  onClick1,
+  onClick2,
+  getRandomColor,
+  btntxt1,
+  btntxt2,
+}) => {
   return (
     <Col lg={4} md={6} sm={12} className="mb-3" key={quiz._id}>
       <Card
         className="h-100"
         style={{
-          backgroundColor: getRandomColor(), 
+          backgroundColor: getRandomColor(),
         }}
       >
         <Card.Body className="d-flex flex-column">
@@ -23,12 +29,14 @@ const QuizCard = ({ quiz, onClick1,onClick2, getRandomColor ,btntxt1, btntxt2}) 
             shadowColor="grey"
           />
         </Card.Body>
-          <button
-             onClick={onClick2}
-            color="black"
-            borderColor="grey"
-            shadowColor="grey"
-          >{btntxt2}</button>
+        <button
+          onClick={onClick2}
+          color="black"
+          borderColor="grey"
+          shadowColor="grey"
+        >
+          {btntxt2}
+        </button>
       </Card>
     </Col>
   );

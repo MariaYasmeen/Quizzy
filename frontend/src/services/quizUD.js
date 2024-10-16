@@ -1,15 +1,14 @@
 import axios from "axios";
+const URL = `http://localhost:3300/api/v1/quizzes/myQuiz`;
 
 axios.defaults.withCredentials = true;
 
 export async function DeleteQuiz(quizId) {
-  const URL = `http://127.0.0.1:3300/api/v1/quizzes/${quizId}`;
   try {
-    console.log(`Attempting to delete quiz with ID: ${quizId}...`);
-    const res = await axios.delete(URL);
+    const res = await axios.delete(`${URL}/${quizId}`);
     if (res.status === 204) {
       console.log(`Successfully deleted quiz with ID: ${quizId}`);
-      return true;  
+      return true;
     }
   } catch (error) {
     console.error("Error occurred while deleting quiz:", error);

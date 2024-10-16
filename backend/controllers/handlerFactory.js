@@ -45,13 +45,6 @@ exports.getOne = (Model, popOptions) =>
     if (req.query.isPublic) {
       query = query.where({ isPublic: req.query.isPublic });
     }
-    if (req.query.participants) {
-      query = query.where({
-        participants: {
-          $in: [req.query.participants]
-        }
-      });
-    }
     const doc = await query;
     if (!doc) {
       return next(

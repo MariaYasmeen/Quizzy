@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { fetchPrivateQuizzes } from "../services/privateQuiz";
 import { useNavigate } from "react-router-dom";
-import { Spinner, Container, Row, Alert } from "react-bootstrap"; 
+import { Spinner, Container, Row, Alert } from "react-bootstrap";
 import QuizCard from "./QuizCard";
 import { getRandomColor } from "../services/quizUtils";
 import { DeleteQuiz } from "../services/quizUD";
-import './Dashboard.css';   
+import "./Dashboard.css";
 import Navbar from "../Components/Navbar";
 
 const QuizList = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null); 
+  const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,14 +30,16 @@ const QuizList = () => {
     getQuizzes();
   }, []);
 
-   const handleQuizDelete = async (quizId) => {
+  const handleQuizDelete = async (quizId) => {
     if (window.confirm("Are you sure you want to delete this quiz?")) {
+      await DeleteQuiz(quizId);
       try {
-        await DeleteQuiz(quizId);  
-        setQuizzes((prevQuizzes) => prevQuizzes.filter(quiz => quiz._id !== quizId));  
-        setSuccess("Quiz deleted successfully!");  
+        setQuizzes((prevQuizzes) =>
+          prevQuizzes.filter((quiz) => quiz._id !== quizId)
+        );
+        setSuccess("Quiz deleted successfully!");
       } catch (err) {
-        setError(err.message);  
+        setError(err.message);
       }
     }
   };
@@ -59,7 +61,7 @@ const QuizList = () => {
           <h2 className="text-center mb-5">Private Quizzes</h2>
 
           {success && <Alert variant="success">{success}</Alert>}
-          {error && <Alert variant="danger">{error}</Alert>} 
+          {error && <Alert variant="danger">{error}</Alert>}
 
           <Row>
             {quizzes.map((quiz) => (
@@ -68,7 +70,7 @@ const QuizList = () => {
                 quiz={quiz}
                 btntxt1="View"
                 btntxt2="Delete Quiz"
-                onClick1={() => navigate(`/quiz/${quiz._id}`)} 
+                onClick1={() => navigate(`/quiz/${quiz._id}`)}
                 onClick2={() => handleQuizDelete(quiz._id)}
                 getRandomColor={getRandomColor}
               />

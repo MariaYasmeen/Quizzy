@@ -39,14 +39,15 @@ router
   .route('/privateQuiz/:id')
   .get(quizController.getMyPrivateQuiz, quizController.getQuiz);
 router
-  .route('/allAvailableQuiz/:id')
-  .get(authController.restrictTo('admin'), quizController.getQuiz)
-  .delete(authController.restrictTo('admin'), quizController.deleteQuiz);
-router
   .route('/myQuiz/:id')
   .get(quizController.addCurrentUser, quizController.getQuiz)
   .patch(quizController.updateQuiz)
   .delete(quizController.deleteMyQuiz);
+
+router
+  .route('/allAvailableQuiz/:id')
+  .get(authController.restrictTo('admin'), quizController.getQuiz)
+  .delete(authController.restrictTo('admin'), quizController.deleteQuiz);
 
 // later
 router.use('/:quizId/questions', questionRouter);
