@@ -1,14 +1,14 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-const Quiz = require('./../models/quizModel');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
-const factory = require('./handlerFactory');
+import Quiz from './../models/quizModel.js';
+import catchAsync from './../utils/catchAsync.js';
+import AppError from './../utils/appError.js';
+import { getAll, getOne, deleteOne, createOne } from './handlerFactory.js';
 
-exports.publicQuizOnly = (req, res, next) => {
+export function publicQuizOnly(req, res, next) {
   req.query.isPublic = true;
   next();
-};
-exports.addCurrentUser = (req, res, next) => {
+}
+export function addCurrentUser(req, res, next) {
   req.body.createdBy = req.user._id;
   req.query.createdBy = req.user._id;
   if (!req.body.isPublic) {
@@ -19,31 +19,25 @@ exports.addCurrentUser = (req, res, next) => {
     }
   }
   next();
-};
-exports.getMyPrivateQuiz = (req, res, next) => {
+}
+export function getMyPrivateQuiz(req, res, next) {
   req.query.participants = req.user._id;
   req.query.isPublic = false;
   next();
-};
+}
 
-exports.getAllQuiz = factory.getAll(Quiz);
-exports.getQuiz = factory.getOne(Quiz, [
+export const getAllQuiz = getAll(Quiz);
+export const getQuiz = getOne(Quiz, [
   { path: 'questions' },
-  { path: 'createdBy' }
+  { path: 'createdBy' },
 ]);
-exports.deleteQuiz = factory.deleteOne(Quiz);
-exports.createQuiz = factory.createOne(Quiz);
+export const deleteQuiz = deleteOne(Quiz);
+export const createQuiz = createOne(Quiz);
 
-exports.updateQuiz = catchAsync(async (req, res, next) => {
+export const updateQuiz = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const {
-    title,
-    description,
-    questions,
-    isPublic,
-    startDate,
-    endDate
-  } = req.body;
+  const { title, description, questions, isPublic, startDate, endDate } =
+    req.body;
   const quiz = await Quiz.findOneAndUpdate(
     { _id: id },
     {
@@ -52,41 +46,41 @@ exports.updateQuiz = catchAsync(async (req, res, next) => {
       questions,
       isPublic,
       startDate,
-      endDate
+      endDate,
     },
     {
       new: true,
-      runValidators: true
+      runValidators: true,
     }
   );
   if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
   res.status(200).json({
     status: 'success',
     data: {
-      quiz
-    }
+      quiz,
+    },
   });
 });
-exports.deleteQuiz = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const quiz = await Quiz.findOneAndDelete({
-    _id: id
-  });
-  if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
+// export const deleteQuiz = catchAsync(async (req, res, next) => {
+//   const { id } = req.params;
+//   const quiz = await Quiz.findOneAndDelete({
+//     _id: id,
+//   });
+//   if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
 
-  res.status(204).json({
-    status: 'success'
-  });
-});
-exports.deleteMyQuiz = catchAsync(async (req, res, next) => {
+//   res.status(204).json({
+//     status: 'success',
+//   });
+// });
+export const deleteMyQuiz = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const quiz = await Quiz.findOneAndDelete({
     _id: id,
-    createdBy: req.user._id
+    createdBy: req.user._id,
   });
   if (!quiz) return next(new AppError('there is no quiz with this ID ', 404));
 
   res.status(204).json({
-    status: 'success'
+    status: 'success',
   });
 });

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const questionSchema = new mongoose.Schema({
   quiz: {
@@ -30,4 +30,4 @@ const questionSchema = new mongoose.Schema({
 // ADD DIFFICULTY OF QUESTION [EASY , MEDIUM , HARD]
 const Question = mongoose.model('Question', questionSchema);
 
-module.exports = Question;
+export default Question;

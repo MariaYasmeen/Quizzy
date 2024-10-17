@@ -1,8 +1,7 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-const mongoose = require('mongoose');
-const crypto = require('crypto');
-const { default: isEmail } = require('validator/lib/isEmail');
-const bcrypt = require('bcryptjs');
+import mongoose from 'mongoose';
+import { randomBytes, createHash } from 'crypto';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -13,8 +12,8 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'Email is required.'],
-    unique: true,
-    validate: [isEmail, 'Please provide a valid email address.']
+    unique: true
+    // validate: [isEmail, 'Please provide a valid email address.']
   },
   password: {
     type: String,
@@ -93,10 +92,9 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
 };
 
 userSchema.methods.createPasswordResetToken = function() {
-  const resetToken = crypto.randomBytes(32).toString('hex');
+  const resetToken = randomBytes(32).toString('hex');
 
-  this.passwordResetToken = crypto
-    .createHash('sha256')
+  this.passwordResetToken = createHash('sha256')
     .update(resetToken)
     .digest('hex');
 
@@ -105,4 +103,4 @@ userSchema.methods.createPasswordResetToken = function() {
 };
 
 const User = mongoose.model('User', userSchema);
-module.exports = User;
+export default User;

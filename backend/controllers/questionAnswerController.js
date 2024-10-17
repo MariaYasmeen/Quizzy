@@ -1,16 +1,15 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
-const QuestionAnswer = require('./../models/questionAnswerModel');
-
-exports.getAllQuestionAnswer = catchAsync(async (req, res, next) => {
+import QuestionAnswer from '../models/questionAnswerModel.js';
+import AppError from '../utils/appError.js';
+import catchAsync from '../utils/catchAsync.js';
+export const getAllQuestionAnswer = catchAsync(async (req, res, next) => {
   const questionAnswers = await QuestionAnswer.find();
   res.status(200).json({
     status: 'success',
     questionAnswers
   });
 });
-exports.getQuestionAnswer = catchAsync(async (req, res, next) => {
+export const getQuestionAnswer = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const questionAnswer = await QuestionAnswer.findById(id)
     .populate({ path: 'askedBy', select: 'name' })
@@ -28,7 +27,7 @@ exports.getQuestionAnswer = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createQuestionAnswer = catchAsync(async (req, res, next) => {
+export const createQuestionAnswer = catchAsync(async (req, res, next) => {
   req.body.askedBy = req.user._id;
   const questionAnswer = await QuestionAnswer.create(req.body);
   res.status(201).json({
@@ -37,7 +36,7 @@ exports.createQuestionAnswer = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.addAnswer = catchAsync(async (req, res, next) => {
+export const addAnswer = catchAsync(async (req, res, next) => {
   const { questionId } = req.params;
   const { answerText } = req.body;
   const answeredBy = req.user._id;
@@ -67,7 +66,7 @@ exports.addAnswer = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.addVoteForQuestion = catchAsync(async (req, res, next) => {
+export const addVoteForQuestion = catchAsync(async (req, res, next) => {
   const { questionId } = req.params;
   const userId = req.user._id;
 
@@ -85,7 +84,7 @@ exports.addVoteForQuestion = catchAsync(async (req, res, next) => {
     .json({ message: 'Vote added successfully.', votes: question.votes });
 });
 
-exports.addVoteForAnswer = catchAsync(async (req, res, next) => {
+export const addVoteForAnswer = catchAsync(async (req, res, next) => {
   const { questionId, answerId } = req.params;
   const userId = req.user._id;
 
@@ -104,20 +103,22 @@ exports.addVoteForAnswer = catchAsync(async (req, res, next) => {
     .json({ message: 'Vote added successfully.', votes: answer.votes });
 });
 
-exports.tenFrequentlyAskedQuestions = catchAsync(async (req, res, next) => {
-  const tenFAQ = await QuestionAnswer.aggregate([
-    {
-      $match: { isResolved: { $ne: false } }
-    },
-    {
-      $sort: { votes: 1 }
-    }
-  ]);
+export const tenFrequentlyAskedQuestions = catchAsync(
+  async (req, res, next) => {
+    const tenFAQ = await QuestionAnswer.aggregate([
+      {
+        $match: { isResolved: { $ne: false } }
+      },
+      {
+        $sort: { votes: 1 }
+      }
+    ]);
 
-  res.status(200).json({
-    status: 'faq',
-    data: {
-      tenFAQ
-    }
-  });
-});
+    res.status(200).json({
+      status: 'faq',
+      data: {
+        tenFAQ
+      }
+    });
+  }
+);

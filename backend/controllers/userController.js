@@ -1,9 +1,7 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
-const User = require('../models/userModel');
-const AppError = require('./../utils/appError');
-const catchAsync = require('./../utils/catchAsync');
-const factory = require('./handlerFactory');
-
+import User from '../models/userModel.js';
+import AppError from './../utils/appError.js';
+import catchAsync from './../utils/catchAsync.js';
+import { getAll, getOne, deleteOne, createOne } from './handlerFactory.js';
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
   Object.keys(obj).forEach(el => {
@@ -13,13 +11,12 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 // get the current user
-exports.getMe = (req, res, next) => {
+export function getMe(req, res, next) {
   req.params.id = req.user.id;
   next();
-};
+}
 
-// update current user
-exports.updateMe = catchAsync(async (req, res, next) => {
+export const updateMe = catchAsync(async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
       new AppError(
@@ -42,8 +39,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 });
 
-// delete current user
-exports.deleteMe = catchAsync(async (req, res, next) => {
+export const deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(204).json({
@@ -52,8 +48,7 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-// update the role of the user
-exports.updateUser = catchAsync(async (req, res, next) => {
+export const updateUser = catchAsync(async (req, res, next) => {
   if (req.body.password)
     return next(
       new AppError(
@@ -79,11 +74,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   });
 });
 
-//  get all users
-exports.getAllUsers = factory.getAll(User);
-// get only one user
-exports.getUser = factory.getOne(User);
-// delete the user
-exports.deleteUser = factory.deleteOne(User);
-// create user
-exports.createUser = factory.createOne(User);
+export const getAllUsers = getAll(User);
+export const getUser = getOne(User);
+export const deleteUser = deleteOne(User);
+export const createUser = createOne(User);

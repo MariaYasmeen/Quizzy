@@ -4,56 +4,57 @@
 // PUT /api/v1/quizzes/:id: Update a quiz.
 // DELETE /api/v1/quizzes/:id: Delete a quiz.
 
-const express = require('express');
-const questionRouter = require('./questionRoutes');
-const resultRouter = require('./resultRoutes');
-const quizController = require('./../controllers/quizController');
-const authController = require('./../controllers/authController');
+import { Router } from 'express';
+import questionRouter from './questionRoutes.js';
+import resultRouter from './resultRoutes.js';
+import {
+  publicQuizOnly,
+  getAllQuiz,
+  addCurrentUser,
+  createQuiz,
+  getMyPrivateQuiz,
+  getQuiz,
+  updateQuiz,
+  deleteMyQuiz,
+  deleteQuiz,
+} from './../controllers/quizController.js';
+import { protect, restrictTo } from './../controllers/authController.js';
 
-const router = express.Router();
+const router = Router();
 
 // for authorized users
-router.use(authController.protect);
+router.use(protect);
 
-router
-  .route('/')
-  .get(quizController.publicQuizOnly, quizController.getAllQuiz)
-  .post(
-    authController.restrictTo('premium-user', 'admin'), // creating quiz is for only teacher and admin
-    quizController.addCurrentUser,
-    quizController.createQuiz
-  );
-router
-  .route('/privateQuiz')
-  .get(quizController.getMyPrivateQuiz, quizController.getAllQuiz);
-router
-  .route('/allAvailableQuiz')
-  .get(authController.restrictTo('admin'), quizController.getAllQuiz);
+router.route('/').get(publicQuizOnly, getAllQuiz).post(
+  restrictTo('premium-user', 'admin'), // creating quiz is for only teacher and admin
+  addCurrentUser,
+  createQuiz
+);
+router.route('/privateQuiz').get(getMyPrivateQuiz, getAllQuiz);
+router.route('/allAvailableQuiz').get(restrictTo('admin'), getAllQuiz);
 
 // for teachers (owner of the quiz)
-router.get('/myQuiz', quizController.addCurrentUser, quizController.getAllQuiz);
+router.get('/myQuiz', addCurrentUser, getAllQuiz);
 // for admins
 
-router.get('/:id', quizController.publicQuizOnly, quizController.getQuiz);
-router
-  .route('/privateQuiz/:id')
-  .get(quizController.getMyPrivateQuiz, quizController.getQuiz);
+router.get('/:id', publicQuizOnly, getQuiz);
+router.route('/privateQuiz/:id').get(getMyPrivateQuiz, getQuiz);
 router
   .route('/myQuiz/:id')
-  .get(quizController.addCurrentUser, quizController.getQuiz)
-  .patch(quizController.updateQuiz)
-  .delete(quizController.deleteMyQuiz);
+  .get(addCurrentUser, getQuiz)
+  .patch(updateQuiz)
+  .delete(deleteMyQuiz);
 
 router
   .route('/allAvailableQuiz/:id')
-  .get(authController.restrictTo('admin'), quizController.getQuiz)
-  .delete(authController.restrictTo('admin'), quizController.deleteQuiz);
+  .get(restrictTo('admin'), getQuiz)
+  .delete(restrictTo('admin'), deleteQuiz);
 
 // later
 router.use('/:quizId/questions', questionRouter);
 router.use('/:quizId/take', resultRouter);
 router.use('/:quizId/results', resultRouter);
 
-module.exports = router;
+export default router;
 
 // POST /api/v1/quizzes/:quizId/take: Submit answers for a quiz.

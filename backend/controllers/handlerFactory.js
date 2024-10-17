@@ -1,10 +1,10 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
-const APIFeatures = require('../Utils/apiFeatures');
-const AppError = require('../Utils/appError');
-const catchAsync = require('./../Utils/catchAsync');
+import APIFeatures from '../Utils/apiFeatures.js';
+import AppError from '../Utils/appError.js';
+import catchAsync from './../Utils/catchAsync.js';
 
-exports.deleteOne = Model =>
-  catchAsync(async (req, res, next) => {
+export function deleteOne(Model) {
+  return catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
     if (!doc)
       return next(
@@ -15,9 +15,10 @@ exports.deleteOne = Model =>
       data: null
     });
   });
+}
 
-exports.updateOne = Model =>
-  catchAsync(async (req, res, next) => {
+export function updateOne(Model) {
+  return catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
@@ -33,8 +34,9 @@ exports.updateOne = Model =>
       }
     });
   });
-exports.getOne = (Model, popOptions) =>
-  catchAsync(async (req, res, next) => {
+}
+export function getOne(Model, popOptions) {
+  return catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
     if (popOptions) {
       query = query.populate(popOptions);
@@ -58,9 +60,10 @@ exports.getOne = (Model, popOptions) =>
       }
     });
   });
+}
 
-exports.createOne = Model =>
-  catchAsync(async (req, res, next) => {
+export function createOne(Model) {
+  return catchAsync(async (req, res, next) => {
     const doc = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
@@ -69,9 +72,10 @@ exports.createOne = Model =>
       }
     });
   });
+}
 
-exports.getAll = Model =>
-  catchAsync(async (req, res, next) => {
+export function getAll(Model) {
+  return catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.query.participants) {
       filter = {
@@ -94,3 +98,4 @@ exports.getAll = Model =>
       }
     });
   });
+}

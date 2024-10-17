@@ -1,24 +1,28 @@
-const express = require('express');
-const questionAnswerController = require('./../controllers/questionAnswerController');
-const authController = require('./../controllers/authController');
+import { Router } from 'express';
+import {
+  tenFrequentlyAskedQuestions,
+  getAllQuestionAnswer,
+  getQuestionAnswer,
+  createQuestionAnswer,
+  addVoteForQuestion,
+  addAnswer,
+  addVoteForAnswer,
+} from './../controllers/questionAnswerController.js';
+import { protect } from './../controllers/authController.js';
 
-const router = express.Router();
+const router = Router();
 // get ten frequently asked questions
-router.get('/ten-faq', questionAnswerController.tenFrequentlyAskedQuestions);
+router.get('/ten-faq', tenFrequentlyAskedQuestions);
 
-router.get('/', questionAnswerController.getAllQuestionAnswer);
-router.get('/:id', questionAnswerController.getQuestionAnswer);
-router.use(authController.protect);
-router.post('/', questionAnswerController.createQuestionAnswer);
+router.get('/', getAllQuestionAnswer);
+router.get('/:id', getQuestionAnswer);
+router.use(protect);
+router.post('/', createQuestionAnswer);
 // POST /api/v1/qna/:id/vote
 
-router
-  .route('/:questionId/vote')
-  .post(questionAnswerController.addVoteForQuestion);
+router.route('/:questionId/vote').post(addVoteForQuestion);
 // /api/v1/qna/:id/answers/:answerId/vote
-router.route('/:questionId/answer').post(questionAnswerController.addAnswer);
-router
-  .route('/:questionId/answer/:answerId/vote')
-  .post(questionAnswerController.addVoteForAnswer);
+router.route('/:questionId/answer').post(addAnswer);
+router.route('/:questionId/answer/:answerId/vote').post(addVoteForAnswer);
 
-module.exports = router;
+export default router;

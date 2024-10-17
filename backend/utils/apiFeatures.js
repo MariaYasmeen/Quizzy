@@ -1,7 +1,4 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
-/* eslint-disable no-undef */
-/* eslint-disable lines-between-class-members */
-APIFeatures = class {
+const APIFeatures = class {
   constructor(query, queryStr) {
     this.queryStr = queryStr;
     this.query = query;
@@ -9,11 +6,11 @@ APIFeatures = class {
   filter() {
     const queryObj = { ...this.queryStr };
     const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.map(el => delete queryObj[el]);
+    excludeFields.map((el) => delete queryObj[el]);
     let queryString = JSON.stringify(queryObj);
     queryString = queryString.replace(
       /\b(gte|gt|lte|lt)\b/g,
-      match => `$${match}`
+      (match) => `$${match}`
     );
     this.query.find(JSON.parse(queryString));
     return this;
@@ -46,4 +43,4 @@ APIFeatures = class {
   }
 };
 
-module.exports = APIFeatures;
+export default APIFeatures;

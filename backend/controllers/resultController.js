@@ -1,30 +1,27 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable node/no-unsupported-features/es-syntax */
-const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
-const Result = require('./../models/resultModel');
-const Question = require('./../models/questionModel');
+import AppError from '../utils/appError.js';
+import catchAsync from '../utils/catchAsync.js';
+import Result from './../models/resultModel.js';
+import Question from './../models/questionModel.js';
 
 async function processAnswers(answers) {
   const processedAnswers = [];
   for (const answer of answers) {
     const question = await Question.findById(answer.question).exec();
     if (question) {
-      const correctOption = question.options.find(option => option.isCorrect);
+      const correctOption = question.options.find((option) => option.isCorrect);
       const isCorrect =
         correctOption && answer.selectedOption === correctOption.text;
 
       processedAnswers.push({
         question: answer.question,
         selectedOption: answer.selectedOption,
-        isCorrect: isCorrect
+        isCorrect: isCorrect,
       });
     } else {
       processedAnswers.push({
         question: answer.question,
         selectedOption: answer.selectedOption,
-        isCorrect: false
+        isCorrect: false,
       });
     }
   }
@@ -37,7 +34,7 @@ async function calculateScore(answers) {
     0
   );
 }
-exports.createResult = catchAsync(async (req, res, next) => {
+export const createResult = catchAsync(async (req, res, next) => {
   req.body.student = req.user._id;
   if (!req.body.quiz) {
     req.body.quiz = req.params.quizId;
@@ -48,7 +45,7 @@ exports.createResult = catchAsync(async (req, res, next) => {
     quiz: req.body.quiz,
     student: req.body.student,
     answers: processedAnswers,
-    score: score
+    score: score,
   });
   if (!result) {
     return next(new AppError('There is no result for this quiz', 404));
@@ -57,12 +54,12 @@ exports.createResult = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      result
-    }
+      result,
+    },
   });
 });
 
-exports.updateResult = catchAsync(async (req, res, next) => {
+export const updateResult = catchAsync(async (req, res, next) => {
   const resultId = req.params.id;
   const result = await Result.findById(resultId).exec();
   if (!result) {
@@ -76,11 +73,11 @@ exports.updateResult = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      result
-    }
+      result,
+    },
   });
 });
-exports.getResult = catchAsync(async (req, res, next) => {
+export const getResult = catchAsync(async (req, res, next) => {
   const filter = {};
   filter.student = req.user._id;
   if (!filter.quiz) {
@@ -91,6 +88,6 @@ exports.getResult = catchAsync(async (req, res, next) => {
     return next(new AppError('there is no result for this quiz', 404));
   res.status(200).json({
     status: 'success',
-    result
+    result,
   });
 });

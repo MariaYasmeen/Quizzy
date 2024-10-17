@@ -1,17 +1,17 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const userRouter = require('./routes/userRoutes');
-const quizRouter = require('./routes/quizRoutes');
-const questionAnswerRouter = require('./routes/questionAnswerRoutes');
-const globalErrorHandler = require('./controllers/errorController');
+import express, { json } from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import userRouter from './routes/userRoutes.js';
+import quizRouter from './routes/quizRoutes.js';
+import questionAnswerRouter from './routes/questionAnswerRoutes.js';
+import globalErrorHandler from './controllers/errorController.js';
 
 const app = express();
-app.use(express.json());
+app.use(json());
 app.use(cookieParser());
 const corsOptions = {
   origin: ['http://localhost:3000'],
-  credentials: true
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -22,9 +22,9 @@ app.use('/api/v1/qna', questionAnswerRouter);
 app.all('*', (req, res, next) => {
   res.status(404).json({
     status: 'fail',
-    message: 'there is no route like this'
+    message: 'there is no route like this',
   });
 });
 
 app.use(globalErrorHandler);
-module.exports = app;
+export default app;

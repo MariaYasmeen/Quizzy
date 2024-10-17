@@ -1,26 +1,23 @@
 // POST /api/v1/quizzes/:quizId/questions: Add a question to a quiz.
 // GET /api/v1/quizzes/:quizId/questions: Retrieve questions for a specific quiz.
 
-const express = require('express');
-const questionController = require('./../controllers/questionController');
-const authController = require('./../controllers/authController');
+import { Router } from 'express';
+import {
+  getAllQuestion,
+  createQuestion,
+  getQuestion,
+  updateQuestion,
+  deleteQuestion,
+} from './../controllers/questionController.js';
+import { protect, restrictTo } from './../controllers/authController.js';
 
-const router = express.Router({ mergeParams: true });
-router.use(authController.protect);
-router
-  .route('/')
-  .get(questionController.getAllQuestion)
-  .post(questionController.createQuestion);
+const router = Router({ mergeParams: true });
+router.use(protect);
+router.route('/').get(getAllQuestion).post(createQuestion);
 
 router
   .route('/:id')
-  .get(questionController.getQuestion)
-  .patch(
-    authController.restrictTo('premium-user', 'admin'),
-    questionController.updateQuestion
-  )
-  .delete(
-    authController.restrictTo('premium-user', 'admin'),
-    questionController.deleteQuestion
-  );
-module.exports = router;
+  .get(getQuestion)
+  .patch(restrictTo('premium-user', 'admin'), updateQuestion)
+  .delete(restrictTo('premium-user', 'admin'), deleteQuestion);
+export default router;
