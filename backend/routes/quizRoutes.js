@@ -19,7 +19,7 @@ router
   .route('/')
   .get(quizController.publicQuizOnly, quizController.getAllQuiz)
   .post(
-    authController.restrictTo('teacher', 'admin'), // creating quiz is for only teacher and admin
+    authController.restrictTo('premium-user', 'admin'), // creating quiz is for only teacher and admin
     quizController.addCurrentUser,
     quizController.createQuiz
   );

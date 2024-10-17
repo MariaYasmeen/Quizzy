@@ -16,11 +16,11 @@ router
   .route('/:id')
   .get(questionController.getQuestion)
   .patch(
-    authController.restrictTo('teacher', 'admin'),
+    authController.restrictTo('premium-user', 'admin'),
     questionController.updateQuestion
   )
   .delete(
-    authController.restrictTo('teacher', 'admin'),
+    authController.restrictTo('premium-user', 'admin'),
     questionController.deleteQuestion
   );
 module.exports = router;

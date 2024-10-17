@@ -62,10 +62,14 @@ exports.updateUser = catchAsync(async (req, res, next) => {
       )
     );
   const { id } = req.params;
-  const user = await User.findByIdAndUpdate(id, req.body.role, {
-    new: true,
-    runValidators: true
-  });
+  const user = await User.findByIdAndUpdate(
+    id,
+    { role: req.body.role },
+    {
+      new: true,
+      runValidators: true
+    }
+  );
   if (!user) return next(new AppError('There is no user with this Id.', 404));
   res.status(200).json({
     status: 'success',

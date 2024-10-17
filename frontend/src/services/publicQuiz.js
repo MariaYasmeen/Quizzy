@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const URL = "http://localhost:3300/api/v1/quizzes";
 axios.defaults.withCredentials = true;
+const URL = "http://localhost:3300/api/v1/quizzes/";
 
 export async function fetchPublicQuizzes() {
   try {
@@ -20,11 +20,10 @@ export async function fetchPublicQuizzes() {
 }
 
 export async function fetchQuizDetails(quizId) {
-  console.log(quizId);
   try {
     console.log("API is going to start...");
     const res = await axios.get(
-      `http://localhost:3300/api/v1/quizzes/myQuiz/${quizId}`
+      `http://localhost:3300/api/v1/quizzes/privateQuiz/${quizId}`
     );
     console.log("API responses are:", res.data);
     return res.data.data.data;

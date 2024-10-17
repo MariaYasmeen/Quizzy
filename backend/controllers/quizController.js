@@ -11,6 +11,13 @@ exports.publicQuizOnly = (req, res, next) => {
 exports.addCurrentUser = (req, res, next) => {
   req.body.createdBy = req.user._id;
   req.query.createdBy = req.user._id;
+  if (!req.body.isPublic) {
+    if (req.body.participants) {
+      req.body.participants.push(req.user._id);
+    } else {
+      req.body.participants = [req.user._id];
+    }
+  }
   next();
 };
 exports.getMyPrivateQuiz = (req, res, next) => {
