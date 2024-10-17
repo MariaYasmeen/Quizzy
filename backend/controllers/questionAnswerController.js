@@ -2,37 +2,41 @@
 import QuestionAnswer from '../models/questionAnswerModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
-export const getAllQuestionAnswer = catchAsync(async (req, res, next) => {
-  const questionAnswers = await QuestionAnswer.find();
-  res.status(200).json({
-    status: 'success',
-    questionAnswers
-  });
-});
-export const getQuestionAnswer = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const questionAnswer = await QuestionAnswer.findById(id)
-    .populate({ path: 'askedBy', select: 'name' })
-    .populate({
-      path: 'answers.answeredBy',
-      model: 'User',
-      select: 'name'
-    });
-  if (!questionAnswer) {
-    return next(new AppError('No question found with that ID', 404));
-  }
-  res.status(200).json({
-    status: 'success',
-    questionAnswer
-  });
-});
+import { getAll, getOne } from './handlerFactory.js';
+export const getAllQuestionAnswer = getAll(QuestionAnswer);
+
+export const getQuestionAnswer = getOne(QuestionAnswer, [
+  { path: 'askedBy', select: 'name' },
+  {
+    path: 'answers.answeredBy',
+    model: 'User',
+    select: 'name',
+  },
+]);
+// catchAsync(async (req, res, next) => {
+//   const { id } = req.params;
+//   const questionAnswer = await QuestionAnswer.findById(id)
+//     .populate({ path: 'askedBy', select: 'name' })
+//     .populate({
+//       path: 'answers.answeredBy',
+//       model: 'User',
+//       select: 'name',
+//     });
+//   if (!questionAnswer) {
+//     return next(new AppError('No question found with that ID', 404));
+//   }
+//   res.status(200).json({
+//     status: 'success',
+//     questionAnswer,
+//   });
+// });
 
 export const createQuestionAnswer = catchAsync(async (req, res, next) => {
   req.body.askedBy = req.user._id;
   const questionAnswer = await QuestionAnswer.create(req.body);
   res.status(201).json({
     status: 'success',
-    questionAnswer
+    questionAnswer,
   });
 });
 
@@ -49,9 +53,9 @@ export const addAnswer = catchAsync(async (req, res, next) => {
           answerText: answerText,
           answeredBy: answeredBy,
           votes: 0,
-          createdAt: new Date()
-        }
-      }
+          createdAt: new Date(),
+        },
+      },
     },
     { new: true }
   );
@@ -62,7 +66,7 @@ export const addAnswer = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     message: 'success',
-    updatedQuestion
+    updatedQuestion,
   });
 });
 
@@ -87,11 +91,9 @@ export const addVoteForQuestion = catchAsync(async (req, res, next) => {
 export const addVoteForAnswer = catchAsync(async (req, res, next) => {
   const { questionId, answerId } = req.params;
   const userId = req.user._id;
-
   const question = await QuestionAnswer.findById(questionId);
   const answer = question.answers.id(answerId);
-
-  if (answer.votedBy.includes(userId)) {
+  if (answer?.votedBy?.includes(userId)) {
     return next(new AppError('You have already voted for this answer.', 400));
   }
   answer.votes += 1;
@@ -105,20 +107,10 @@ export const addVoteForAnswer = catchAsync(async (req, res, next) => {
 
 export const tenFrequentlyAskedQuestions = catchAsync(
   async (req, res, next) => {
-    const tenFAQ = await QuestionAnswer.aggregate([
-      {
-        $match: { isResolved: { $ne: false } }
-      },
-      {
-        $sort: { votes: 1 }
-      }
-    ]);
-
-    res.status(200).json({
-      status: 'faq',
-      data: {
-        tenFAQ
-      }
-    });
+    console.log('works');
+    req.query.limit = '10';
+    req.query.sort = '-votes';
+    req.query.fields = 'votes';
+    next();
   }
 );

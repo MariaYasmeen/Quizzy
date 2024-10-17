@@ -12,7 +12,7 @@ import { protect } from './../controllers/authController.js';
 
 const router = Router();
 // get ten frequently asked questions
-router.get('/ten-faq', tenFrequentlyAskedQuestions);
+router.get('/ten-faq', tenFrequentlyAskedQuestions, getAllQuestionAnswer);
 
 router.get('/', getAllQuestionAnswer);
 router.get('/:id', getQuestionAnswer);
