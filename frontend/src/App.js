@@ -14,8 +14,10 @@ import CreateQuizPage from "./Pages/CreateQuizPage";
 import CreateQuestion from "./features/question/CreateQuestion";
 import QuizDetails from "./Pages/QuizDetails";
 import Dashboard from "./Dashboard/Home";
+import AllQA from "./Ask&Answer/AllQA";
 import QuizList from "./Dashboard/QuizList";
-import FAQs from "./Pages/FAQs";
+import Questions from "./Ask&Answer/AskAndAnswer";
+import QDetails from "./Ask&Answer/QDetails";
 
 const queryClient = new QueryClient();
 
@@ -26,9 +28,11 @@ function App() {
         <UserProvider>
           <QuizProvider>
             <BrowserRouter>
-              <Routes>
+              <Routes> 
                 <Route path="/" element={<Hero />} />
-                <Route path="/faqs" element={<FAQs />} />
+                <Route path="/questions" element={<Questions />} />
+                <Route path="/questions/:questionId/:title" element={<QDetails />} />
+                <Route path="/communityquestions" element={<AllQA />} />
                 <Route path="/dashboard/home" element={<Dashboard />} />
                 <Route path="/dashboard/allquizzes" element={<QuizList />} />
                 <Route path="/publicquizzes" element={<PublicQuizzes />} />

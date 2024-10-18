@@ -30,9 +30,9 @@ const Navbar = () => {
   useEffect(() => {
     console.log("User state has changed:", user);
     if (user) {
-      setLogoutMessage(""); // Clear logout message if user is present
+      setLogoutMessage("");  
     }
-  }, [user]); // This dependency ensures it runs whenever 'user' changes
+  }, [user]);  
 
   return (
     <>
@@ -72,8 +72,8 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/faqs">
-                  FAQs
+                <Link className="nav-link" to="/questions">
+                  Ask & Answer
                 </Link>
               </li>
               <li className="nav-item dropdown">
