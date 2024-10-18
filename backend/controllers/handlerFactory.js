@@ -12,7 +12,7 @@ export function deleteOne(Model) {
       );
     res.status(204).json({
       status: 'success',
-      data: null
+      data: null,
     });
   });
 }
@@ -21,7 +21,7 @@ export function updateOne(Model) {
   return catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
     if (!doc)
       return next(
@@ -30,8 +30,8 @@ export function updateOne(Model) {
     res.status(201).json({
       status: 'success',
       data: {
-        data: doc
-      }
+        data: doc,
+      },
     });
   });
 }
@@ -56,8 +56,8 @@ export function getOne(Model, popOptions) {
     res.status(200).json({
       status: 'success',
       data: {
-        data: doc
-      }
+        data: doc,
+      },
     });
   });
 }
@@ -68,8 +68,8 @@ export function createOne(Model) {
     res.status(201).json({
       status: 'success',
       data: {
-        data: doc
-      }
+        data: doc,
+      },
     });
   });
 }
@@ -78,10 +78,8 @@ export function getAll(Model) {
   return catchAsync(async (req, res, next) => {
     let filter = {};
     if (req.query.participants) {
-      filter = {
-        participants: {
-          $in: [req.query.participants]
-        }
+      filter.participants = {
+        $in: [req.query.participants],
       };
     }
     const features = new APIFeatures(Model.find(filter), req.query)
@@ -94,8 +92,8 @@ export function getAll(Model) {
       status: 'success',
       result: doc.length,
       data: {
-        data: doc
-      }
+        data: doc,
+      },
     });
   });
 }
