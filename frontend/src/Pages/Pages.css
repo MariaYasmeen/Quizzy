@@ -154,3 +154,28 @@ height: 230px !important;
   transition: background-color 0.2s ease; 
 background-color: rgb(49, 48, 48);
 }
+
+.vote-section {
+  border-right: 1px solid #dee2e6; /* Bootstrap default border */
+  padding-right: 15px;
+  text-align: center;
+}
+
+.vote-count {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.vote-label {
+  font-size: 0.75rem;
+  color: #6c757d; /* Bootstrap secondary color */
+}
+
+.question-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.tags .badge {
+  font-size: 0.75rem;
+}
