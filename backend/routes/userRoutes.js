@@ -7,7 +7,9 @@ import {
   createUser,
   deleteUser,
   updateUser,
-  getUser
+  getUser,
+  uploadUserPhoto,
+  resizeUserPhoto,
 } from './../controllers/userController.js';
 import {
   signup,
@@ -16,7 +18,7 @@ import {
   resetPassword,
   protect,
   updatePassword,
-  restrictTo
+  restrictTo,
 } from './../controllers/authController.js';
 
 const router = Router();
@@ -32,20 +34,13 @@ router.use(protect);
 
 // - for current user
 router.get('/me', getMe);
-router.patch('/updateMe', updateMe);
+router.patch('/updateMe', uploadUserPhoto, resizeUserPhoto, updateMe);
 router.delete('/deleteMe', deleteMe); // this only mage the current user isActive to false
 router.patch('/updatePassword', updatePassword);
 
 // for admin only
 router.use(restrictTo('admin'));
-router
-  .route('/')
-  .get(getAllUsers)
-  .post(createUser);
-router
-  .route('/:id')
-  .delete(deleteUser)
-  .patch(updateUser)
-  .get(getUser);
+router.route('/').get(getAllUsers).post(createUser);
+router.route('/:id').delete(deleteUser).patch(updateUser).get(getUser);
 
 export default router;

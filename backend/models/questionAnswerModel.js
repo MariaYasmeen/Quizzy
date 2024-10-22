@@ -3,54 +3,60 @@ import mongoose from 'mongoose';
 const questionAnswerSchema = new mongoose.Schema({
   questionText: {
     type: String,
-    required: true
+    required: true,
+  },
+  questionDocument: [String],
+  tags: [String],
+  description: {
+    type: String,
   },
   askedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: true,
   },
   votes: {
     type: Number,
-    default: 0
+    default: 0,
   },
   votedBy: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
+      ref: 'User',
+    },
   ],
   answers: [
     {
       answerText: String,
+      answerDocument: [String],
       answeredBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
       },
       votes: {
         type: Number,
-        default: 0
+        default: 0,
       },
       votedBy: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
-        }
+          ref: 'User',
+        },
       ],
       createdAt: {
         type: Date,
-        default: Date.now
-      }
-    }
+        default: Date.now,
+      },
+    },
   ],
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   isResolved: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const QuestionAnswer = mongoose.model('QuestionAnswer', questionAnswerSchema);

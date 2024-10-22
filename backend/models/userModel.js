@@ -2,24 +2,24 @@
 import mongoose from 'mongoose';
 import { randomBytes, createHash } from 'crypto';
 import bcrypt from 'bcryptjs';
-
+// import { isEmail } from 'validator';
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     required: [true, 'Email is required.'],
-    unique: true
-    // validate: [isEmail, 'Please provide a valid email address.']
+    unique: true,
+    // validate: [isEmail, 'Please provide a valid email address.'],
   },
   password: {
     type: String,
     required: [true, 'Password is required.'],
     minlength: [8, 'Password must be at least 8 characters long.'],
-    select: false
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -30,20 +30,22 @@ const userSchema = new mongoose.Schema({
     //   },
     // message: 'Passwords do not match.'
     // },
-    minlength: [8, 'Password must be at least 8 characters long.']
+    minlength: [8, 'Password must be at least 8 characters long.'],
   },
   photo: {
-    type: String
+    type: String,
+    default:
+      'https://raw.githubusercontent.com/fayinana/HomeTradeNetwork-API-/main/file/image/user/default.jpg',
   },
   role: {
     type: String,
     enum: ['premium-user', 'user', 'admin'],
     default: 'user',
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
@@ -51,36 +53,36 @@ const userSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true,
-    select: false
-  }
+    select: false,
+  },
 });
 
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
   next();
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 1000;
   next();
 });
 
-userSchema.pre(/^find/, function(next) {
+userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
   next();
 });
 
-userSchema.methods.correctPassword = async function(
+userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
@@ -91,7 +93,7 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function() {
+userSchema.methods.createPasswordResetToken = function () {
   const resetToken = randomBytes(32).toString('hex');
 
   this.passwordResetToken = createHash('sha256')

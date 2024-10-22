@@ -1,8 +1,70 @@
 /* eslint-disable node/no-unsupported-features/es-syntax */
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 import QuestionAnswer from '../models/questionAnswerModel.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import { getAll, getOne } from './handlerFactory.js';
+// new
+import multer from 'multer';
+import sharp from 'sharp';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const multerStorage = multer.memoryStorage();
+
+// Filter to allow only image uploads
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image')) {
+    cb(null, true);
+  } else {
+    cb(new AppError('Please upload images only', 400), false);
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+const uploadFiles = upload.array('questionDocument', 10);
+
+export const uploadImages = (req, res, next) => {
+  uploadFiles(req, res, (err) => {
+    if (err instanceof multer.MulterError) {
+      if (err.code === 'LIMIT_UNEXPECTED_FILE')
+        return next(new AppError('Upload only image files', 403));
+    } else if (err) {
+      return next(new AppError('Error occurred while uploading images', 500));
+    }
+    next();
+  });
+};
+
+export const resizeImage = catchAsync(async (req, res, next) => {
+  if (!req.files) return next();
+  req.body.questionDocument = []; // Ensure it's initialized as an array
+  await Promise.all(
+    req.files.map(async (file, index) => {
+      const newFileName = `Q&A-${index}-${
+        req.user._id
+      }-${Date.now()}-${req.body.questionText.slice(0, 10)}.jpeg`;
+      await sharp(file.buffer)
+        .resize(600, 600)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(
+          path.resolve(__dirname, `../../frontend/public/Q&A/${newFileName}`)
+        );
+      req.body.questionDocument.push(newFileName); // Corrected this line
+    })
+  );
+  next();
+});
+
+// old
 export const getAllQuestionAnswer = getAll(QuestionAnswer);
 
 export const getQuestionAnswer = getOne(QuestionAnswer, [
@@ -13,23 +75,6 @@ export const getQuestionAnswer = getOne(QuestionAnswer, [
     select: 'name',
   },
 ]);
-// catchAsync(async (req, res, next) => {
-//   const { id } = req.params;
-//   const questionAnswer = await QuestionAnswer.findById(id)
-//     .populate({ path: 'askedBy', select: 'name' })
-//     .populate({
-//       path: 'answers.answeredBy',
-//       model: 'User',
-//       select: 'name',
-//     });
-//   if (!questionAnswer) {
-//     return next(new AppError('No question found with that ID', 404));
-//   }
-//   res.status(200).json({
-//     status: 'success',
-//     questionAnswer,
-//   });
-// });
 
 export const createQuestionAnswer = catchAsync(async (req, res, next) => {
   req.body.askedBy = req.user._id;

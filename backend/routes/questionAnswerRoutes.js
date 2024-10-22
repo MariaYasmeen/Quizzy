@@ -7,6 +7,8 @@ import {
   addVoteForQuestion,
   addAnswer,
   addVoteForAnswer,
+  uploadImages,
+  resizeImage,
 } from './../controllers/questionAnswerController.js';
 import { protect } from './../controllers/authController.js';
 
@@ -17,7 +19,7 @@ router.get('/ten-faq', tenFrequentlyAskedQuestions, getAllQuestionAnswer);
 router.get('/', getAllQuestionAnswer);
 router.get('/:id', getQuestionAnswer);
 router.use(protect);
-router.post('/', createQuestionAnswer);
+router.post('/', uploadImages, resizeImage, createQuestionAnswer);
 // POST /api/v1/qna/:id/vote
 
 router.route('/:questionId/vote').post(addVoteForQuestion);
