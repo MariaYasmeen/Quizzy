@@ -49,14 +49,14 @@ const QDetails = () => {
             <div className='py-5 px-5'>
                 <h1>{questionData.questionText}</h1>  
                 <Card.Text>
-                    Asked by {Array.isArray(questionData.askedBy) ? questionData.askedBy.map(user => user.name).join(", ") : questionData.askedBy.name} |   {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"} |  {timeAgo(questionData.createdAt)}
+                    Asked by {Array.isArray(questionData.askedBy) ? questionData.askedBy.map(user => user.name).join(", ") : questionData.askedBy.name} | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"} | {timeAgo(questionData.createdAt)}
                 </Card.Text>
                 <Card.Text>
-                    {/* <strong>Status:</strong> {questionData.isResolved ? "Resolved" : "Not Resolved"} */}
+                    <strong>Status:</strong> {questionData.isResolved ? "Resolved" : "Not Resolved"}
                 </Card.Text>
                 <Card.Text>
-                    <button>Answer this Question</button>
-                 </Card.Text>
+                    <button className="btn btn-primary">Answer this Question</button>
+                </Card.Text>
                 <h5>Solutions:</h5>
                 {questionData.answers.length > 0 ? (
                     <Row>
@@ -66,13 +66,11 @@ const QDetails = () => {
                                     <Card.Body>
                                         <Card.Text>{answer.answerText}</Card.Text>
                                         <Card.Text className="text-muted">
-                                            <p style={{fontSize:"13px"}}>
-                                                Answered by {Array.isArray(answer.answeredBy) ? answer.answeredBy.map(user => user.name).join(", ") : answer.answeredBy.name}  |  {answer.votes} {answer.votes === 1 ? "vote" : "votes"}
+                                            <p style={{ fontSize: "13px" }}>
+                                                Answered by {Array.isArray(answer.answeredBy) ? answer.answeredBy.map(user => user.name).join(", ") : answer.answeredBy.name} | {answer.votes} {answer.votes === 1 ? "vote" : "votes"}
                                             </p>
-                                            <p style={{fontSize:"13px"}}> {timeAgo(answer.createdAt)}</p>  
+                                            <p style={{ fontSize: "13px" }}>{timeAgo(answer.createdAt)}</p>
                                         </Card.Text>
-                                        <Card.Text>
-                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
                             </Col>
