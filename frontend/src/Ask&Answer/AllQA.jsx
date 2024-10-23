@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchQuestions } from "../services/getAllQA";
+import { fetchQuestions } from "../services/Q&AFETCH";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../services/timeago";
@@ -22,7 +22,6 @@ const AllQA = () => {
         setLoading(false);
       }
     };
-
     fetchQA();
   }, []);
 
@@ -50,7 +49,7 @@ const AllQA = () => {
         qaData.map((qaData) => (
           <Card className="mb-3" key={qaData._id}>
             <Card.Body>
-              <h5 style={{ color: "lightblue", fontWeight: "300px" }}>
+              <h5 style={{ color: "green", fontWeight: "300px" }}>
                 <Link
                   to={`/questions/${qaData._id}/${createSlug(
                     qaData.questionText
@@ -64,6 +63,20 @@ const AllQA = () => {
                 {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"} | 0
                 answers | 3 views
               </p>
+              <p>
+                {qaData.description.length > 100
+                  ? `${qaData.description.substring(0, 100)}...`
+                  : qaData.description}
+              </p>
+
+               <div className="d-flex flex-wrap mt-2">
+                {qaData.tags && qaData.tags.map((tag, index) => (
+                  <span key={index} className="badge bg-primary me-1 mb-1">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <Card.Footer>
                 <small className="text-muted">
                   Asked by{" "}

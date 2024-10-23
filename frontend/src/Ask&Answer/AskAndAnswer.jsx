@@ -13,6 +13,7 @@ const Questions = () => {
             <h1>All Questions</h1>
             <h5>4 questions</h5>
             <Link variant="primary" to="/createquestion" className="mb-2">Ask  Question</Link>
+            <Link variant="primary" to="/myquestions" className="mb-2">My  Questions</Link>
             <AllQA/>
            
         </Container>

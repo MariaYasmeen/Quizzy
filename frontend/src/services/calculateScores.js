@@ -24,12 +24,10 @@ export const handleChange = (questionId, optionId, setUserAnswers) => {
   
 };
 
-// Handle moving to the next question
-export const handleNextQuestion = (setCurrentQuestionIndex) => {
+ export const handleNextQuestion = (setCurrentQuestionIndex) => {
   setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
 };
 
-// Handle moving to the previous question
-export const handlePrevQuestion = (setCurrentQuestionIndex) => {
+ export const handlePrevQuestion = (setCurrentQuestionIndex) => {
   setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
 };

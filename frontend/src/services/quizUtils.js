@@ -1,6 +1,18 @@
 import { fetchQuizDetails } from "../services/publicQuiz"; // Reused from original code
 import axios from "axios";
 
+ const URL1 = "http://localhost:3300/api/v1/quizzes";
+export async function createQuiz(data) {
+  try {
+    const res = await axios.post(URL1, data);
+    console.log(res.data);
+    return res.data.data;
+  } catch (error) {
+    throw error.data;
+  }
+}
+
+
 const URL = "http://localhost:3300/api/v1/quizzes";
  axios.defaults.withCredentials = true;
 export async function DeletePrivateQuizzes() {
