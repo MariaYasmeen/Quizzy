@@ -9,17 +9,16 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a payload matching the expected endpoint format
-    const formData = {
-      answerText: answerText, // Capturing answer text
-      description: description, // Capturing description
+     const formData = {
+      answerText: answerText,  
+      description: description,  
     };
 
     try {
-      const newAnswer = await createAnswer(formData); // Sending data to the server
-      onSuccess(newAnswer); // Call the onSuccess prop to update the questionData in QDetails
-      setAnswerText(""); // Clear input fields after submission
-      setDescription(""); // Clear description after submission
+      const newAnswer = await createAnswer(formData); 
+      onSuccess(newAnswer);  
+      setAnswerText(""); 
+      setDescription("");  
     } catch (error) {
       console.error("Failed to create answer:", error);
       // Handle error, e.g., show an alert or error message
