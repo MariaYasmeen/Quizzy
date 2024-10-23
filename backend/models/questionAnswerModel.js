@@ -29,6 +29,7 @@ const questionAnswerSchema = new mongoose.Schema({
     {
       answerText: String,
       answerDocument: [String],
+      description: String,
       answeredBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
