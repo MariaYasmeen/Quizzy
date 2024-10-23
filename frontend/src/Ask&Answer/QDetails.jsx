@@ -17,7 +17,7 @@ const QDetails = () => {
     const fetchQuestionDetails = async () => {
       try {
         const data = await fetchOneQuestion(questionId);
-        console.log("Fetched question data:", data);
+        console.log("Fetched question data:", data); // Log the entire data
         setQuestionData(data);
       } catch (err) {
         setError(err.message);
@@ -25,10 +25,11 @@ const QDetails = () => {
         setLoading(false);
       }
     };
-
+  
     fetchQuestionDetails();
   }, [questionId]);
-
+  
+ 
   if (loading) {
     return (
       <Container className="text-center">
@@ -88,14 +89,17 @@ const QDetails = () => {
               <Col key={answer?._id} md={12} className="mb-3">
                 <Card className="p-3 shadow-sm">
                   <Card.Body>
-                    <Card.Text>{answer?.answerText}</Card.Text>
-                    {/*   description will be printed here if the description is available */}
-                    {answer?.description && (
-                      <Card.Text className="text-muted">
-                        Description: {answer.description}
-                      </Card.Text>
-                    )}
-                    <Card.Text className="text-muted">
+                    <h5>{answer?.answerText}</h5>
+                        
+                      <Card.Text>
+  {questionData?.description ? (
+    <p style={{ fontSize: "14px" }}>{questionData.description}</p>
+  ) : (
+    <p>Description not available.</p>
+  )}
+</Card.Text>
+
+                     <Card.Text className="text-muted">
                       <span style={{ fontSize: "13px" }}>
                         {timeAgo(answer?.createdAt)}
                       </span>

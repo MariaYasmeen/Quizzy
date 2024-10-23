@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchPrivateQuizzes } from "../services/privateQuiz";
+import { fetchPrivateQuizzes } from "../services/fetchQUIZ";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Container, Row, Alert } from "react-bootstrap";
 import QuizCard from "./QuizCard";
