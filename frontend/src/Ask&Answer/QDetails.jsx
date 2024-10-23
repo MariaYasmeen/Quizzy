@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchOneQuestion } from "../services/getAllQA"; // Ensure this function can fetch a single question by ID
+import { fetchOneQuestion } from "../services/getAllQA"; 
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import { timeAgo } from "../services/timeago";
@@ -48,6 +48,8 @@ const QDetails = () => {
       <Navbar />
       <div className="py-5 px-5">
         <h1>{questionData.questionText}</h1>
+        <button >Answer this Question</button>
+
         <Card.Text>
           Asked by{" "}
           {Array.isArray(questionData.askedBy)
@@ -56,11 +58,20 @@ const QDetails = () => {
           | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"} |{" "}
           {timeAgo(questionData.createdAt)}
         </Card.Text>
+        <p style={{fontSize:"14pxs"}}>{questionData.description}</p>
+  
+                 {questionData.questionDocument.length > 0 && (
+                  <img 
+                    src={questionData.questionDocument[0]} 
+                    alt="Question related" 
+                    style={{ width: '100%', maxWidth: '300px', marginTop: '10px' }} 
+                  />
+                )}
+               
         <Card.Text>
           {/* <strong>Status:</strong> {questionData.isResolved ? "Resolved" : "Not Resolved"} */}
         </Card.Text>
         <Card.Text>
-          <button className="btn btn-primary">Answer this Question</button>
         </Card.Text>
         <h5>Solutions:</h5>
         {questionData.answers.length > 0 ? (
