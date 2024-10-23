@@ -78,6 +78,7 @@ export const getQuestionAnswer = getOne(QuestionAnswer, [
 
 export const createQuestionAnswer = catchAsync(async (req, res, next) => {
   req.body.askedBy = req.user._id;
+  req.body.tags = JSON.parse(req.body.tags);
   const questionAnswer = await QuestionAnswer.create(req.body);
   res.status(201).json({
     status: 'success',

@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchOneQuestion } from "../services/Q&AFETCH"; 
+import { fetchOneQuestion } from "../services/Q&AFETCH";
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import { timeAgo } from "../services/timeago";
-import CreateAnswer from "./CreateA";  
-import { createAnswer } from "../services/Q&APOST";
+import CreateAnswer from "./CreateA";
 
 const QDetails = () => {
   const { questionId } = useParams();
   const [questionData, setQuestionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false);  
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchQuestionDetails = async () => {
@@ -29,18 +28,6 @@ const QDetails = () => {
 
     fetchQuestionDetails();
   }, [questionId]);
-
-  const addNewAnswer = async (newAnswerData) => {
-    try {
-      const newAnswer = await createAnswer(questionId, newAnswerData);
-      setQuestionData((prevData) => ({
-        ...prevData,
-        answers: [...(prevData.answers || []), newAnswer],
-      }));
-    } catch (error) {
-      console.error("Failed to add new answer:", error);
-    }
-  };
 
   if (loading) {
     return (
@@ -72,34 +59,30 @@ const QDetails = () => {
           Asked by{" "}
           {Array.isArray(questionData?.askedBy)
             ? questionData.askedBy.map((user) => user.name).join(", ")
-            : questionData.askedBy?.name}{" "} | {questionData?.votes}{" "}
-          {questionData?.votes === 1 ? "vote" : "votes"} |{" "}
-          {timeAgo(questionData?.createdAt)}
+            : questionData.askedBy?.name}{" "}
+          | {questionData?.votes} {questionData?.votes === 1 ? "vote" : "votes"}{" "}
+          | {timeAgo(questionData?.createdAt)}
         </Card.Text>
-        
+
         <button onClick={() => setShowForm(!showForm)}>
           {showForm ? "Cancel" : "Answer this Question"}
         </button>
 
-        {showForm && (
-          <CreateAnswer 
-            questionId={questionId} 
-            onSuccess={addNewAnswer} 
+        {showForm && <CreateAnswer questionId={questionId} />}
+
+        <p style={{ fontSize: "14px" }}>{questionData?.description}</p>
+
+        {questionData.questionDocument.length > 0 && (
+          <img
+            src={questionData.questionDocument[0]}
+            alt="Question related"
+            style={{ width: "100%", maxWidth: "300px", marginTop: "10px" }}
           />
         )}
 
-        <p style={{ fontSize: "14px" }}>{questionData?.description}</p>
-  
-        {questionData.questionDocument.length > 0 && (
-          <img 
-            src={questionData.questionDocument[0]} 
-            alt="Question related" 
-            style={{ width: '100%', maxWidth: '300px', marginTop: '10px' }} 
-          />
-        )}
-               
         <h5>Solutions:</h5>
-        {Array.isArray(questionData.answers) && questionData.answers.length > 0 ? (
+        {Array.isArray(questionData.answers) &&
+        questionData.answers.length > 0 ? (
           <Row>
             {questionData.answers.map((answer) => (
               <Col key={answer?._id} md={12} className="mb-3">

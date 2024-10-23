@@ -5,20 +5,20 @@ import { createAnswer } from "../services/Q&APOST";
 const CreateAnswer = ({ questionId, onSuccess }) => {
   const [answerText, setAnswerText] = useState("");
   const [description, setDescription] = useState("");
-
+  console.log(questionId);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-     const formData = {
-      answerText: answerText,  
-      description: description,  
+    const formData = {
+      answerText: answerText,
+      description: description,
     };
 
     try {
-      const newAnswer = await createAnswer(formData); 
-      onSuccess(newAnswer);  
-      setAnswerText(""); 
-      setDescription("");  
+      const newAnswer = await createAnswer({ data: formData, id: questionId });
+      // onSuccess(newAnswer);
+      setAnswerText("");
+      setDescription("");
     } catch (error) {
       console.error("Failed to create answer:", error);
       // Handle error, e.g., show an alert or error message
