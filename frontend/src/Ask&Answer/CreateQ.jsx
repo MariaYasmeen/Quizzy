@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import { createQuestion } from '../services/apiQuestion';
+import { createQuestion } from '../services/Q&APOST';
 import Navbar from '../Components/Navbar';
 
 const CreateQuestion = () => {

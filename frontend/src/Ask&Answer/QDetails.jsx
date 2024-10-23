@@ -5,7 +5,7 @@ import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import { timeAgo } from "../services/timeago";
 import CreateAnswer from "./CreateA";  
-import { createAnswer } from "../services/apiQuestion";
+import { createAnswer } from "../services/Q&APOST";
 
 const QDetails = () => {
   const { questionId } = useParams();

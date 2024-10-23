@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
-import { createAnswer } from "../services/apiQuestion";
+import { createAnswer } from "../services/Q&APOST";
 
 const CreateAnswer = ({ questionId, onSuccess }) => {
   const [answerText, setAnswerText] = useState("");
