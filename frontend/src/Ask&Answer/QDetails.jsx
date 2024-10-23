@@ -60,7 +60,7 @@ const QDetails = () => {
           {/* <strong>Status:</strong> {questionData.isResolved ? "Resolved" : "Not Resolved"} */}
         </Card.Text>
         <Card.Text>
-          <button>Answer this Question</button>
+          <button className="btn btn-primary">Answer this Question</button>
         </Card.Text>
         <h5>Solutions:</h5>
         {questionData.answers.length > 0 ? (
