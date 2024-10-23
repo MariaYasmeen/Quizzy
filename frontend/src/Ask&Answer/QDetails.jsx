@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchOneQuestion } from "../services/getAllQA"; 
+import { fetchOneQuestion } from "../services/Q&AFETCH"; 
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import { timeAgo } from "../services/timeago";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchQuestions } from "../services/getAllQA";
+import { fetchQuestions } from "../services/Q&AFETCH";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../services/timeago";
@@ -22,7 +22,6 @@ const AllQA = () => {
         setLoading(false);
       }
     };
-
     fetchQA();
   }, []);
 
