@@ -12,7 +12,6 @@ export async function createQuestion(data) {
 }
 
 
-
  const URL2 = "http://localhost:3300/api/v1/qna/67189be0f95d665e0baacb17/answer";
 export async function createAnswer(data) {
   try {
