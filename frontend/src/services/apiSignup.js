@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://localhost:3300/api/v1/users/signup";
+http://localhost:3300/api/v1/qna/66dea40cf45bbab14aca59f6/vote
 axios.defaults.withCredentials = true;
 
 export async function signup(data) {

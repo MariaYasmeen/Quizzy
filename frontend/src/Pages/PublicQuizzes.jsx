@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { fetchPublicQuizzes } from "../services/publicQuiz";
+import { fetchPublicQuizzes } from "../services/fetchQUIZ";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { Spinner, Container, Row } from "react-bootstrap";
 import QuizCard from "../Components/QuizCard";
 import { getRandomColor } from "../services/quizUtils" ;
-import './Pages.css';  // For custom styles
+import './Pages.css';   
 
 const PublicQuizzes = () => {
   const [quizzes, setQuizzes] = useState([]);

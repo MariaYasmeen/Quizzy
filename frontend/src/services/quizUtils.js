@@ -1,4 +1,4 @@
-import { fetchQuizDetails } from "../services/publicQuiz"; // Reused from original code
+import { fetchQuizDetails } from "./fetchQUIZ"; // Reused from original code
 import axios from "axios";
 
  const URL1 = "http://localhost:3300/api/v1/quizzes";

@@ -23,3 +23,25 @@ export async function createAnswer({ data, id }) {
     throw error.data;
   }
 }
+
+export async function addVoteToQ({ data, id }) {
+  console.log(data);
+  const URL2 = `http://localhost:3300/api/v1/qna/${id}/vote`;
+  try {
+    const res = await axios.post(URL2, data);
+    return res.data.data;
+  } catch (error) {
+    throw error.data;
+  }
+}
+
+export async function addVoteToA({ data, id, questionId }) {
+  console.log(data);
+  const URL2 = `http://localhost:3300/api/v1/qna/answer/${questionId}/vote`;
+  try {
+    const res = await axios.post(URL2, data);
+    return res.data.data;
+  } catch (error) {
+    throw error.data;
+  }
+}
