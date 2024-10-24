@@ -4,11 +4,17 @@ import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../services/timeago";
 import { createSlug } from "../services/slug";
+import { addVoteToQ } from "../services/Q&APOST";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const AllQA = () => {
   const [qaData, setQaData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [votedQuestions, setVotedQuestions] = useState({}); // Track votes for each question
 
   useEffect(() => {
     const fetchQA = async () => {
@@ -24,6 +30,38 @@ const AllQA = () => {
     };
     fetchQA();
   }, []);
+
+  const handleVoteClick = async (questionId) => {
+    // Toggle vote state
+    const hasVoted = votedQuestions[questionId];
+    const newVoteState = !hasVoted;
+
+    try {
+      // Update votes in the database
+      const data = { vote: newVoteState ? 1 : -1 }; // 1 for upvote, -1 for downvote
+      await addVoteToQ({ data, id: questionId });
+
+      // Update local state
+      setVotedQuestions((prevState) => ({
+        ...prevState,
+        [questionId]: newVoteState,
+      }));
+
+      // Update vote count in the local state
+      setQaData((prevData) =>
+        prevData.map((qa) =>
+          qa._id === questionId
+            ? {
+                ...qa,
+                votes: qa.votes + (newVoteState ? 1 : -1),
+              }
+            : qa
+        )
+      );
+    } catch (error) {
+      console.error("Failed to update votes:", error);
+    }
+  };
 
   if (loading) {
     return (
@@ -69,12 +107,24 @@ const AllQA = () => {
                   : qaData.description}
               </p>
 
-               <div className="d-flex flex-wrap mt-2">
-                {qaData.tags && qaData.tags.map((tag, index) => (
-                  <span key={index} className="badge bg-primary me-1 mb-1">
-                    {tag}
-                  </span>
-                ))}
+              <div className="d-flex flex-wrap mt-2">
+                {qaData.tags &&
+                  qaData.tags.map((tag, index) => (
+                    <span key={index} className="badge bg-primary me-1 mb-1">
+                      {tag}
+                    </span>
+                  ))}
+              </div>
+
+              <div className="mt-2">
+                <FontAwesomeIcon
+                  icon={
+                    votedQuestions[qaData._id] ? solidThumbsUp : regularThumbsUp
+                  }
+                  onClick={() => handleVoteClick(qaData._id)}
+                  style={{ cursor: "pointer", marginRight: "5px" }}
+                />
+                {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"}
               </div>
 
               <Card.Footer>
