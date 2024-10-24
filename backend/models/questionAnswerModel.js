@@ -59,7 +59,7 @@ const questionAnswerSchema = new mongoose.Schema({
     default: false,
   },
 });
-
+questionAnswerSchema.index({ votes: -1 });
 const QuestionAnswer = mongoose.model('QuestionAnswer', questionAnswerSchema);
 
 export default QuestionAnswer;

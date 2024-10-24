@@ -65,8 +65,17 @@ export const resizeImage = catchAsync(async (req, res, next) => {
 });
 
 // old
+export const sortByVotes = (req, res, next) => {
+  if (!req.query.sort) {
+    req.query.sort = '-votes';
+  }
+  next();
+};
 export const getAllQuestionAnswer = getAll(QuestionAnswer);
-
+export const getMyQuestionAnswer = (req, res, next) => {
+  req.query.askedBy = req.user._id;
+  next();
+};
 export const getQuestionAnswer = getOne(QuestionAnswer, [
   { path: 'askedBy', select: 'name' },
   {
