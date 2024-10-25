@@ -5,7 +5,7 @@ import { createAnswer } from "../services/Q&APOST";
 const CreateAnswer = ({ questionId, onSuccess }) => {
   const [answerText, setAnswerText] = useState("");
   const [description, setDescription] = useState("");
-  console.log(questionId);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -16,13 +16,14 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
 
     try {
       const newAnswer = await createAnswer({ data: formData, id: questionId });
-      // onSuccess(newAnswer);
+      if (onSuccess) {
+        onSuccess(newAnswer);  
+      }
       setAnswerText("");
       setDescription("");
     } catch (error) {
       console.error("Failed to create answer:", error);
-      // Handle error, e.g., show an alert or error message
-    }
+     }
   };
 
   return (
