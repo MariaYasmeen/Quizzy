@@ -56,8 +56,8 @@ const QDetails = () => {
           {Array.isArray(questionData.askedBy)
             ? questionData.askedBy.map((user) => user.name).join(", ")
             : questionData.askedBy?.name}{" "}
-          | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"}{" "}
-          | {timeAgo(questionData.createdAt)}
+          | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"} |{" "}
+          {timeAgo(questionData.createdAt)}
         </Card.Text>
 
         <button onClick={() => setShowForm(!showForm)}>
@@ -80,7 +80,8 @@ const QDetails = () => {
         )}
 
         <h5>Solutions:</h5>
-        {Array.isArray(questionData.answers) && questionData.answers.length > 0 ? (
+        {Array.isArray(questionData.answers) &&
+        questionData.answers.length > 0 ? (
           <Row>
             {questionData.answers.map((answer) => (
               <Col key={answer._id} md={12} className="mb-3">

@@ -1,11 +1,15 @@
- import { addVoteToA } from "../services/Q&APOST";
-import { fetchOneQuestion } from "../services/Q&AFETCH";
+import { addVoteToA } from "../services/Q&APOST";
 
 // Function to fetch question details
 
-
 // Function to handle vote click
-export const handleVoteClick = async (answerId, questionId, votedAnswers, setVotedAnswers, setQuestionData) => {
+export const handleVoteClick = async (
+  answerId,
+  questionId,
+  votedAnswers,
+  setVotedAnswers,
+  setQuestionData
+) => {
   const hasVoted = votedAnswers[answerId];
   const newVoteState = !hasVoted;
 
