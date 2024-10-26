@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { handleVoteClick } from "../services/QDetailsUtils";
 import { fetchQuestionDetails } from "../services/Q&AFETCH";
+import { handleAnswerVoteClick } from "../QAContext/voteUtils";
+import {timeAgo} from "../services/timeago";
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
-import { timeAgo } from "../services/timeago";
 import CreateAnswer from "./CreateA";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
@@ -43,9 +43,6 @@ const QDetails = () => {
     return <p>Question data is loading or not available.</p>;
   }
 
-  // Debug log to check the structure of questionData
-  console.log("Question Data:", questionData);
-
   return (
     <>
       <Navbar />
@@ -66,7 +63,6 @@ const QDetails = () => {
 
         {showForm && <CreateAnswer questionId={questionId} />}
 
-        {/* Render the description with a fallback */}
         <p style={{ fontSize: "14px" }}>
           {questionData.description || "No description available."}
         </p>
@@ -101,7 +97,7 @@ const QDetails = () => {
                             : regularThumbsUp
                         }
                         onClick={() =>
-                          handleVoteClick(
+                          handleAnswerVoteClick(
                             answer._id,
                             questionId,
                             votedAnswers,
@@ -111,7 +107,7 @@ const QDetails = () => {
                         }
                         style={{ cursor: "pointer", marginRight: "5px" }}
                       />
-                      {answer.votes} {answer.votes === 1 ? "vote" : "votes"}
+                      {answer.votes}  
                     </div>
                     <Card.Text className="text-muted">
                       <span style={{ fontSize: "13px" }}>
