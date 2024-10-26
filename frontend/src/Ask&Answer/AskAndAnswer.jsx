@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import AllQA from './AllQA';
+import AllQA from './AllQs';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router-dom';
 
