@@ -97,7 +97,7 @@ export const createQuestionAnswer = catchAsync(async (req, res, next) => {
 
 export const addAnswer = catchAsync(async (req, res, next) => {
   const { questionId } = req.params;
-  const { answerText } = req.body;
+  const { answerText, description } = req.body;
   const answeredBy = req.user._id;
 
   const updatedQuestion = await QuestionAnswer.findByIdAndUpdate(
@@ -107,6 +107,7 @@ export const addAnswer = catchAsync(async (req, res, next) => {
         answers: {
           answerText: answerText,
           answeredBy: answeredBy,
+          description: description,
           votes: 0,
           createdAt: new Date(),
         },
