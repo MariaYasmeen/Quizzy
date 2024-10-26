@@ -1,9 +1,7 @@
 import { addVoteToA } from "../services/Q&APOST";
 
-// Function to fetch question details
-
-// Function to handle vote click
-export const handleVoteClick = async (
+ 
+ export const handleVoteClick = async (
   answerId,
   questionId,
   votedAnswers,

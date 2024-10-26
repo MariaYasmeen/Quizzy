@@ -7,6 +7,7 @@ import Hero from "./Pages/Hero";
 import RegisterV1 from "./Account/RegisterV1";
 import Signin from "./Account/Signin";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QAProvider } from "./QAContext/QAContext";
 import { QuizProvider } from "./Context/QuizContext";
 import { UserProvider } from "./Context/userContext";
 import PublicQuizzes from "./Pages/PublicQuizzes";
@@ -19,7 +20,6 @@ import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
 import MyQuestions from "./Ask&Answer/MyQ";
-import { QAProvider } from "./QAContext/QAContext";
 
 const queryClient = new QueryClient();
 

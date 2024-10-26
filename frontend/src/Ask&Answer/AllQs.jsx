@@ -75,7 +75,7 @@ const AllQA = () => {
                   onClick={() => handleVoteClick(qaData._id)}
                   style={{ cursor: "pointer", marginRight: "5px" }}
                 />
-                {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"}
+                {qaData.votes} 
               </div>
 
               <Card.Footer>
