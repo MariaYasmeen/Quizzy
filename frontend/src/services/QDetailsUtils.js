@@ -2,17 +2,7 @@
 import { fetchOneQuestion } from "../services/Q&AFETCH";
 
 // Function to fetch question details
-export const fetchQuestionDetails = async (questionId, setQuestionData, setLoading, setError) => {
-  setLoading(true);
-  try {
-    const data = await fetchOneQuestion(questionId);
-    setQuestionData(data);
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+
 
 // Function to handle vote click
 export const handleVoteClick = async (answerId, questionId, votedAnswers, setVotedAnswers, setQuestionData) => {

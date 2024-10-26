@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchQuestionDetails, handleVoteClick } from "../services/QDetailsUtils";
+import { handleVoteClick } from "../services/QDetailsUtils";
+import { fetchQuestionDetails } from "../services/Q&AFETCH";
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import { timeAgo } from "../services/timeago";
@@ -42,7 +43,8 @@ const QDetails = () => {
     return <p>Question data is loading or not available.</p>;
   }
 
-   console.log("Question Data:", questionData);
+  // Debug log to check the structure of questionData
+  console.log("Question Data:", questionData);
 
   return (
     <>
