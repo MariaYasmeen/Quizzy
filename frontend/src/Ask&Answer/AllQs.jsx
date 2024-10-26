@@ -1,67 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { fetchQuestions } from "../services/Q&AFETCH";
+// src/components/AllQA.js
+import React, {useContext} from "react";
+import { QAContext } from "../QAContext/QAContext";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../services/timeago";
 import { createSlug } from "../services/slug";
-import { addVoteToQ } from "../services/Q&APOST";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const AllQA = () => {
-  const [qaData, setQaData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [votedQuestions, setVotedQuestions] = useState({}); // Track votes for each question
-
-  useEffect(() => {
-    const fetchQA = async () => {
-      try {
-        const data = await fetchQuestions();
-        console.log("Fetched QA Data:", data);
-        setQaData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchQA();
-  }, []);
-
-  const handleVoteClick = async (questionId) => {
-    // Toggle vote state
-    const hasVoted = votedQuestions[questionId];
-    const newVoteState = !hasVoted;
-
-    try {
-      // Update votes in the database
-      const data = { vote: newVoteState ? 1 : -1 }; // 1 for upvote, -1 for downvote
-      await addVoteToQ({ data, id: questionId });
-
-      // Update local state
-      setVotedQuestions((prevState) => ({
-        ...prevState,
-        [questionId]: newVoteState,
-      }));
-
-      // Update vote count in the local state
-      setQaData((prevData) =>
-        prevData.map((qa) =>
-          qa._id === questionId
-            ? {
-                ...qa,
-                votes: qa.votes + (newVoteState ? 1 : -1),
-              }
-            : qa
-        )
-      );
-    } catch (error) {
-      console.error("Failed to update votes:", error);
-    }
-  };
+  const { qaData, loading, error, votedQuestions, handleVoteClick } =
+    useContext(QAContext);
 
   if (loading) {
     return (

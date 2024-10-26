@@ -14,12 +14,13 @@ import CreateQuizPage from "./Pages/CreateQuizPage";
 import CreateQuestion from "./Ask&Answer/CreateQ";
 import QuizDetails from "./Pages/QuizDetails";
 import Dashboard from "./Dashboard/Home";
-import AllQA from "./Ask&Answer/AllQA";
+import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
 import MyQuestions from "./Ask&Answer/MyQ";
- 
+import { QAProvider } from "./QAContext/QAContext";
+
 const queryClient = new QueryClient();
 
 function App() {
@@ -28,11 +29,12 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <QuizProvider>
+          <QAProvider>
+
             <BrowserRouter>
               <Routes> 
                 <Route path="/" element={<Hero />} />
                 <Route path="/myquestions" element={<MyQuestions />} />
-
                 <Route path="/questions" element={<Questions />} />
                 <Route path="/createquestion" element={<CreateQuestion />} />
                 <Route path="/questions/:questionId/:title" element={<QDetails />} />
@@ -51,6 +53,8 @@ function App() {
                 {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
               </Routes>
             </BrowserRouter>
+            </QAProvider>
+
           </QuizProvider>
         </UserProvider>
       </QueryClientProvider>
