@@ -1,4 +1,4 @@
- import { addVoteToQ } from "../services/Q&APOST";
+ import { addVoteToQ , addVoteToA} from "../services/Q&APOST";
 
 export const handleQuestionVoteClick = async (
   questionId,
@@ -33,7 +33,8 @@ export const handleQuestionVoteClick = async (
   }
 };
 
- export const handleAnswerVoteClick = (
+
+export const handleAnswerVoteClick = async (
   answerId,
   questionId,
   votedAnswers,
@@ -43,24 +44,48 @@ export const handleQuestionVoteClick = async (
   const hasVoted = votedAnswers[answerId];
   const newVoteState = !hasVoted;
 
-  const updatedAnswers = (questionData) =>
-    questionData.answers.map((answer) =>
+   const data = {
+    vote: newVoteState ? 1 : -1,  
+  };
+
+   const updateAnswers = (prevData) =>
+    prevData.answers.map((answer) =>
       answer._id === answerId
         ? { ...answer, votes: answer.votes + (newVoteState ? 1 : -1) }
         : answer
     );
 
+   setVotedAnswers((prevState) => ({
+    ...prevState,
+    [answerId]: newVoteState,
+  }));
+
+  setQuestionData((prevData) => ({
+    ...prevData,
+    answers: updateAnswers(prevData),
+  }));
+
   try {
-    setVotedAnswers((prevState) => ({
+     await addVoteToA({
+      data,
+      id: answerId,
+      questionId,
+    });
+  } catch (error) {
+     console.error("Failed to update vote:", error);
+
+     setVotedAnswers((prevState) => ({
       ...prevState,
-      [answerId]: newVoteState,
+      [answerId]: hasVoted,
     }));
 
-    setQuestionData((prevData) => ({
+     setQuestionData((prevData) => ({
       ...prevData,
-      answers: updatedAnswers(prevData),
+      answers: updateAnswers(prevData).map((answer) =>
+        answer._id === answerId
+          ? { ...answer, votes: answer.votes - (newVoteState ? 1 : -1) }
+          : answer
+      ),
     }));
-  } catch (error) {
-    console.error("Failed to update votes:", error);
   }
 };

@@ -15,9 +15,9 @@ export async function createQuestion(data) {
 
 export async function createAnswer({ data, id }) {
   console.log("Data being sent to backend:", data);
-  const URL2 = `http://localhost:3300/api/v1/qna/${id}/answer`;
+  const URL1 = `http://localhost:3300/api/v1/qna/${id}/answer`;
   try {
-    const res = await axios.post(URL2, data);
+    const res = await axios.post(URL1, data);
     console.log("Backend response:", res.data);
     return res.data.data;
   } catch (error) {
@@ -38,10 +38,10 @@ export async function addVoteToQ({ data, id }) {
 }
 
 export async function addVoteToA({ data, id, questionId }) {
+  console.log(data);
   const URL2 = `http://localhost:3300/api/v1/qna/${questionId}/answer/${id}/vote`;
   try {
-    const res = await axios.post(URL2);
-    console.log(res.data);
+    const res = await axios.post(URL2, data);
     return res.data.data;
   } catch (error) {
     throw error.data;
