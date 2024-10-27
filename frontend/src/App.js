@@ -11,7 +11,7 @@ import { QAProvider } from "./QAContext/QAContext";
 import { QuizProvider } from "./Context/QuizContext";
 import { UserProvider } from "./Context/userContext";
 import PublicQuizzes from "./Pages/PublicQuizzes";
-import CreateQuizPage from "./Pages/CreateQuizPage";
+import CreateQuiz from "./Pages/CreateQuiz";
 import CreateQuestion from "./Ask&Answer/CreateQ";
 import QuizDetails from "./Pages/QuizDetails";
 import Dashboard from "./Dashboard/Home";
@@ -19,8 +19,7 @@ import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
-import MyQuestions from "./Ask&Answer/MyQ";
-
+ 
 const queryClient = new QueryClient();
 
 function App() {
@@ -34,8 +33,7 @@ function App() {
             <BrowserRouter>
               <Routes> 
                 <Route path="/" element={<Hero />} />
-                <Route path="/myquestions" element={<MyQuestions />} />
-                <Route path="/questions" element={<Questions />} />
+                 <Route path="/questions" element={<Questions />} />
                 <Route path="/createquestion" element={<CreateQuestion />} />
                 <Route path="/questions/:questionId/:title" element={<QDetails />} />
                 <Route path="/communityquestions" element={<AllQA />} />
@@ -45,7 +43,7 @@ function App() {
                 <Route path="/quiz/:quizId" element={<QuizDetails />} />
                 <Route path="/account/register2" element={<RegisterV1 />} />
                 <Route path="/account/signin" element={<Signin />} />
-                <Route path="/createquizpage" element={<CreateQuizPage />} />
+                <Route path="/createquiz" element={<CreateQuiz />} />
                 <Route
                   path="/createquiz/:quizId"
                   element={<CreateQuestion />}

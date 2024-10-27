@@ -7,6 +7,7 @@ import { getRandomColor } from "../services/quizUtils";
 import { DeleteQuiz } from "../services/quizUD";
 import "./Dashboard.css";
 import Navbar from "../Components/Navbar";
+import Sidebar from "../Components/Sidebar";
 
 const QuizList = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -56,6 +57,9 @@ const QuizList = () => {
   return (
     <>
       <Navbar />
+         <Sidebar />
+         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+
       <div>
         <Container className="py-4">
           <h2 className="text-center mb-5">Private Quizzes</h2>
@@ -78,6 +82,7 @@ const QuizList = () => {
           </Row>
         </Container>
       </div>
+      </main>
     </>
   );
 };

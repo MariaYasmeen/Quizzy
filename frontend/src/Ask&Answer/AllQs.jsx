@@ -32,13 +32,13 @@ const AllQA = () => {
   }
 
   return (
-    <Container>
+    <div>
       <h5>Question & Answers</h5>
       {qaData &&
         qaData.map((qaData) => (
-          <Card className="mb-3" key={qaData._id}>
-            <Card.Body>
-              <h5 style={{ color: "green", fontWeight: "300px" }}>
+          <div className="mb-2 qsbox"   key={qaData._id}>
+            <Card>
+              <p className="title">
                 <Link
                   to={`/questions/${qaData._id}/${createSlug(
                     qaData.questionText
@@ -47,27 +47,28 @@ const AllQA = () => {
                 >
                   {qaData.questionText}
                 </Link>
-              </h5>
-              <p style={{ fontSize: "14px" }}>
-                {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"} | 0
-                answers | 3 views
               </p>
-              <p>
+             
+              <p className="description">
                 {qaData.description.length > 100
                   ? `${qaData.description.substring(0, 100)}...`
                   : qaData.description}
               </p>
+              
 
               <div className="d-flex flex-wrap mt-2">
                 {qaData.tags &&
                   qaData.tags.map((tag, index) => (
-                    <span key={index} className="badge bg-primary me-1 mb-1">
+                    <span key={index} className="badge tagsbox me-1 mb-1">
                       {tag}
                     </span>
                   ))}
               </div>
-
-              <div className="mt-2">
+              <p style={{ fontSize: "14px" }}>
+                {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"} | 0
+                answers | 3 views
+              </p>
+              <div >
                 <FontAwesomeIcon
                   icon={
                     votedQuestions[qaData._id] ? solidThumbsUp : regularThumbsUp
@@ -87,10 +88,10 @@ const AllQA = () => {
                   | {timeAgo(qaData.createdAt)}
                 </small>
               </Card.Footer>
-            </Card.Body>
-          </Card>
+            </Card>
+          </div>
         ))}
-    </Container>
+    </div>
   );
 };
 

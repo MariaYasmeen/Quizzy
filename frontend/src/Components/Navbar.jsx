@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light   soft-ui">
+      <nav className="navbar navbar-expand-lg navbarcss  sticky-top">
         <div className="container">
           <a className="navbar-brand d-flex align-items-center" href="/">
             <img src={logo} alt="Logo" className="me-1 img-fluid logoimg" />
@@ -61,20 +61,22 @@ const Navbar = () => {
                 </Link>
               </li>
              
-              <li className="nav-item">
+                <li>
+                <input   className="form-control w-100" placeholder="Search..." aria-label="Search" />
+                </li>
+                <li className="nav-item">
                 <a className="nav-link" href="/search">
                   <i className="bi bi-search"></i>
                 </a>
-              </li>
+                </li>
               <li className="nav-item">
                 <a className="nav-link" href="/notifications">
                   <i className="bi bi-bell"></i>
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/questions">
-                  Ask & Answer
-                </Link>
+                <Link className="nav-link" to="/ ">
+About                 </Link>
               </li>
               <li className="nav-item dropdown">
                 <a

@@ -39,7 +39,7 @@ const OptionForm = ({ questionIndex }) => {
           <div className="col-md-10">
             <input
               type="text"
-              className="form-control"
+              className="form-control inputfeild"
               value={option.text}
               onChange={(e) =>
                 handleOptionChange(questionIndex, optionIndex, e.target.value)
@@ -51,7 +51,7 @@ const OptionForm = ({ questionIndex }) => {
           <div className="col-md-2 d-flex align-items-center">
             <input
               type="radio"
-              className="form-check-input"
+              className="form-check-input inputfeild"
               name={`correctOption${questionIndex}`}
               checked={option.isCorrect}
               onChange={() => setCorrectAnswer(questionIndex, optionIndex)}
