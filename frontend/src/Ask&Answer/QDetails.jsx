@@ -9,6 +9,7 @@ import CreateAnswer from "./CreateA";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import Sidebar from "../Components/Sidebar";
 
 const QDetails = () => {
   const { questionId } = useParams();
@@ -46,6 +47,9 @@ const QDetails = () => {
   return (
     <>
       <Navbar />
+         <Sidebar />
+         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '180px', padding: '20px' }}>
+
       <div className="py-5 px-5">
         <h1>{questionData.questionText}</h1>
         <Card.Text>
@@ -57,12 +61,7 @@ const QDetails = () => {
           {timeAgo(questionData.createdAt)}
         </Card.Text>
 
-        <button onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Cancel" : "Answer this Question"}
-        </button>
-
-        {showForm && <CreateAnswer questionId={questionId} />}
-
+         
         <p style={{ fontSize: "14px" }}>
           {questionData.description || "No description available."}
         </p>
@@ -111,7 +110,7 @@ const QDetails = () => {
                     </div>
                     <Card.Text className="text-muted">
                       <span style={{ fontSize: "13px" }}>
-                        {timeAgo(answer.createdAt)}
+                       Answer by user_name | {timeAgo(answer.createdAt)}
                       </span>
                     </Card.Text>
                   </Card.Body>
@@ -122,7 +121,11 @@ const QDetails = () => {
         ) : (
           <p>No answers available for this question.</p>
         )}
+
+<CreateAnswer questionId={questionId} /> 
+
       </div>
+      </main>
     </>
   );
 };

@@ -1,7 +1,8 @@
  /* Navbar.css */
 
  .navbar {
-  background-color: none; /* Light background for soft look */
+  font-size: 13px;
+  background-color: #f1f1f1 !important;
    }
 
 .navbar .nav-link {
@@ -36,7 +37,18 @@
 .navbar .navbar-toggler {
   border: none;
 }
+.navbarcss{
+   padding: 0px;
+  border-bottom: 0.3px solid rgb(206, 204, 204);
+}
+.sidebarcss{
+  border-right: 1px solid rgb(206, 204, 204);
+  font-size: 13px;
+}
+.navlist li{
+  padding: 1px;
 
+}
 .navbar .navbar-toggler-icon {
   background-image: none;
   font-size: 1.25rem;

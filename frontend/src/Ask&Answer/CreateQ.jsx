@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createQuestion } from "../services/Q&APOST";
 import Navbar from "../Components/Navbar";
+import Sidebar from "../Components/Sidebar";
 
 const CreateQuestion = () => {
   const [formData, setFormData] = useState({
@@ -81,16 +82,19 @@ const CreateQuestion = () => {
   return (
     <>
       <Navbar />
+         <Sidebar />
+         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+
       <div className="container my-4">
         <h2 className="text-center mb-4">Ask a Question</h2>
         {message && <div className="alert alert-success">{message}</div>}
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
+          <div className="mb-1">
             <input
               placeholder="Title"
               type="text"
-              className="form-control"
+              className="form-control inputfeild"
               id="questionText"
               name="questionText"
               value={formData.questionText}
@@ -98,21 +102,21 @@ const CreateQuestion = () => {
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-1">
             <input
               type="text"
-              className="form-control"
+              className="form-control inputfeild"
               id="tags"
               onKeyDown={handleTagChange}
               placeholder="Add tags"
             />
-            <div className="mt-2">
+            <div className="mt-1">
               {tags.map((tag, index) => (
                 <span key={index} className="badge bg-info me-1">
                   {tag}
                   <button
                     type="button"
-                    className="btn-close btn-close-white"
+                    className="btn-close btn-close-white "
                     aria-label="Close"
                     onClick={() => removeTag(tag)}
                   ></button>
@@ -120,12 +124,13 @@ const CreateQuestion = () => {
               ))}
             </div>
           </div>
-          <div className="mb-3">
+          <div className="mb-1">
             <textarea
               describe
               your
+              placeholder="Type your description here"
               question
-              className="form-control"
+              className="form-control inputfeild"
               id="description"
               name="description"
               rows="4"
@@ -138,7 +143,7 @@ const CreateQuestion = () => {
             <input
               placeholder="upload a image"
               type="file"
-              className="form-control"
+              className="form-control inputfeild"
               id="questionDocument"
               name="questionDocument"
               onChange={handleFileChange}
@@ -150,6 +155,7 @@ const CreateQuestion = () => {
           </button>
         </form>
       </div>
+      </main>
     </>
   );
 };

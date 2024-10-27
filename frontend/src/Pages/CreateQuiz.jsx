@@ -3,6 +3,8 @@ import { Button, Form, Row, Col, Alert } from "react-bootstrap";
 import Navabr from "../Components/Navbar";
 import useCreateQuiz from "../features/quiz/useCreateQuiz";
 import { useForm } from "react-hook-form";
+import Sidebar from "../Components/Sidebar";
+import Navbar from "../Components/Navbar";
 
 const CreateQuizPage = () => {
   const { isLoading, createQuiz } = useCreateQuiz();
@@ -59,13 +61,16 @@ const CreateQuizPage = () => {
 
   return (
     <>
-      <Navabr />
-      <div className="container mt-4">
+     <Navbar />
+         <Sidebar />
+         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+
+      <div className="container mt-2">
         <h2>Create a New Quiz</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3" controlId="quizTitle">
-            <Form.Label>Quiz Title</Form.Label>
-            <Form.Control
+             <Form.Control
+             className="inputfeild"
               type="text"
               placeholder="Enter quiz title"
               {...register("title", {
@@ -78,11 +83,11 @@ const CreateQuizPage = () => {
             )}
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="quizDescription">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
+          <Form.Group className="mb-1" controlId="quizDescription">
+             <Form.Control
               as="textarea"
               rows={3}
+              className="inputfeild"
               placeholder="Enter quiz description"
               {...register("description", {
                 required: "Description is required",
@@ -111,6 +116,7 @@ const CreateQuizPage = () => {
               <Form.Group controlId="startDate">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control
+                className="inputfeild"
                   type="date"
                   {...register("startDate", {
                     required: "Start date is required",
@@ -128,6 +134,7 @@ const CreateQuizPage = () => {
                 <Form.Label>End Date</Form.Label>
                 <Form.Control
                   type="date"
+                  className="inputfeild"
                   {...register("endDate", {
                     required: "End date is required",
                     onChange: (e) =>
@@ -141,11 +148,12 @@ const CreateQuizPage = () => {
             </Col>
           </Row>
 
-          <Button variant="primary" type="submit" disabled={isLoading}>
+          <button variant="primary" type="submit" disabled={isLoading}>
             {isLoading ? "Wait..." : "Next"}
-          </Button>
+          </button>
         </Form>
       </div>
+      </main>
     </>
   );
 };
