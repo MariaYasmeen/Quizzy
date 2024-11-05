@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Container, Row, Col } from "react-bootstrap";
+import { Button, Form, Container } from "react-bootstrap";
 import { createAnswer } from "../services/Q&APOST";
- 
+
 const CreateAnswer = ({ questionId, onSuccess }) => {
   const [answerText, setAnswerText] = useState("");
   const [description, setDescription] = useState("");
@@ -35,44 +35,44 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
 
   return (
     <Container className="mt-4">
-      <h3 className="mb-3">  Your Answer</h3>
-      <Form onSubmit={handleSubmit}>         
-
+      <h3 className="mb-3">Your Answer</h3>
+      <Form onSubmit={handleSubmit}>
         <div className="text-editor-toolbar mb-2 editorbox">
-          <button variant="light" onClick={() => formatText('bold')}>
+          <button type="button" onClick={() => formatText("bold")}>
             <b>B</b>
           </button>
-          <button variant="light" onClick={() => formatText('italic')}>
+          <button type="button" onClick={() => formatText("italic")}>
             <i>I</i>
           </button>
-          <button variant="light" onClick={() => formatText('underline')}>
+          <button type="button" onClick={() => formatText("underline")}>
             <u>U</u>
           </button>
-          <button variant="light" onClick={() => formatText('insertUnorderedList')}>
+          <button type="button" onClick={() => formatText("insertUnorderedList")}>
             • List
           </button>
-         
-          <button variant="light" onClick={() => formatText('insertCode')}>
+          <button type="button" onClick={() => formatText("insertCode")}>
             Code
           </button>
         </div>
 
-        <Form.Group  controlId="formAnswerText">
-        <Form.Control
-             contentEditable
-            className="  inputfeild"
+  
+
+        {/* Answer Text Field */}
+        <Form.Group controlId="formAnswerText">
+          <Form.Control
+            as="textarea"
+            className="inputfeild"
             rows={2}
             value={answerText}
-            onInput={(e) => setAnswerText(e.currentTarget.innerText)}
+            onChange={(e) => setAnswerText(e.target.value)}
             required
-            placeholder="Add your Title here..."
-
-           />
+            placeholder="Add your answer text here..."
+          />
         </Form.Group>
- 
 
+        {/* Description Field */}
         <Form.Group controlId="formDescription">
-           <Form.Control
+          <Form.Control
             as="textarea"
             rows={8}
             className="inputfeild"
@@ -82,16 +82,12 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
           />
         </Form.Group>
 
-        <button variant="primary" type="submit" className="mt-3">
+        <Button variant="primary" type="submit" className="mt-3">
           Submit Answer
-        </button>
+        </Button>
       </Form>
     </Container>
   );
 };
 
 export default CreateAnswer;
-
-       
-        
-        
