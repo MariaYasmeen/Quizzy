@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Button, Form, Row, Col, Alert } from "react-bootstrap";
-import Navabr from "../Components/Navbar";
+import React, {  useEffect } from "react";
+import {  Form, Row, Col, Alert } from "react-bootstrap";
+import { createQuiz } from "../services/quizUtils";
 import useCreateQuiz from "../features/quiz/useCreateQuiz";
-import { useForm } from "react-hook-form";
-import Sidebar from "../Components/Sidebar";
-import Navbar from "../Components/Navbar";
+import { useForm } from "react-hook-form"; 
 
 const CreateQuizPage = () => {
-  const { isLoading, createQuiz } = useCreateQuiz();
+  const { isLoading,   } = useCreateQuiz();
   const {
     handleSubmit,
     register,
@@ -16,33 +14,28 @@ const CreateQuizPage = () => {
     setValue,
   } = useForm();
 
-  // Function to save form data to localStorage
-  const saveFormDataToLocalStorage = (data) => {
+   const saveFormDataToLocalStorage = (data) => {
     localStorage.setItem("quizFormData", JSON.stringify(data));
   };
 
-  // Load form data from localStorage
-  const loadFormDataFromLocalStorage = () => {
+   const loadFormDataFromLocalStorage = () => {
     const savedData = localStorage.getItem("quizFormData");
     if (savedData) {
       const parsedData = JSON.parse(savedData);
-      // Set values in the form
-      Object.keys(parsedData).forEach((field) => {
+       Object.keys(parsedData).forEach((field) => {
         setValue(field, parsedData[field]);
       });
     }
   };
 
-  // Debounce saving data to localStorage for better performance
-  const handleInputChange = (field, value) => {
+   const handleInputChange = (field, value) => {
     const savedData = localStorage.getItem("quizFormData") || "{}";
     const parsedData = JSON.parse(savedData);
     parsedData[field] = value;
     saveFormDataToLocalStorage(parsedData);
   };
 
-  // Load form data on component mount
-  useEffect(() => {
+   useEffect(() => {
     loadFormDataFromLocalStorage();
   }, []);
 
@@ -50,8 +43,8 @@ const CreateQuizPage = () => {
     console.log(data);
     createQuiz(data, {
       onSuccess: () => {
-        reset(); // Reset form after successful submission
-        localStorage.removeItem("quizFormData"); // Clear saved data after submission
+        reset(); 
+        localStorage.removeItem("quizFormData"); 
       },
       onError: (error) => {
         console.error("Error creating quiz:", error);
@@ -61,9 +54,8 @@ const CreateQuizPage = () => {
 
   return (
     <>
-     <Navbar />
-         <Sidebar />
-         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+     
+         <main className="flex-grow-1 overflow-auto"  >
 
       <div className="container mt-2">
         <h2>Create a New Quiz</h2>

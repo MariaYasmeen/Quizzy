@@ -10,7 +10,7 @@ const Sidebar = () => {
      
        <ul className="nav nav-pills flex-column mb-auto navlist">
         <li className="nav-item">
-          <Link to="#" className="nav-link  link-body-emphasis " aria-current="page">
+          <Link to="/home" className="nav-link  link-body-emphasis " aria-current="page">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#home" />
             </svg>
@@ -34,7 +34,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/dashboard/allquizzes" className="nav-link link-body-emphasis">
+          <Link to="/publicquizzes" className="nav-link link-body-emphasis">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#grid" />
             </svg>

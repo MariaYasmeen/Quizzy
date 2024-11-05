@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createQuestion } from "../services/Q&APOST";
-import Navbar from "../Components/Navbar";
-import Sidebar from "../Components/Sidebar";
+import { createQuestion } from "../services/Q&APOST"; 
 
 const CreateQuestion = () => {
   const [formData, setFormData] = useState({
@@ -80,10 +78,8 @@ const CreateQuestion = () => {
   };
 
   return (
-    <>
-      <Navbar />
-         <Sidebar />
-         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+    <> 
+         <main className="flex-grow-1 overflow-auto"  >
 
       <div className="container my-4">
         <h2 className="text-center mb-4">Ask a Question</h2>

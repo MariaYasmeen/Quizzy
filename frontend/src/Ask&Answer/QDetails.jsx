@@ -4,13 +4,11 @@ import { fetchQuestionDetails } from "../services/Q&AFETCH";
 import { handleAnswerVoteClick } from "../QAContext/voteUtils";
 import {timeAgo} from "../services/timeago";
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
-import Navbar from "../Components/Navbar";
-import CreateAnswer from "./CreateA";
+ import CreateAnswer from "./CreateA";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
-import Sidebar from "../Components/Sidebar";
-
+ 
 const QDetails = () => {
   const { questionId } = useParams();
   const [questionData, setQuestionData] = useState(null);
@@ -45,9 +43,7 @@ const QDetails = () => {
   }
 
   return (
-    <>
-      <Navbar />
-         <Sidebar />
+    <> 
          <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '180px', padding: '20px' }}>
 
       <div className="py-5 px-5">
