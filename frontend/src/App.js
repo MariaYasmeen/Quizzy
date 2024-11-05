@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Hero from "./Pages/Hero";
 import RegisterV1 from "./Account/RegisterV1";
 import Signin from "./Account/Signin";
+import CreateQuizQuestion from "./features/quiz/CreateQuestion";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QAProvider } from "./QAContext/QAContext";
 import { QuizProvider } from "./Context/QuizContext";
@@ -19,6 +20,7 @@ import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
+import UpdateQuizForm from "./Pages/UpdateQuiz";
  
 const queryClient = new QueryClient();
 
@@ -34,6 +36,8 @@ function App() {
               <Routes> 
                 <Route path="/" element={<Hero />} />
                  <Route path="/questions" element={<Questions />} />
+                 <Route path="/updateQuizForm" element={<UpdateQuizForm />} />
+
                 <Route path="/createquestion" element={<CreateQuestion />} />
                 <Route path="/questions/:questionId/:title" element={<QDetails />} />
                 <Route path="/communityquestions" element={<AllQA />} />
@@ -46,7 +50,7 @@ function App() {
                 <Route path="/createquiz" element={<CreateQuiz />} />
                 <Route
                   path="/createquiz/:quizId"
-                  element={<CreateQuestion />}
+                  element={<CreateQuizQuestion />}
                 />
                 {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
               </Routes>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function useCreateQuiz() {
   const navigate = useNavigate();
-  const { isLoading, mutate: createQuiz } = useMutation({
+  const { isLoading, mutate: submitQuiz } = useMutation({
     mutationFn: createQuizApi,
     onSuccess: (data) => {
       const quizId = data.data._id;
@@ -16,7 +16,7 @@ function useCreateQuiz() {
     },
   });
 
-  return { isLoading, createQuiz };
+  return { isLoading, submitQuiz };
 }
 
 export default useCreateQuiz;

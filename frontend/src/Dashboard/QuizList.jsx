@@ -74,8 +74,10 @@ const QuizList = () => {
                 quiz={quiz}
                 btntxt1="View"
                 btntxt2="Delete Quiz"
+                btntxt3="Update Quiz"
                 onClick1={() => navigate(`/quiz/${quiz._id}`)}
                 onClick2={() => handleQuizDelete(quiz._id)}
+                onClick3={() => navigate(`/updateQuizForm`)}
                 getRandomColor={getRandomColor}
               />
             ))}

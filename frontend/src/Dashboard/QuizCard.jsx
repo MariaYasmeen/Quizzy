@@ -6,12 +6,14 @@ const QuizCard = ({
   quiz,
   onClick1,
   onClick2,
+  onClick3,
   getRandomColor,
   btntxt1,
   btntxt2,
+  btntxt3,
 }) => {
   return (
-    <Col lg={4} md={6} sm={12} className="mb-3" key={quiz._id}>
+    <Col lg={6} md={2} sm={10} className="mb-3" key={quiz._id}>
       <Card
         className="h-100"
         style={{
@@ -30,13 +32,21 @@ const QuizCard = ({
           />
         </Card.Body>
         <button
-          onClick={onClick2}
+          onClick={onClick3}
           color="black"
           borderColor="grey"
           shadowColor="grey"
         >
+          {btntxt3}
+        </button>
+        <button
+          onClick={onClick2}
+          color="black"
+          borderColor="grey"
+         >
           {btntxt2}
         </button>
+
       </Card>
     </Col>
   );
