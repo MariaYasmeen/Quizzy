@@ -19,23 +19,25 @@ import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
- 
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <UserProvider>
-          <QuizProvider>
+    // <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <QuizProvider>
           <QAProvider>
-
             <BrowserRouter>
-              <Routes> 
+              <Routes>
                 <Route path="/" element={<Hero />} />
-                 <Route path="/questions" element={<Questions />} />
+                <Route path="/questions" element={<Questions />} />
                 <Route path="/createquestion" element={<CreateQuestion />} />
-                <Route path="/questions/:questionId/:title" element={<QDetails />} />
+                <Route
+                  path="/questions/:questionId/:title"
+                  element={<QDetails />}
+                />
                 <Route path="/communityquestions" element={<AllQA />} />
                 <Route path="/dashboard/home" element={<Dashboard />} />
                 <Route path="/dashboard/allquizzes" element={<QuizList />} />
@@ -51,12 +53,11 @@ function App() {
                 {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
               </Routes>
             </BrowserRouter>
-            </QAProvider>
-
-          </QuizProvider>
-        </UserProvider>
-      </QueryClientProvider>
-    </React.StrictMode>
+          </QAProvider>
+        </QuizProvider>
+      </UserProvider>
+    </QueryClientProvider>
+    // </React.StrictMode>
   );
 }
 

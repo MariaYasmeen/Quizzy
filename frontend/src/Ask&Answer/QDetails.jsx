@@ -1,8 +1,8 @@
- import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchQuestionDetails } from "../services/Q&AFETCH";
 import { handleAnswerVoteClick } from "../QAContext/voteUtils";
-import {timeAgo} from "../services/timeago";
+import { timeAgo } from "../services/timeago";
 import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import Navbar from "../Components/Navbar";
 import CreateAnswer from "./CreateA";
@@ -47,84 +47,84 @@ const QDetails = () => {
   return (
     <>
       <Navbar />
-         <Sidebar />
-         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '180px', padding: '20px' }}>
+      <Sidebar />
+      <main
+        className="flex-grow-1 overflow-auto"
+        style={{ marginLeft: "180px", padding: "20px" }}
+      >
+        <div className="py-5 px-5">
+          <h1>{questionData.questionText}</h1>
+          <Card.Text>
+            Asked by{" "}
+            {Array.isArray(questionData.askedBy)
+              ? questionData.askedBy.map((user) => user.name).join(", ")
+              : questionData.askedBy?.name}{" "}
+            | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"}{" "}
+            | {timeAgo(questionData.createdAt)}
+          </Card.Text>
 
-      <div className="py-5 px-5">
-        <h1>{questionData.questionText}</h1>
-        <Card.Text>
-          Asked by{" "}
-          {Array.isArray(questionData.askedBy)
-            ? questionData.askedBy.map((user) => user.name).join(", ")
-            : questionData.askedBy?.name}{" "}
-          | {questionData.votes} {questionData.votes === 1 ? "vote" : "votes"} |{" "}
-          {timeAgo(questionData.createdAt)}
-        </Card.Text>
+          <p style={{ fontSize: "14px" }}>
+            {questionData.description || "No description available."}
+          </p>
 
-         
-        <p style={{ fontSize: "14px" }}>
-          {questionData.description || "No description available."}
-        </p>
+          {questionData.questionDocument.length > 0 && (
+            <img
+              src={questionData.questionDocument[0]}
+              alt="Question related"
+              style={{ width: "100%", maxWidth: "300px", marginTop: "10px" }}
+            />
+          )}
 
-        {questionData.questionDocument.length > 0 && (
-          <img
-            src={questionData.questionDocument[0]}
-            alt="Question related"
-            style={{ width: "100%", maxWidth: "300px", marginTop: "10px" }}
-          />
-        )}
+          <h5>Solutions:</h5>
+          {Array.isArray(questionData.answers) &&
+          questionData.answers.length > 0 ? (
+            <Row>
+              {questionData.answers.map((answer) => (
+                <Col key={answer._id} md={12} className="mb-3">
+                  <Card className="p-3 shadow-sm">
+                    <Card.Body>
+                      <h5>{answer.answerText}</h5>
+                      <Card.Text>
+                        <p style={{ fontSize: "14px" }}>
+                          {answer.description || "No description available."}
+                        </p>
+                      </Card.Text>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={
+                            votedAnswers[answer._id]
+                              ? solidThumbsUp
+                              : regularThumbsUp
+                          }
+                          onClick={() =>
+                            handleAnswerVoteClick(
+                              answer._id,
+                              questionId,
+                              votedAnswers,
+                              setVotedAnswers,
+                              setQuestionData
+                            )
+                          }
+                          style={{ cursor: "pointer", marginRight: "5px" }}
+                        />
+                        {answer.votes}
+                      </div>
+                      <Card.Text className="text-muted">
+                        <span style={{ fontSize: "13px" }}>
+                          Answer by user_name | {timeAgo(answer.createdAt)}
+                        </span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          ) : (
+            <p>No answers available for this question.</p>
+          )}
 
-        <h5>Solutions:</h5>
-        {Array.isArray(questionData.answers) &&
-        questionData.answers.length > 0 ? (
-          <Row>
-            {questionData.answers.map((answer) => (
-              <Col key={answer._id} md={12} className="mb-3">
-                <Card className="p-3 shadow-sm">
-                  <Card.Body>
-                    <h5>{answer.answerText}</h5>
-                    <Card.Text>
-                      <p style={{ fontSize: "14px" }}>
-                        {answer.description || "No description available."}
-                      </p>
-                    </Card.Text>
-                    <div>
-                      <FontAwesomeIcon
-                        icon={
-                          votedAnswers[answer._id]
-                            ? solidThumbsUp
-                            : regularThumbsUp
-                        }
-                        onClick={() =>
-                          handleAnswerVoteClick(
-                            answer._id,
-                            questionId,
-                            votedAnswers,
-                            setVotedAnswers,
-                            setQuestionData
-                          )
-                        }
-                        style={{ cursor: "pointer", marginRight: "5px" }}
-                      />
-                      {answer.votes}  
-                    </div>
-                    <Card.Text className="text-muted">
-                      <span style={{ fontSize: "13px" }}>
-                       Answer by user_name | {timeAgo(answer.createdAt)}
-                      </span>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        ) : (
-          <p>No answers available for this question.</p>
-        )}
-
-<CreateAnswer questionId={questionId} /> 
-
-      </div>
+          <CreateAnswer questionId={questionId} />
+        </div>
       </main>
     </>
   );

@@ -11,6 +11,7 @@ import {
   resizeImage,
   getMyQuestionAnswer,
   sortByVotes,
+  countView,
 } from './../controllers/questionAnswerController.js';
 import { protect } from './../controllers/authController.js';
 
@@ -21,7 +22,7 @@ router.get('/ten-faq', tenFrequentlyAskedQuestions, getAllQuestionAnswer);
 router.get('/myQuestions', protect, getMyQuestionAnswer, getAllQuestionAnswer);
 
 router.get('/', getAllQuestionAnswer);
-router.get('/:id', getQuestionAnswer);
+router.get('/:id', countView, getQuestionAnswer);
 router.use(protect);
 router.post('/', uploadImages, resizeImage, createQuestionAnswer);
 // POST /api/v1/qna/:id/vote

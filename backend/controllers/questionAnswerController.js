@@ -170,3 +170,15 @@ export const tenFrequentlyAskedQuestions = catchAsync(
     next();
   }
 );
+
+export const countView = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const QuestionAndAnswer = await QuestionAnswer.findById(id);
+  if (!QuestionAndAnswer) {
+    return res.status(404).json({ message: 'Question and Answer not found' });
+  }
+  QuestionAndAnswer.view = QuestionAndAnswer.view + 1;
+
+  await QuestionAndAnswer.save();
+  next();
+});
