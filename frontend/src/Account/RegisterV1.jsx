@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import useSignUp from "./useSignUp";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
-import Navbar from "../Components/Navbar";
-
+ 
 const Register = () => {
   const {
     register,
@@ -41,8 +40,7 @@ const Register = () => {
 
   return (
     <>
-      <Navbar />
-      {showSuccess && (
+       {showSuccess && (
         <div
           className="alert alert-success text-center fixed-top"
           style={{ zIndex: 1000 }}

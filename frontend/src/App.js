@@ -21,9 +21,8 @@ import QuizList from "./Dashboard/QuizList";
 import Questions from "./Ask&Answer/AskAndAnswer";
 import QDetails from "./Ask&Answer/QDetails";
 import UpdateQuizForm from "./Pages/UpdateQuiz";
-
 import UserHome from "./Pages/UserHome";
-import QuizResults from "./Pages/QuizResults"; 
+import QuizResults from "./Pages/QuizResults";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
 
@@ -31,51 +30,16 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    // <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <QuizProvider>
-          <QAProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Hero />} />
-                <Route path="/questions" element={<Questions />} />
-                <Route path="/updateQuizForm" element={<UpdateQuizForm />} />
-
-                <Route path="/createquestion" element={<CreateQuestion />} />
-                <Route
-                  path="/questions/:questionId/:title"
-                  element={<QDetails />}
-                />
-                <Route path="/communityquestions" element={<AllQA />} />
-                <Route path="/dashboard/home" element={<Dashboard />} />
-                <Route path="/dashboard/allquizzes" element={<QuizList />} />
-                <Route path="/publicquizzes" element={<PublicQuizzes />} />
-                <Route path="/quiz/:quizId" element={<QuizDetails />} />
-                <Route path="/account/register2" element={<RegisterV1 />} />
-                <Route path="/account/signin" element={<Signin />} />
-                <Route path="/createquiz" element={<CreateQuiz />} />
-                <Route
-                  path="/createquiz/:quizId"
-                  element={<CreateQuizQuestion />}
-                />
-                {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
-              </Routes>
-            </BrowserRouter>
-          </QAProvider>
-        </QuizProvider>
-      </UserProvider>
-    </QueryClientProvider>
-    // </React.StrictMode>
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
         <UserProvider>
           <QuizProvider>
             <QAProvider>
-              <BrowserRouter> 
-                  <Navbar />
-                <Sidebar />   
-                <div style={{ marginLeft: '220px', padding: '20px' }}> {/* Adjust margin to accommodate the sidebar */}
+              <BrowserRouter>
+                <Navbar />
+                <Sidebar />
+                <div style={{ marginLeft: '220px', padding: '20px' }}>
+                  {/* Adjust margin to accommodate the sidebar */}
                   <Routes>
                     <Route path="/" element={<Hero />} />
                     <Route path="/questions" element={<Questions />} />

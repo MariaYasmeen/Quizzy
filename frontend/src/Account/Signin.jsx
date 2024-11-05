@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import axios from "axios";
-import Navbar from "../Components/Navbar";
-import { UserContext } from "../Context/userContext";
+ import { UserContext } from "../Context/userContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const SignIn = () => {
@@ -62,8 +61,7 @@ const SignIn = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="container mt-5">
+       <div className="container mt-5">
         <div className="row justify-content-center">
           <div className="col-md-5">
             <div className="card soft-card p-4">

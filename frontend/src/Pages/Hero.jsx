@@ -12,7 +12,7 @@ const Hero = () => {
   return (
     <>
        <div >
-         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '180px', padding: '20px' }}>
+         <main className="flex-grow-1 overflow-auto" >
         <section className="herosection">
             <div className="lightbgctr textsection">
               <div className="row align-items-center">

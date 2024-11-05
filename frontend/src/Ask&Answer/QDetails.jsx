@@ -44,9 +44,8 @@ const QDetails = () => {
 
   return (
     <> 
-      <main
-        className="flex-grow-1 overflow-auto"
-        style={{ marginLeft: "180px", padding: "20px" }}
+      <div
+        className="flex-grow-1 overflow-auto" 
       >
         <div className="py-5 px-5">
           <h1>{questionData.questionText}</h1>
@@ -62,8 +61,6 @@ const QDetails = () => {
           <p style={{ fontSize: "14px" }}>
             {questionData.description || "No description available."}
           </p>
-    
-        
 
           {questionData.questionDocument.length > 0 && (
             <img
@@ -123,7 +120,7 @@ const QDetails = () => {
 
           <CreateAnswer questionId={questionId} />
         </div>
-      </main>
+      </div>
     </>
   );
 };
