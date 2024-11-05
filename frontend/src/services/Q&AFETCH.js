@@ -20,7 +20,6 @@ export async function fetchQuestions() {
   }
 }
 
-
 export async function fetchOneQuestion(id) {
   try {
     console.log("API is going to start...");
@@ -37,8 +36,12 @@ export async function fetchOneQuestion(id) {
   }
 }
 
-
-export const fetchQuestionDetails = async (questionId, setQuestionData, setLoading, setError) => {
+export const fetchQuestionDetails = async (
+  questionId,
+  setQuestionData,
+  setLoading,
+  setError
+) => {
   setLoading(true);
   try {
     const data = await fetchOneQuestion(questionId);
@@ -49,4 +52,3 @@ export const fetchQuestionDetails = async (questionId, setQuestionData, setLoadi
     setLoading(false);
   }
 };
-

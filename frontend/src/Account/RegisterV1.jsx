@@ -31,7 +31,7 @@ const Register = () => {
       // Redirect after 2 seconds
       setTimeout(() => {
         setShowSuccess(false);
-        navigate("/");
+        navigate("/account/signin");
       }, 2000);
     } catch (error) {
       console.error("Signup error:", error);
@@ -43,7 +43,10 @@ const Register = () => {
     <>
       <Navbar />
       {showSuccess && (
-        <div className="alert alert-success text-center fixed-top" style={{ zIndex: 1000 }}>
+        <div
+          className="alert alert-success text-center fixed-top"
+          style={{ zIndex: 1000 }}
+        >
           {successMessage}
         </div>
       )}
@@ -58,51 +61,81 @@ const Register = () => {
                   <input
                     placeholder="Name"
                     type="text"
-                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.name ? "is-invalid" : ""
+                    }`}
                     id="name"
                     {...register("name", { required: "Name is required" })}
                   />
-                  {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
+                  {errors.name && (
+                    <div className="invalid-feedback">
+                      {errors.name.message}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mb-3">
                   <input
                     placeholder="Email"
                     type="email"
-                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
                     id="email"
                     {...register("email", { required: "Email is required" })}
                   />
-                  {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
+                  {errors.email && (
+                    <div className="invalid-feedback">
+                      {errors.email.message}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mb-3">
                   <input
                     placeholder="Password"
                     type="password"
-                    className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.password ? "is-invalid" : ""
+                    }`}
                     id="password"
-                    {...register("password", { required: "Password is required" })}
+                    {...register("password", {
+                      required: "Password is required",
+                    })}
                   />
-                  {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                  {errors.password && (
+                    <div className="invalid-feedback">
+                      {errors.password.message}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mb-3">
                   <input
                     placeholder="Confirm Password"
                     type="password"
-                    className={`form-control ${errors.passwordConfirm ? "is-invalid" : ""}`}
+                    className={`form-control ${
+                      errors.passwordConfirm ? "is-invalid" : ""
+                    }`}
                     id="passwordConfirm"
                     {...register("passwordConfirm", {
                       required: "Please confirm your password",
                       validate: (value) =>
-                        value === watch('password') || "Passwords do not match",
+                        value === watch("password") || "Passwords do not match",
                     })}
                   />
-                  {errors.passwordConfirm && <div className="invalid-feedback">{errors.passwordConfirm.message}</div>}
+                  {errors.passwordConfirm && (
+                    <div className="invalid-feedback">
+                      {errors.passwordConfirm.message}
+                    </div>
+                  )}
                 </div>
 
-                <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
+                <button
+                  type="submit"
+                  className="btn btn-primary w-100"
+                  disabled={isLoading}
+                >
                   {isLoading ? "Signing Up..." : "Sign Up"}
                 </button>
               </form>

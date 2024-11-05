@@ -5,8 +5,10 @@ import userRouter from './routes/userRoutes.js';
 import quizRouter from './routes/quizRoutes.js';
 import questionAnswerRouter from './routes/questionAnswerRoutes.js';
 import globalErrorHandler from './controllers/errorController.js';
+import morgan from 'morgan';
 
 const app = express();
+app.use(morgan('dev'));
 app.use(json());
 app.use(cookieParser());
 const corsOptions = {

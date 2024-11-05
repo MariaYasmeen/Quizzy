@@ -25,6 +25,10 @@ const questionAnswerSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
+  view: {
+    type: Number,
+    default: 0,
+  },
   answers: [
     {
       answerText: String,

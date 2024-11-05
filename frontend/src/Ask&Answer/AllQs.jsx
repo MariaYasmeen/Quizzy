@@ -1,5 +1,5 @@
 // src/components/AllQA.js
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { QAContext } from "../QAContext/QAContext";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -36,7 +36,7 @@ const AllQA = () => {
       <h5>Question & Answers</h5>
       {qaData &&
         qaData.map((qaData) => (
-          <div className="mb-2 qsbox"   key={qaData._id}>
+          <div className="mb-2 qsbox" key={qaData._id}>
             <Card>
               <p className="title">
                 <Link
@@ -48,13 +48,12 @@ const AllQA = () => {
                   {qaData.questionText}
                 </Link>
               </p>
-             
+
               <p className="description">
                 {qaData.description.length > 100
                   ? `${qaData.description.substring(0, 100)}...`
                   : qaData.description}
               </p>
-              
 
               <div className="d-flex flex-wrap mt-2">
                 {qaData.tags &&
@@ -66,9 +65,9 @@ const AllQA = () => {
               </div>
               <p style={{ fontSize: "14px" }}>
                 {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"} | 0
-                answers | 3 views
+                answers | {qaData.view} views
               </p>
-              <div >
+              <div>
                 <FontAwesomeIcon
                   icon={
                     votedQuestions[qaData._id] ? solidThumbsUp : regularThumbsUp
@@ -76,7 +75,7 @@ const AllQA = () => {
                   onClick={() => handleVoteClick(qaData._id)}
                   style={{ cursor: "pointer", marginRight: "5px" }}
                 />
-                {qaData.votes} 
+                {qaData.votes}
               </div>
 
               <Card.Footer>
