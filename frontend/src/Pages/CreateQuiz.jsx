@@ -3,7 +3,7 @@ import React from "react";
 import { Form, Row, Col, Alert } from "react-bootstrap";
 import useCreateQuiz from "../Hooks/useCreateQuiz";
 import useQuizForm from "../Hooks/useQuizForm";
-import { createQuiz } from "../services/quizUtils";
+import { createQuiz } from "../services/quizUtils1";
 
 const CreateQuizPage = () => {
   const { isLoading } = useCreateQuiz();

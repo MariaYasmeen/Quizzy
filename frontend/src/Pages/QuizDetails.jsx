@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
- import QuestionDropdown from "../Components/QuestionDropdown";
+import QuestionDropdown from "../Components/QuestionDropdown";
 import QuestionDisplay from "../Components/QuestionDisplay";
 import ResultModal from "../Components/ResultModal";
-import { loadQuizDetails } from "../services/quizUtils";
-import { calculateMarkedIndices, calculateUnattemptedIndices, toggleMarkForReview, navigateToQuestion } from "../services/quizUtils";
+import { loadQuizDetails, calculateMarkedIndices, calculateUnattemptedIndices, toggleMarkForReview, navigateToQuestion } from "../services/quizUtils1";
 import { calculateScore } from "../services/HandlerUtils";
 import { submitQuizResult } from "../services/result";
 import './Pages.css';
@@ -72,7 +71,7 @@ const QuizDetails = () => {
 
   return (
     <>
-       <div className="quiz-container">
+      <div className="quiz-container">
         <h2 className="text-center">{quizDetails.title}</h2>
         <p className="text-center">{quizDetails.description}</p>
 

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { createQuiz as createQuizApi } from "../services/quizUtils";
+import { createQuiz as createQuizApi } from "../services/quizUtils1";
 import { useNavigate } from "react-router-dom";
 
 function useCreateQuiz() {

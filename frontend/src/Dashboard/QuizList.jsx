@@ -3,7 +3,7 @@ import { fetchPrivateQuizzes } from "../services/fetchQUIZ";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Container, Row, Alert } from "react-bootstrap";
 import QuizCard from "./QuizCard";
-import { getRandomColor } from "../services/quizUtils";
+import { getRandomColor } from "../services/quizUtils1";
 import { DeleteQuiz } from "../services/quizUD";
 import "./Dashboard.css"; 
 

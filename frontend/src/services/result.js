@@ -29,9 +29,11 @@ export async function submitQuizResult(quizId, studentId, answers, score) {
 export const fetchQuizResults = async (quizId) => {
   try {
     const response = await axios.get(`http://localhost:3300/api/v1/quizzes/${quizId}/results`, { timeout: 5000 });
-    return response.data.result; // Return the results directly
+    return response.data.result; 
   } catch (err) {
     console.error("Error fetching results:", err);
     throw new Error('Failed to fetch results');
   }
 };
+
+  
