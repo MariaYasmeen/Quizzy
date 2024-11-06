@@ -1,22 +1,18 @@
 // Hero.jsx
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap styles
-import Navbar from '../Components/Navbar';
-import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';  
+ import { Link } from 'react-router-dom';
 import heroimage from "../assets/herimg.png";
 import "./Pages.css";
 import QuizFeatureSection from '../Hero/QuizFeatureSection';
 import PlatformFeatures from '../Hero/PlatformFeatures';
 import CreateQuizSection from '../Hero/CreateQuizSection';
-import Sidebar from '../Components/Sidebar'; // Import the Sidebar component
-
+ 
 const Hero = () => {
   return (
     <>
-      <Navbar />
-      <div >
-        <Sidebar /> {/* Include Sidebar here */}
-        <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '180px', padding: '20px' }}>
+       <div >
+         <main className="flex-grow-1 overflow-auto" >
         <section className="herosection">
             <div className="lightbgctr textsection">
               <div className="row align-items-center">

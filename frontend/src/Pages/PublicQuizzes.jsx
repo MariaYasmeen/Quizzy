@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { fetchPublicQuizzes } from "../services/fetchQUIZ";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import { Spinner, Container, Row } from "react-bootstrap";
+ import { Spinner, Container, Row } from "react-bootstrap";
 import QuizCard from "../Components/QuizCard";
-import { getRandomColor } from "../services/quizUtils" ;
+import { getRandomColor } from "../services/quizUtils1" ;
 import './Pages.css';   
 
 const PublicQuizzes = () => {
@@ -43,7 +42,7 @@ const PublicQuizzes = () => {
 
   return (
     <div>
-      <Navbar />
+      
       <Container className="py-4">
         <h2 className="text-center mb-5">Public Quizzes</h2>
         <Row>

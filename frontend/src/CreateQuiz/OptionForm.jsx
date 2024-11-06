@@ -1,35 +1,12 @@
 import React from "react";
 import { useQuiz } from "../Context/QuizContext";
+import { handleAddOption, handleOptionChange, setCorrectAnswer } from "../services/HandlerUtils";
 
 const OptionForm = ({ questionIndex }) => {
   const { questions, setQuestions } = useQuiz();
 
-  const handleAddOption = (questionIndex) => {
-    const newQuestions = [...questions];
-    newQuestions[questionIndex].options.push({ text: "", isCorrect: false });
-    setQuestions(newQuestions);
-  };
-
-  const handleOptionChange = (questionIndex, optionIndex, value) => {
-    const newQuestions = [...questions];
-    if (newQuestions[questionIndex] && newQuestions[questionIndex].options) {
-      newQuestions[questionIndex].options[optionIndex].text = value;
-      setQuestions(newQuestions);
-    }
-  };
-
-  const setCorrectAnswer = (questionIndex, optionIndex) => {
-    const newQuestions = [...questions];
-    if (newQuestions[questionIndex] && newQuestions[questionIndex].options) {
-      newQuestions[questionIndex].options = newQuestions[questionIndex].options.map(
-        (option, i) => ({ ...option, isCorrect: i === optionIndex })
-      );
-      setQuestions(newQuestions);
-    }
-  };
-
    if (!questions[questionIndex] || !questions[questionIndex].options) {
-    return null; 
+    return null;
   }
 
   return (
@@ -42,9 +19,9 @@ const OptionForm = ({ questionIndex }) => {
               className="form-control inputfeild"
               value={option.text}
               onChange={(e) =>
-                handleOptionChange(questionIndex, optionIndex, e.target.value)
+                handleOptionChange(questions, setQuestions, questionIndex, optionIndex, e.target.value)
               }
-              placeholder={`Option ${String.fromCharCode(97 + optionIndex)}`} // a, b, c, ...
+              placeholder={`Option ${String.fromCharCode(97 + optionIndex)}`} 
               required
             />
           </div>
@@ -54,7 +31,7 @@ const OptionForm = ({ questionIndex }) => {
               className="form-check-input inputfeild"
               name={`correctOption${questionIndex}`}
               checked={option.isCorrect}
-              onChange={() => setCorrectAnswer(questionIndex, optionIndex)}
+              onChange={() => setCorrectAnswer(questions, setQuestions, questionIndex, optionIndex)}
             />
             <label className="form-check-label ms-2">Correct</label>
           </div>
@@ -64,7 +41,7 @@ const OptionForm = ({ questionIndex }) => {
       <button
         type="button"
         className="btn btn-secondary btn-sm"
-        onClick={() => handleAddOption(questionIndex)}
+        onClick={() => handleAddOption(questions, setQuestions, questionIndex)}
       >
         Add More Option
       </button>

@@ -1,6 +1,7 @@
 // src/components/AllQA.js
 import React, { useContext } from "react";
 import { QAContext } from "../QAContext/QAContext";
+import { UserContext } from "../Context/userContext";
 import { Card, Container, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { timeAgo } from "../services/timeago";
@@ -11,8 +12,8 @@ import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-ico
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const AllQA = () => {
-  const { qaData, loading, error, votedQuestions, handleVoteClick } =
-    useContext(QAContext);
+  const { qaData, loading, error, votedQuestions, handleVoteClick } = useContext(QAContext);
+  const { user } = useContext(UserContext); // Access user info
 
   if (loading) {
     return (
@@ -33,65 +34,63 @@ const AllQA = () => {
 
   return (
     <div>
-      <h5>Question & Answers</h5>
-      {qaData &&
-        qaData.map((qaData) => (
-          <div className="mb-2 qsbox" key={qaData._id}>
-            <Card>
-              <p className="title">
-                <Link
-                  to={`/questions/${qaData._id}/${createSlug(
-                    qaData.questionText
-                  )}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  {qaData.questionText}
-                </Link>
-              </p>
+        <h3>All Questions</h3>
+            <p>4 questions</p>
+            <Link variant="primary" to="/createquestion" className="mb-2  ">Ask  Question</Link>
 
-              <p className="description">
-                {qaData.description.length > 100
-                  ? `${qaData.description.substring(0, 100)}...`
-                  : qaData.description}
-              </p>
+       {qaData &&
+        qaData
+          .slice() // Create a shallow copy of the array to avoid mutating the original state
+          .reverse() // Reverse the array to display the latest questions first
+          .map((qa) => (
+            <div className="mb-2 qsbox" key={qa._id}>
+              <Card>
+                <p className="title">
+                  <Link
+                    to={`/questions/${qa._id}/${createSlug(qa.questionText)}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    {qa.questionText}
+                  </Link>
+                </p>
 
-              <div className="d-flex flex-wrap mt-2">
-                {qaData.tags &&
-                  qaData.tags.map((tag, index) => (
-                    <span key={index} className="badge tagsbox me-1 mb-1">
-                      {tag}
-                    </span>
-                  ))}
-              </div>
-              <p style={{ fontSize: "14px" }}>
-                {qaData.votes} {qaData.votes === 1 ? "vote" : "votes"} | 0
-                answers | {qaData.view} views
-              </p>
-              <div>
-                <FontAwesomeIcon
-                  icon={
-                    votedQuestions[qaData._id] ? solidThumbsUp : regularThumbsUp
-                  }
-                  onClick={() => handleVoteClick(qaData._id)}
-                  style={{ cursor: "pointer", marginRight: "5px" }}
-                />
-                {qaData.votes}
-              </div>
+                <p className="description">
+                  {qa.description.length > 100
+                    ? `${qa.description.substring(0, 100)}...`
+                    : qa.description}
+                </p>
 
-              <Card.Footer>
-                <small className="text-muted">
-                  Asked by{" "}
-                  {Array.isArray(qaData.askedBy)
-                    ? qaData.askedBy.map((user) => user.name).join(", ")
-                    : qaData.askedBy.name}{" "}
-                  | {timeAgo(qaData.createdAt)}
-                </small>
-              </Card.Footer>
-            </Card>
-          </div>
-        ))}
+                <div className="d-flex flex-wrap mt-2">
+                  {qa.tags &&
+                    qa.tags.map((tag, index) => (
+                      <span key={index} className="badge tagsbox me-1 mb-1">
+                        {tag}
+                      </span>
+                    ))}
+                </div>
+                <p style={{ fontSize: "14px" }}>
+                  {qa.votes} {qa.votes === 1 ? "vote" : "votes"} | {qa.answers.length}{" "}
+                  {qa.answers.length === 1 ? "answer" : "answers"} | {qa.view} views
+                </p>
+                <div>
+                  <FontAwesomeIcon
+                    icon={votedQuestions[qa._id] ? solidThumbsUp : regularThumbsUp}
+                    onClick={() => handleVoteClick(qa._id)}
+                    style={{ cursor: "pointer", marginRight: "5px" }}
+                  />
+                  {qa.votes}
+                </div>
+
+                <Card.Footer>
+                  <small className="text-muted">
+                    Asked by {user?.name || "Anonymous"} | {timeAgo(qa.createdAt)}
+                  </small>
+                </Card.Footer>
+              </Card>
+            </div>
+          ))}
     </div>
   );
-};
+};    
 
 export default AllQA;

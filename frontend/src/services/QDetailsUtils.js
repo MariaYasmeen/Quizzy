@@ -15,14 +15,12 @@ import { addVoteToA } from "../services/Q&APOST";
     const data = { vote: newVoteState ? 1 : -1 };
     await addVoteToA({ data, id: answerId, questionId });
 
-    // Update local vote state
-    setVotedAnswers((prevState) => ({
+     setVotedAnswers((prevState) => ({
       ...prevState,
       [answerId]: newVoteState,
     }));
 
-    // Update votes count locally
-    setQuestionData((prevData) => ({
+     setQuestionData((prevData) => ({
       ...prevData,
       answers: prevData.answers.map((answer) =>
         answer._id === answerId
@@ -37,3 +35,5 @@ import { addVoteToA } from "../services/Q&APOST";
     console.error("Failed to update votes:", error);
   }
 };
+
+

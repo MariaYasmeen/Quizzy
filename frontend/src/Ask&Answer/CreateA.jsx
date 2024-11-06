@@ -1,36 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, Container } from "react-bootstrap";
-import { createAnswer } from "../services/Q&APOST";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { createAnswer } from "../services/quizUtils1";
+import { useTextEditor } from "../Hooks/useATextEditor";
+ 
 const CreateAnswer = ({ questionId, onSuccess }) => {
-  const [answerText, setAnswerText] = useState("");
-  const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
+  const { title, answerText, description, setAnswerText, setDescription, setTitle, resetForm, isCodeMode, toggleCodeMode } = useTextEditor();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      title: title,
-      answerText: answerText,
-      description: description,
-    };
+    const formData = { title, answerText, description };
 
     try {
       const newAnswer = await createAnswer({ data: formData, id: questionId });
-      if (onSuccess) {
-        onSuccess(newAnswer);  
-      }
-      setTitle("");
-      setAnswerText("");
-      setDescription("");
+      if (onSuccess) onSuccess(newAnswer);
+      resetForm();
     } catch (error) {
       console.error("Failed to create answer:", error);
     }
-  };
-
-  const formatText = (command) => {
-    document.execCommand(command, false, null);
   };
 
   return (
@@ -38,30 +27,26 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
       <h3 className="mb-3">Your Answer</h3>
       <Form onSubmit={handleSubmit}>
         <div className="text-editor-toolbar mb-2 editorbox">
-          <button type="button" onClick={() => formatText("bold")}>
+          <button type="button" onClick={() => document.execCommand("bold")}>
             <b>B</b>
           </button>
-          <button type="button" onClick={() => formatText("italic")}>
+          <button type="button" onClick={() => document.execCommand("italic")}>
             <i>I</i>
           </button>
-          <button type="button" onClick={() => formatText("underline")}>
+          <button type="button" onClick={() => document.execCommand("underline")}>
             <u>U</u>
           </button>
-          <button type="button" onClick={() => formatText("insertUnorderedList")}>
+          <button type="button" onClick={() => document.execCommand("insertUnorderedList")}>
             • List
           </button>
-          <button type="button" onClick={() => formatText("insertCode")}>
-            Code
+          <button type="button" onClick={toggleCodeMode} className="ms-2">
+            <FontAwesomeIcon icon={faPlus} /> Code
           </button>
         </div>
 
-  
-
-        {/* Answer Text Field */}
         <Form.Group controlId="formAnswerText">
           <Form.Control
             as="textarea"
-            className="inputfeild"
             rows={2}
             value={answerText}
             onChange={(e) => setAnswerText(e.target.value)}
@@ -70,15 +55,19 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
           />
         </Form.Group>
 
-        {/* Description Field */}
         <Form.Group controlId="formDescription">
           <Form.Control
             as="textarea"
             rows={8}
-            className="inputfeild"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Add your details here..."
+            placeholder="Add your details or code here..."
+            style={{
+              fontFamily: isCodeMode ? "monospace" : "inherit",
+              backgroundColor: isCodeMode ? "#f9f9f9" : "white",
+              whiteSpace: isCodeMode ? "pre" : "normal",
+              overflowWrap: "break-word",
+            }}
           />
         </Form.Group>
 

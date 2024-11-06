@@ -82,4 +82,34 @@ export const getRandomColor = () => {
   
 
 
-  
+ export const saveToLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export const loadFromLocalStorage = (key) => {
+  const savedData = localStorage.getItem(key);
+  return savedData ? JSON.parse(savedData) : {};
+};
+
+export const removeFromLocalStorage = (key) => {
+  localStorage.removeItem(key);
+};
+
+
+export const createAnswer = async ({ data, id }) => {
+   try {
+    const response = await fetch(`/api/answers/${id}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) throw new Error("Failed to create answer");
+
+    const newAnswer = await response.json();
+    return newAnswer;
+  } catch (error) {
+    console.error("Error creating answer:", error);
+    throw error;
+  }
+};

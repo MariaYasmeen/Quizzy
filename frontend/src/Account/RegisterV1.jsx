@@ -2,10 +2,9 @@ import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./account.css";
 import { useForm } from "react-hook-form";
-import useSignUp from "./useSignUp";
+import useSignUp from "../Hooks/useSignUp";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
-import Navbar from "../Components/Navbar";
 
 const Register = () => {
   const {
@@ -25,7 +24,7 @@ const Register = () => {
     try {
       const userData = await signup(data);
       saveUser(userData); // Save user data to context
-      setSuccessMessage("Registration successful! Redirecting to home...");
+      setSuccessMessage("Registration successful! Redirecting to sign-in...");
       setShowSuccess(true);
 
       // Redirect after 2 seconds
@@ -35,13 +34,11 @@ const Register = () => {
       }, 2000);
     } catch (error) {
       console.error("Signup error:", error);
-      // Optionally, display an error message to the user
     }
   };
 
   return (
     <>
-      <Navbar />
       {showSuccess && (
         <div
           className="alert alert-success text-center fixed-top"
@@ -61,16 +58,12 @@ const Register = () => {
                   <input
                     placeholder="Name"
                     type="text"
-                    className={`form-control ${
-                      errors.name ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
                     id="name"
                     {...register("name", { required: "Name is required" })}
                   />
                   {errors.name && (
-                    <div className="invalid-feedback">
-                      {errors.name.message}
-                    </div>
+                    <div className="invalid-feedback">{errors.name.message}</div>
                   )}
                 </div>
 
@@ -78,16 +71,12 @@ const Register = () => {
                   <input
                     placeholder="Email"
                     type="email"
-                    className={`form-control ${
-                      errors.email ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
                     id="email"
                     {...register("email", { required: "Email is required" })}
                   />
                   {errors.email && (
-                    <div className="invalid-feedback">
-                      {errors.email.message}
-                    </div>
+                    <div className="invalid-feedback">{errors.email.message}</div>
                   )}
                 </div>
 
@@ -95,18 +84,29 @@ const Register = () => {
                   <input
                     placeholder="Password"
                     type="password"
-                    className={`form-control ${
-                      errors.password ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.password ? "is-invalid" : ""}`}
                     id="password"
                     {...register("password", {
                       required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters long",
+                      },
+                      validate: {
+                        hasUppercase: (value) =>
+                          /[A-Z]/.test(value) || "Password must include at least one uppercase letter",
+                        hasLowercase: (value) =>
+                          /[a-z]/.test(value) || "Password must include at least one lowercase letter",
+                        hasDigit: (value) =>
+                          /[0-9]/.test(value) || "Password must include at least one digit",
+                        hasSpecialChar: (value) =>
+                          /[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+                          "Password must include at least one special character",
+                      },
                     })}
                   />
                   {errors.password && (
-                    <div className="invalid-feedback">
-                      {errors.password.message}
-                    </div>
+                    <div className="invalid-feedback">{errors.password.message}</div>
                   )}
                 </div>
 

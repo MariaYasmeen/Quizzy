@@ -3,11 +3,9 @@ import { fetchPrivateQuizzes } from "../services/fetchQUIZ";
 import { useNavigate } from "react-router-dom";
 import { Spinner, Container, Row, Alert } from "react-bootstrap";
 import QuizCard from "./QuizCard";
-import { getRandomColor } from "../services/quizUtils";
+import { getRandomColor } from "../services/quizUtils1";
 import { DeleteQuiz } from "../services/quizUD";
-import "./Dashboard.css";
-import Navbar from "../Components/Navbar";
-import Sidebar from "../Components/Sidebar";
+import "./Dashboard.css"; 
 
 const QuizList = () => {
   const [quizzes, setQuizzes] = useState([]);
@@ -55,10 +53,8 @@ const QuizList = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
-      <Navbar />
-         <Sidebar />
-         <main className="flex-grow-1 overflow-auto" style={{ marginLeft: '200px', padding: '20px' }}>
+    <> 
+         <main className="flex-grow-1 overflow-auto"  >
 
       <div>
         <Container className="py-4">

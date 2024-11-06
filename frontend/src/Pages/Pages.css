@@ -179,3 +179,19 @@ background-color: rgb(49, 48, 48);
 .tags .badge {
   font-size: 0.75rem;
 }
+
+
+.results-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.result-summary {
+  margin-bottom: 20px;
+}
+
+.answer-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
