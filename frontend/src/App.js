@@ -38,7 +38,7 @@ function App() {
               <BrowserRouter>
                 <Navbar />
                 <Sidebar />
-                <div style={{ marginLeft: '220px', padding: '20px' }}>
+                <div style={{ marginLeft: '180px', padding: '20px' }}>
                   {/* Adjust margin to accommodate the sidebar */}
                   <Routes>
                     <Route path="/" element={<Hero />} />

@@ -28,15 +28,14 @@ const Navbar = () => {
 
   // Effect to check user state changes
   useEffect(() => {
-    console.log("User state has changed:", user);
     if (user) {
-      setLogoutMessage("");  
+      setLogoutMessage("");
     }
-  }, [user]);  
+  }, [user]);
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbarcss  sticky-top">
+      <nav className="navbar navbar-expand-lg navbarcss sticky-top">
         <div className="container">
           <a className="navbar-brand d-flex align-items-center" href="/">
             <img src={logo} alt="Logo" className="me-1 img-fluid logoimg" />
@@ -60,23 +59,23 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </li>
-             
-                <li>
-                <input   className="form-control w-100" placeholder="Search..." aria-label="Search" />
-                </li>
-                <li className="nav-item">
+              <li className="nav-item">
+                <input className="form-control w-100" placeholder="Search..." aria-label="Search" />
+              </li>
+              <li className="nav-item">
                 <a className="nav-link" href="/search">
                   <i className="bi bi-search"></i>
                 </a>
-                </li>
+              </li>
               <li className="nav-item">
                 <a className="nav-link" href="/notifications">
                   <i className="bi bi-bell"></i>
                 </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/ ">
-About                 </Link>
+                <Link className="nav-link" to="/about">
+                  About
+                </Link>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -88,7 +87,7 @@ About                 </Link>
                   aria-expanded="false"
                 >
                   {user ? (
-                    <div className="user-initials">
+                    <div className="user-initials-circle">
                       {getUserInitials(user.name)}
                     </div>
                   ) : (
@@ -101,16 +100,18 @@ About                 </Link>
                 >
                   {user ? (
                     <>
-                      <li className="dropdown-item-text">
-                        <span style={{ fontSize: "14px" }}>Logged in as: </span>{" "}
-                        {user.name}
+                      <li>
+                        <span className="dropdown-item-text">
+                          Logged in as: {user.name}
+                        </span>
                       </li>
                       <li>
-                        <a
-                          className="dropdown-item"
-                          onClick={handleLogout}
-                          href="#"
-                        >
+                        <Link className="dropdown-item" to="/account/settings">
+                          Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <a className="dropdown-item" onClick={handleLogout} href="#">
                           Logout
                         </a>
                       </li>
@@ -118,14 +119,14 @@ About                 </Link>
                   ) : (
                     <>
                       <li>
-                        <a className="dropdown-item" href="/account/signin">
-                          Login
-                        </a>
+                        <Link className="dropdown-item" to="/account/signin">
+                          Sign In
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/account/register2">
-                          Signup
-                        </a>
+                        <Link className="dropdown-item" to="/account/register2">
+                          Sign Up
+                        </Link>
                       </li>
                     </>
                   )}
