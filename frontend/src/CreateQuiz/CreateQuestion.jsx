@@ -1,12 +1,12 @@
 import React from "react";
 import { useForm, useFieldArray } from "react-hook-form";
-import useCreateQuiz from "./useCreateQuiz";
-import OptionForm from "../../CreateQuiz/OptionForm";
+import useCreateQuiz from "../Hooks/useCreateQuiz";
+import OptionForm from "./OptionForm";
 import { useParams } from "react-router-dom";
 
 const CreateQuizQuestion = () => {
   const { quizId } = useParams();
-  const { isLoading, submitQuiz } = useCreateQuiz(quizId); // Renamed to submitQuiz
+  const { isLoading, submitQuiz } = useCreateQuiz(quizId);  
   const { handleSubmit, register, control } = useForm({
     defaultValues: {
       questions: [
@@ -25,7 +25,7 @@ const CreateQuizQuestion = () => {
   };
 
   const onSubmit = (data) => {
-    submitQuiz(data.questions); // Use submitQuiz instead of createQuiz
+    submitQuiz(data.questions);  
     console.log("Questions submitted:", data);
   };
 

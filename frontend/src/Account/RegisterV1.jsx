@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./account.css";
 import { useForm } from "react-hook-form";
-import useSignUp from "./useSignUp";
+import useSignUp from "../Hooks/useSignUp";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/userContext";
 

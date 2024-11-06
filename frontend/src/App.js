@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Hero from "./Pages/Hero";
 import RegisterV1 from "./Account/RegisterV1";
 import Signin from "./Account/Signin";
-import CreateQuizQuestion from "./features/quiz/CreateQuestion";
+import CreateQuizQuestion from "./CreateQuiz/CreateQuestion";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { QAProvider } from "./QAContext/QAContext";
 import { QuizProvider } from "./Context/QuizContext";
@@ -18,8 +18,7 @@ import QuizDetails from "./Pages/QuizDetails";
 import Dashboard from "./Dashboard/Home";
 import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
-import Questions from "./Ask&Answer/AskAndAnswer";
-import QDetails from "./Ask&Answer/QDetails";
+ import QDetails from "./Ask&Answer/QDetails";
 import UpdateQuizForm from "./Pages/UpdateQuiz";
 import UserHome from "./Pages/UserHome";
 import QuizResults from "./Pages/QuizResults";
@@ -39,11 +38,9 @@ function App() {
                 <Navbar />
                 <Sidebar />
                 <div style={{ marginLeft: '180px', padding: '20px' }}>
-                  {/* Adjust margin to accommodate the sidebar */}
-                  <Routes>
+                   <Routes>
                     <Route path="/" element={<Hero />} />
-                    <Route path="/questions" element={<Questions />} />
-                    <Route path="/updateQuizForm" element={<UpdateQuizForm />} />
+                     <Route path="/updateQuizForm" element={<UpdateQuizForm />} />
                     <Route path="/home" element={<UserHome />} />
                     <Route path="/quizresults" element={<QuizResults />} />
                     <Route path="/createquestion" element={<CreateQuestion />} />
@@ -57,8 +54,7 @@ function App() {
                     <Route path="/account/signin" element={<Signin />} />
                     <Route path="/createquiz" element={<CreateQuiz />} />
                     <Route path="/createquiz/:quizId" element={<CreateQuizQuestion />} />
-                    {/* <Route path="*" element={<p>404: Page Not Found</p>} /> */}
-                  </Routes>
+                   </Routes>
                 </div>
               </BrowserRouter>
             </QAProvider>

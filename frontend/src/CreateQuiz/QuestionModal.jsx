@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../../Components/Navbar";
+import Navbar from "../Components/Navbar";
 import { Button, Form } from "react-bootstrap";
 import { useForm, useFieldArray } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,8 +21,7 @@ function QuestionPage() {
     createQuestion(data, {
       onSuccess: () => {
         reset();
-        // Redirect to the /createquiz/:quizId route after successful submission
-        navigate(`/createquiz/${quizId}`);
+         navigate(`/createquiz/${quizId}`);
       },
     });
   };

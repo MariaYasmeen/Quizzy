@@ -5,7 +5,7 @@ import QuestionDisplay from "../Components/QuestionDisplay";
 import ResultModal from "../Components/ResultModal";
 import { loadQuizDetails } from "../services/quizUtils";
 import { calculateMarkedIndices, calculateUnattemptedIndices, toggleMarkForReview, navigateToQuestion } from "../services/quizUtils";
-import { calculateScore } from "../services/calculateScores";
+import { calculateScore } from "../services/HandlerUtils";
 import { submitQuizResult } from "../services/result";
 import './Pages.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

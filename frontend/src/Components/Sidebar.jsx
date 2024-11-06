@@ -18,7 +18,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/questions" className="nav-link link-body-emphasis">
+          <Link to="/communityquestions" className="nav-link link-body-emphasis">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#speedometer2" />
             </svg>
