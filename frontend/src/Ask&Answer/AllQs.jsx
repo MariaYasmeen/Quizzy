@@ -1,4 +1,3 @@
-// src/components/AllQA.js
 import React, { useContext } from "react";
 import { QAContext } from "../QAContext/QAContext";
 import { UserContext } from "../Context/userContext";
@@ -13,7 +12,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const AllQA = () => {
   const { qaData, loading, error, votedQuestions, handleVoteClick } = useContext(QAContext);
-  const { user } = useContext(UserContext); // Access user info
+  const { user } = useContext(UserContext); 
 
   if (loading) {
     return (
@@ -34,14 +33,14 @@ const AllQA = () => {
 
   return (
     <div>
-        <h3>All Questions</h3>
-            <p>4 questions</p>
-            <Link variant="primary" to="/createquestion" className="mb-2  ">Ask  Question</Link>
+      <h3>All Questions</h3>
+      <p>{qaData.length} {qaData.length === 1 ? "Question" : "Questions"}</p>
+      <Link variant="primary" to="/createquestion" className="mb-2">Ask Question</Link>
 
-       {qaData &&
+      {qaData &&
         qaData
-          .slice() // Create a shallow copy of the array to avoid mutating the original state
-          .reverse() // Reverse the array to display the latest questions first
+          .slice()  
+          .reverse()  
           .map((qa) => (
             <div className="mb-2 qsbox" key={qa._id}>
               <Card>
@@ -91,6 +90,6 @@ const AllQA = () => {
           ))}
     </div>
   );
-};    
+};
 
 export default AllQA;

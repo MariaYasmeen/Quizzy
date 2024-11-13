@@ -40,7 +40,7 @@ const OptionForm = ({ questionIndex }) => {
 
       <button
         type="button"
-        className="btn btn-secondary btn-sm"
+        className=" btn-secondary btn-sm"
         onClick={() => handleAddOption(questions, setQuestions, questionIndex)}
       >
         Add More Option

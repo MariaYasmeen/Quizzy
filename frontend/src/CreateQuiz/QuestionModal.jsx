@@ -76,9 +76,9 @@ function QuestionPage() {
             variant="primary"
             onClick={() => append({ text: "", isCorrect: false })}
           > Add Options </Button>
-          <Button variant="success" type="submit" className="">
+          <button variant="success" type="submit" className="">
             {isLoading ? "Adding..." : "Add another Question"}
-          </Button>
+          </button>
           
           
         </Form>

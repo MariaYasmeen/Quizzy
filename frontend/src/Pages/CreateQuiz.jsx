@@ -1,12 +1,13 @@
-// src/Pages/CreateQuiz.jsx
 import React from "react";
 import { Form, Row, Col, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import useCreateQuiz from "../Hooks/useCreateQuiz";
 import useQuizForm from "../Hooks/useQuizForm";
 import { createQuiz } from "../services/quizUtils1";
 
 const CreateQuizPage = () => {
-  const { isLoading } = useCreateQuiz();
+  const navigate = useNavigate();
+  const { quizId, isLoading } = useCreateQuiz(); // Assuming quizId is returned from the hook
   const {
     handleSubmit,
     register,
@@ -16,8 +17,14 @@ const CreateQuizPage = () => {
     reset,
   } = useQuizForm();
 
-  const handleQuizSubmit = (data) => {
-    onSubmit(data, createQuiz, reset);  // Pass the createQuiz function
+  const handleQuizSubmit = async (data) => {
+    try {
+      // Call onSubmit to create the quiz, then navigate with quizId
+      await onSubmit(data, createQuiz, reset); // Ensure onSubmit handles the quiz creation
+      navigate(`/createquiz/${quizId}`); // Pass quizId in the route
+    } catch (error) {
+      console.error("Error creating quiz:", error);
+    }
   };
 
   return (
