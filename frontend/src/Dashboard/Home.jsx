@@ -9,7 +9,7 @@ const Dashboard = () =>{
         <>
         <Navbar />
         <div className="homelinks">
-          <Link  className="homelinks" to="/createquizpage"> Create Quiz</Link>
+          <Link  className="homelinks" to="/createquiz"> Create Quiz</Link>
           <Link className="homelinks" to="/dashboard/allquizzes"> View all Quizzes</Link>
           </div>
          </>

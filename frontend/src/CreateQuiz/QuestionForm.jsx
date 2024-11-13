@@ -38,7 +38,7 @@ const QuestionForm = () => {
 
           <button
             type="button"
-            className="btn btn-secondary btn-sm"
+            className="  btn-secondary btn-sm"
             onClick={handleAddQuestion}
           >
             Add More Question

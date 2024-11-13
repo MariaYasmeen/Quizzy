@@ -73,13 +73,14 @@ const CreateQuestion = () => {
           </div>
           <div className="mb-3">
             <input
-              placeholder="Upload an image"
+              placeholder="Upload images"
               type="file"
               className="form-control inputfeild"
               id="questionDocument"
               name="questionDocument"
               onChange={handleFileChange}
               accept=".jpg,.jpeg,.png,.pdf"
+              multiple 
             />
           </div>
           <button type="submit" disabled={loading}>
