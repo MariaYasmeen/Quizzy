@@ -4,7 +4,15 @@ import { fetchQuestionDetails } from "../services/Q&AFETCH";
 import { QAContext } from "../QAContext/QAContext";
 import { timeAgo } from "../services/timeago";
 import { calculateScore } from "../services/HandlerUtils";
-import { Card, Container, Row, Col, Spinner, Button, Modal } from "react-bootstrap";
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  Spinner,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import CreateAnswer from "./CreateA";
 import AnswerCard from "../Components/AnswerCard";
 
@@ -17,7 +25,6 @@ const QDetails = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const { qaData, votedAnswers, setVotedAnswers } = useContext(QAContext);
-  const questionVotes = qaData.find((q) => q._id === questionId)?.votes || 0;
 
   useEffect(() => {
     fetchQuestionDetails(questionId, setQuestionData, setLoading, setError);
@@ -46,8 +53,8 @@ const QDetails = () => {
       <h6>Question:</h6>
       <h4>{questionData.questionText}</h4>
       <Card.Text className="text-muted mb-4">
-        {questionData.answers.length} Answers | {questionVotes}{" "}
-        {questionVotes === 1 ? "vote" : "votes"} |{" "}
+        {questionData.answers.length} Answers | {questionData.votes}
+        {questionData.votes === 1 ? "vote" : "votes"} |{" "}
         {timeAgo(questionData.createdAt)}
         <br />
         Asked by {questionData.askedBy.name}
@@ -59,11 +66,11 @@ const QDetails = () => {
       {/* Image Gallery Section appears here */}
       {questionData.questionDocument?.length > 0 && (
         <>
-        <p>Image Gallery:</p>
-        <ImageGallery
-          images={questionData.questionDocument}
-          onImageClick={handleImageClick}
-        />
+          <p>Image Gallery:</p>
+          <ImageGallery
+            images={questionData.questionDocument}
+            onImageClick={handleImageClick}
+          />
         </>
       )}
 
@@ -115,7 +122,7 @@ const QDetails = () => {
   );
 };
 
- const LoadingState = () => (
+const LoadingState = () => (
   <Container className="text-center">
     <Spinner animation="border" />
     <p>Loading...</p>
@@ -128,8 +135,8 @@ const ErrorState = ({ error }) => (
   </Container>
 );
 
- const ImageGallery = ({ images, onImageClick }) => {
-  const displayedImages = images.slice(0, 4); 
+const ImageGallery = ({ images, onImageClick }) => {
+  const displayedImages = images.slice(0, 4);
   const remainingImages = images.length - displayedImages.length;
 
   return (

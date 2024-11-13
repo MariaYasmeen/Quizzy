@@ -1,7 +1,7 @@
 import { fetchQuizDetails } from "./fetchQUIZ"; // Reused from original code
 import axios from "axios";
 
- const URL1 = "http://localhost:3300/api/v1/quizzes";
+const URL1 = "http://localhost:3300/api/v1/quizzes";
 export async function createQuiz(data) {
   try {
     const res = await axios.post(URL1, data);
@@ -12,9 +12,8 @@ export async function createQuiz(data) {
   }
 }
 
-
 const URL = "http://localhost:3300/api/v1/quizzes";
- axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 export async function DeletePrivateQuizzes() {
   try {
     console.log("API is going to start...");
@@ -30,7 +29,12 @@ export async function DeletePrivateQuizzes() {
     }
   }
 }
-export const loadQuizDetails = async (quizId, setQuizDetails, setError, setLoading) => {
+export const loadQuizDetails = async (
+  quizId,
+  setQuizDetails,
+  setError,
+  setLoading
+) => {
   setLoading(true);
   try {
     const quiz = await fetchQuizDetails(quizId);
@@ -55,34 +59,32 @@ export const softColors = [
 
 export const getRandomColor = () => {
   return softColors[Math.floor(Math.random() * softColors.length)];
-}; 
- 
- export const calculateMarkedIndices = (questions, markedForReview) => {
-    return questions
-      .map((question, index) => (markedForReview[question._id] ? index : null))
-      .filter(index => index !== null);
-  };
-  
-  export const calculateUnattemptedIndices = (questions, userAnswers) => {
-    return questions
-      .map((question, index) => (userAnswers[question._id] ? null : index))
-      .filter(index => index !== null);
-  };
-  
-  export const toggleMarkForReview = (prevMarked, questionId) => {
-    return {
-      ...prevMarked,
-      [questionId]: !prevMarked[questionId],
-    };
-  };
-  
-  export const navigateToQuestion = (setCurrentQuestionIndex, index) => {
-    setCurrentQuestionIndex(index);
-  };
-  
+};
 
+export const calculateMarkedIndices = (questions, markedForReview) => {
+  return questions
+    .map((question, index) => (markedForReview[question._id] ? index : null))
+    .filter((index) => index !== null);
+};
 
- export const saveToLocalStorage = (key, data) => {
+export const calculateUnattemptedIndices = (questions, userAnswers) => {
+  return questions
+    .map((question, index) => (userAnswers[question._id] ? null : index))
+    .filter((index) => index !== null);
+};
+
+export const toggleMarkForReview = (prevMarked, questionId) => {
+  return {
+    ...prevMarked,
+    [questionId]: !prevMarked[questionId],
+  };
+};
+
+export const navigateToQuestion = (setCurrentQuestionIndex, index) => {
+  setCurrentQuestionIndex(index);
+};
+
+export const saveToLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
 
@@ -95,18 +97,13 @@ export const removeFromLocalStorage = (key) => {
   localStorage.removeItem(key);
 };
 
-
 export const createAnswer = async ({ data, id }) => {
-   try {
-    const response = await fetch(`/api/answers/${id}`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (!response.ok) throw new Error("Failed to create answer");
-
-    const newAnswer = await response.json();
+  try {
+    const response = axios.post(
+      `http://localhost:3300/api/v1/qna/${id}/answer`,
+      data
+    );
+    const newAnswer = await response.data;
     return newAnswer;
   } catch (error) {
     console.error("Error creating answer:", error);

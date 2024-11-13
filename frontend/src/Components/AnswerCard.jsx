@@ -6,7 +6,13 @@ import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-ico
 import { handleAnswerVoteClick } from "../QAContext/voteUtils";
 import { timeAgo } from "../services/timeago";
 
-const AnswerCard = ({ answer, questionId, votedAnswers, setVotedAnswers, setQuestionData }) => {
+const AnswerCard = ({
+  answer,
+  questionId,
+  votedAnswers,
+  setVotedAnswers,
+  setQuestionData,
+}) => {
   return (
     <Card className="p-3 shadow-sm">
       <Card.Body>
@@ -16,7 +22,7 @@ const AnswerCard = ({ answer, questionId, votedAnswers, setVotedAnswers, setQues
         </Card.Text>
         <div>
           <FontAwesomeIcon
-            icon={votedAnswers[answer._id] ? solidThumbsUp : regularThumbsUp}
+            // icon={votedAnswers[answer._id] ? solidThumbsUp : regularThumbsUp}
             onClick={() =>
               handleAnswerVoteClick(
                 answer._id,
@@ -31,7 +37,8 @@ const AnswerCard = ({ answer, questionId, votedAnswers, setVotedAnswers, setQues
           {answer.votes}
         </div>
         <Card.Text className="text-muted" style={{ fontSize: "13px" }}>
-          Answered by {answer.answeredBy.name || "Unknown"} | {timeAgo(answer.createdAt)}
+          Answered by {answer.answeredBy.name || "Unknown"} |{" "}
+          {timeAgo(answer.createdAt)}
         </Card.Text>
       </Card.Body>
     </Card>
