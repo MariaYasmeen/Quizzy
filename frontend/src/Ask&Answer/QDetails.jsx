@@ -6,7 +6,7 @@ import { timeAgo } from "../services/timeago";
 import { calculateScore } from "../services/HandlerUtils";
 import { Card, Container, Row, Col, Spinner, Button } from "react-bootstrap";
 import CreateAnswer from "./CreateA";
-import AnswerCard from "../Components/AnswerCard"; 
+import AnswerCard from "../Components/AnswerCard";
 
 const QDetails = () => {
   const { questionId } = useParams();
@@ -16,6 +16,7 @@ const QDetails = () => {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
   const { qaData, votedAnswers, setVotedAnswers } = useContext(QAContext);
   const questionVotes = qaData.find((q) => q._id === questionId)?.votes || 0;
+  console.log(questionData);
 
   useEffect(() => {
     fetchQuestionDetails(questionId, setQuestionData, setLoading, setError);
@@ -34,7 +35,8 @@ const QDetails = () => {
       <h1>{questionData.questionText}</h1>
       <Card.Text className="text-muted mb-4">
         {questionData.answers.length} Answers | {questionVotes}{" "}
-        {questionVotes === 1 ? "vote" : "votes"} | {timeAgo(questionData.createdAt)}
+        {questionVotes === 1 ? "vote" : "votes"} |{" "}
+        {timeAgo(questionData.createdAt)}
         <br />
         Asked by {questionData.askedBy.name}
       </Card.Text>
@@ -45,7 +47,7 @@ const QDetails = () => {
 
       {questionData.questionDocument?.[0] && (
         <img
-          src={questionData.questionDocument[0]}
+          src={`/Q&A/${questionData.questionDocument[0]}`}
           alt="Question related"
           style={{ width: "100%", maxWidth: "300px", marginTop: "10px" }}
         />
@@ -60,17 +62,20 @@ const QDetails = () => {
       <h5 className="mt-4">Solutions:</h5>
       {questionData.answers.length > 0 ? (
         <Row>
-          {questionData.answers.slice().reverse().map((answer) => (
-            <Col key={answer._id} md={12} className="mb-3">
-              <AnswerCard
-                answer={answer}
-                questionId={questionId}
-                votedAnswers={votedAnswers}
-                setVotedAnswers={setVotedAnswers}
-                setQuestionData={setQuestionData}
-              />
-            </Col>
-          ))}
+          {questionData.answers
+            .slice()
+            .reverse()
+            .map((answer) => (
+              <Col key={answer._id} md={12} className="mb-3">
+                <AnswerCard
+                  answer={answer}
+                  questionId={questionId}
+                  votedAnswers={votedAnswers}
+                  setVotedAnswers={setVotedAnswers}
+                  setQuestionData={setQuestionData}
+                />
+              </Col>
+            ))}
         </Row>
       ) : (
         <p>No answers available for this question.</p>

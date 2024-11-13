@@ -48,9 +48,7 @@ export const resizeImage = catchAsync(async (req, res, next) => {
   req.body.questionDocument = []; // Ensure it's initialized as an array
   await Promise.all(
     req.files.map(async (file, index) => {
-      const newFileName = `Q&A-${index}-${
-        req.user._id
-      }-${Date.now()}-${req.body.questionText.slice(0, 10)}.jpeg`;
+      const newFileName = `Q&A-${index}-${req.user._id}-${Date.now()}-Q&A.jpeg`;
       await sharp(file.buffer)
         .resize(600, 600)
         .toFormat('jpeg')
