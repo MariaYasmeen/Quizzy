@@ -7,13 +7,10 @@ import { useTextEditor } from "../Hooks/useATextEditor";
  
 const CreateAnswer = ({ questionId, onSuccess }) => {
   const { title, answerText, description, setAnswerText, setDescription, setTitle, resetForm, isCodeMode, toggleCodeMode } = useTextEditor();
-
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = { title, answerText, description };
-
-    try {
+  e.preventDefault();
+  const formData = { title, answerText, description };
+  try {
       const newAnswer = await createAnswer({ data: formData, id: questionId });
       if (onSuccess) onSuccess(newAnswer);
       resetForm();
@@ -21,7 +18,6 @@ const CreateAnswer = ({ questionId, onSuccess }) => {
       console.error("Failed to create answer:", error);
     }
   };
-
   return (
     <Container className="mt-4">
       <h3 className="mb-3">Your Answer</h3>
