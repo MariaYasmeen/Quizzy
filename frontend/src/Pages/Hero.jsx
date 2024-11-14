@@ -22,7 +22,7 @@ const Hero = () => {
                   <p className="mb-4">
                     Test your knowledge, track progress while unlocking your learning potential with every quiz!
                   </p>
-                  <Link to="/createquizpage" style={{ backgroundColor: "#383737", color: "whitesmoke" }} className="btn">
+                  <Link to="/createquiz" style={{ backgroundColor: "#383737", color: "whitesmoke" }} className="btn">
                     Start creating Quiz
                   </Link>
                   <Link to="/publicquizzes" className="btn">Explore Quizzes</Link>

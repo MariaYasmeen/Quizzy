@@ -1,8 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp as solidThumbsUp } from "@fortawesome/free-solid-svg-icons";
-import { faThumbsUp as regularThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import { handleAnswerVoteClick } from "../QAContext/voteUtils";
 import { timeAgo } from "../services/timeago";
 

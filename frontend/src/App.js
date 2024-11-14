@@ -14,7 +14,7 @@ import { UserProvider } from "./Context/userContext";
 import PublicQuizzes from "./Pages/PublicQuizzes";
 import CreateQuiz from "./Pages/CreateQuiz";
 import CreateQuestion from "./Ask&Answer/CreateQ";
-import QuizDetails from "./Pages/QuizDetails";
+import QuizDetails from "./Pages/TakePQuiz";
 import Dashboard from "./Dashboard/Home";
 import AllQA from "./Ask&Answer/AllQs";
 import QuizList from "./Dashboard/QuizList";
