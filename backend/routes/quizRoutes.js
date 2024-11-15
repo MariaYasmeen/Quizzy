@@ -52,8 +52,8 @@ router
 
 // later
 router.use('/:quizId/questions', questionRouter);
-router.use('/:quizId/take', resultRouter);
-router.use('/:quizId/results', resultRouter);
+router.use('/:quizId', resultRouter);
+router.use('/:quizId', resultRouter);
 
 export default router;
 

@@ -12,7 +12,8 @@ import { protect } from './../controllers/authController.js';
 const router = Router({ mergeParams: true });
 router.use(protect);
 
-router.route('/').get(getResult).post(createResult);
+router.get('/results', getResult);
+router.post('/take', createResult);
 
 router.patch('/:id', updateResult);
 export default router;
