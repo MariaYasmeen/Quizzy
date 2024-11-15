@@ -83,7 +83,12 @@ export const getResult = catchAsync(async (req, res, next) => {
   if (!filter.quiz) {
     filter.quiz = req.params.quizId;
   }
-  const result = await Result.findOne(filter);
+  const result = await Result.findOne(filter)
+    .populate({
+      path: 'quiz',
+      select: 'title',
+    })
+    .populate({ path: 'student', select: 'name' });
   if (!result)
     return next(new AppError('there is no result for this quiz', 404));
   res.status(200).json({
