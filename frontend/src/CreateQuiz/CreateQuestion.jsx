@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 const CreateQuizQuestion = () => {
   const { quizId } = useParams();
-  const { isLoading, submitQuiz } = useCreateQuiz(quizId);  
+  const { isLoading, submitQuiz } = useCreateQuiz(quizId);
   const { handleSubmit, register, control } = useForm({
     defaultValues: {
       questions: [
@@ -20,12 +20,12 @@ const CreateQuizQuestion = () => {
     name: "questions",
   });
 
-  const handleAddQuestion = () => {
+   const handleAddQuestion = () => {
     append({ questionText: "", options: [{ text: "", isCorrect: false }] });
   };
 
   const onSubmit = (data) => {
-    submitQuiz(data.questions);  
+    submitQuiz(data.questions);
     console.log("Questions submitted:", data);
   };
 
@@ -44,7 +44,7 @@ const CreateQuizQuestion = () => {
               placeholder="Enter question"
             />
 
-            <OptionForm
+             <OptionForm
               questionIndex={questionIndex}
               control={control}
               register={register}
@@ -54,13 +54,13 @@ const CreateQuizQuestion = () => {
 
         <button
           type="button"
-          className="btn btn-secondary btn-sm mb-3"
+          className="btn-secondary btn-sm mb-3"
           onClick={handleAddQuestion}
         >
           Add More Question
         </button>
 
-        <button type="submit" className="btn btn-primary" disabled={isLoading}>
+        <button type="submit" className="btn-primary" disabled={isLoading}>
           Submit Questions
         </button>
       </form>

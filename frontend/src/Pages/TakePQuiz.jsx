@@ -36,15 +36,13 @@ const QuizDetails = () => {
     const calculatedScore = calculateScore(quizDetails, userAnswers);
     setScore(calculatedScore);
 
-    // Prepare answers array in the required format
-    const answers = quizDetails.questions.map((question) => ({
+     const answers = quizDetails.questions.map((question) => ({
       questionId: question._id,
       selectedOption: userAnswers[question._id] || null,
       isCorrect: userAnswers[question._id] === question.correctAnswer,
     }));
 
-    // Call the API to submit the result
-    try {
+     try {
       await submitQuizResult(quizId, "66e84bb628a6eba96085ec55", answers, calculatedScore);
       setSubmitted(true);
       setShowModal(true);
