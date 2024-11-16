@@ -35,14 +35,17 @@ export const getQuestion = catchAsync(async (req, res, next) => {
 });
 
 export const createQuestion = catchAsync(async (req, res, next) => {
-  // Assign the quiz ID from params if not provided in the body
-  if (!req.body.quiz) {
-    req.body.quiz = req.params.quizId;
+  let quizId = req.body.quiz || req.params.quizId;
+  if (!quizId) {
+    return next(new AppError('Quiz ID is required', 400));
   }
-  const question = await Question.create(req.body);
+  for (let index = 0; index < req.body.length; index++) {
+    req.body[index].quiz = quizId;
+  }
+  const questions = await Question.insertMany(req.body);
   const quiz = await Quiz.findByIdAndUpdate(
-    req.body.quiz,
-    { $push: { questions: question._id } },
+    quizId,
+    { $push: { questions: { $each: questions.map((q) => q._id) } } },
     { new: true }
   );
   if (!quiz) {
@@ -51,7 +54,7 @@ export const createQuestion = catchAsync(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: {
-      question,
+      questions,
     },
   });
 });

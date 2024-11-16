@@ -80,7 +80,7 @@ const CreateQuestion = () => {
               name="questionDocument"
               onChange={handleFileChange}
               accept=".jpg,.jpeg,.png,.pdf"
-              multiple 
+              multiple
             />
           </div>
           <button type="submit" disabled={loading}>

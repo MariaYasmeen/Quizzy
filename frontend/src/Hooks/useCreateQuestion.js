@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { createQuestion as createQuestionApi } from "../../services/apiQuestion";
+import { createQuestion as createQuestionApi } from "./../services/apiQuestion";
 
 function useCreateQuestion(quizId) {
   const { isLoading, mutate: createQuestion } = useMutation({

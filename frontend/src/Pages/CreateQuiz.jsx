@@ -1,26 +1,15 @@
 import React from "react";
 import { Form, Row, Col, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; 
 import useCreateQuiz from "../Hooks/useCreateQuiz";
 import useQuizForm from "../Hooks/useQuizForm";
-import { createQuiz } from "../services/quizUtils1";
 
 const CreateQuizPage = () => {
-  const navigate = useNavigate();
-  const { quizId, isLoading } = useCreateQuiz();
-  const {
-    handleSubmit,
-    register,
-    errors,
-    handleInputChange,
-    onSubmit,
-    reset,
-  } = useQuizForm();
+  const { submitQuiz, isLoading } = useCreateQuiz();
+  const { handleSubmit, register, errors, handleInputChange } = useQuizForm();
 
   const handleQuizSubmit = async (data) => {
     try {
-       await onSubmit(data, createQuiz, reset);
-      navigate(`/createquiz/${quizId}`); 
+      submitQuiz(data);
     } catch (error) {
       console.error("Error creating quiz:", error);
     }
@@ -41,7 +30,9 @@ const CreateQuizPage = () => {
                 onChange: (e) => handleInputChange("title", e.target.value),
               })}
             />
-            {errors.title && <Alert variant="danger">{errors.title.message}</Alert>}
+            {errors.title && (
+              <Alert variant="danger">{errors.title.message}</Alert>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-1" controlId="quizDescription">
@@ -52,10 +43,13 @@ const CreateQuizPage = () => {
               placeholder="Enter quiz description"
               {...register("description", {
                 required: "Description is required",
-                onChange: (e) => handleInputChange("description", e.target.value),
+                onChange: (e) =>
+                  handleInputChange("description", e.target.value),
               })}
             />
-            {errors.description && <Alert variant="danger">{errors.description.message}</Alert>}
+            {errors.description && (
+              <Alert variant="danger">{errors.description.message}</Alert>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="isPublic">
@@ -63,7 +57,8 @@ const CreateQuizPage = () => {
               type="checkbox"
               label="Public Quiz"
               {...register("isPublic", {
-                onChange: (e) => handleInputChange("isPublic", e.target.checked),
+                onChange: (e) =>
+                  handleInputChange("isPublic", e.target.checked),
               })}
             />
           </Form.Group>
@@ -77,10 +72,13 @@ const CreateQuizPage = () => {
                   type="date"
                   {...register("startDate", {
                     required: "Start date is required",
-                    onChange: (e) => handleInputChange("startDate", e.target.value),
+                    onChange: (e) =>
+                      handleInputChange("startDate", e.target.value),
                   })}
                 />
-                {errors.startDate && <Alert variant="danger">{errors.startDate.message}</Alert>}
+                {errors.startDate && (
+                  <Alert variant="danger">{errors.startDate.message}</Alert>
+                )}
               </Form.Group>
             </Col>
 
@@ -92,10 +90,13 @@ const CreateQuizPage = () => {
                   type="date"
                   {...register("endDate", {
                     required: "End date is required",
-                    onChange: (e) => handleInputChange("endDate", e.target.value),
+                    onChange: (e) =>
+                      handleInputChange("endDate", e.target.value),
                   })}
                 />
-                {errors.endDate && <Alert variant="danger">{errors.endDate.message}</Alert>}
+                {errors.endDate && (
+                  <Alert variant="danger">{errors.endDate.message}</Alert>
+                )}
               </Form.Group>
             </Col>
           </Row>
