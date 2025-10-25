@@ -42,7 +42,7 @@ const AllQA = () => {
           .slice()  
           .reverse()  
           .map((qa) => (
-            <div className="mb-2 qsbox" key={qa._id}>
+            <div className="mb-2 qsbox" style={{height:"auto"}} key={qa._id}>
               <Card>
                 <p className="title">
                   <Link

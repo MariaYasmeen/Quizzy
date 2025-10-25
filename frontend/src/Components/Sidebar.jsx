@@ -42,11 +42,11 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="#" className="nav-link link-body-emphasis">
+          <Link to="/studyresources" className="nav-link link-body-emphasis">
             <svg className="bi pe-none me-2" width="16" height="16">
               <use xlinkHref="#people-circle" />
             </svg>
-            Templates
+            Study Resources
           </Link>
         </li>
         <li>
@@ -67,7 +67,7 @@ const Sidebar = () => {
         </li>
       </ul>
       <hr />
-    <p>USer's acheivements or badges will appear here on upon earning certain points</p>
+    {/* <p>USer's acheivements or badges will appear here on upon earning certain points</p> */}
     </div>
   );
 };

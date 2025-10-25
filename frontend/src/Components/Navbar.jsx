@@ -105,11 +105,7 @@ const Navbar = () => {
                           Logged in as: {user.name}
                         </span>
                       </li>
-                      <li>
-                        <Link className="dropdown-item" to="/account/settings">
-                          Settings
-                        </Link>
-                      </li>
+                    
                       <li>
                         <a className="dropdown-item" onClick={handleLogout} href="#">
                           Logout

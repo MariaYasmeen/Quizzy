@@ -17,11 +17,14 @@ const Hero = () => {
             <div className="lightbgctr textsection">
               <div className="row align-items-center">
                 <div className="col-md-6 text-md-start">
-                  <h2 className="heroh2">Ready to teach</h2>
-                  <h2 className="heroh2">and learn with ease?</h2>
+                  <h2 className="heroh2">Learn, Quiz, Explore!
+
+</h2>
+                  {/* <h2 className="heroh2">and learn with ease?</h2> */}
                   <p className="mb-4">
-                    Test your knowledge, track progress while unlocking your learning potential with every quiz!
-                  </p>
+                  A platform to ask questions, take quizzes, and access study resources—all in one place.
+
+</p>
                   <Link to="/createquiz" style={{ backgroundColor: "#383737", color: "whitesmoke" }} className="btn">
                     Start creating Quiz
                   </Link>

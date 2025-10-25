@@ -24,6 +24,7 @@ import UserHome from "./Pages/UserHome";
 import QuizResults from "./Pages/QuizResults";
 import Navbar from "./Components/Navbar";
 import Sidebar from "./Components/Sidebar";
+import StudyResources from "./Pages/StudyResources";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/" element={<Hero />} />
                      <Route path="/updateQuizForm" element={<UpdateQuizForm />} />
                     <Route path="/home" element={<UserHome />} />
+                    <Route path="/studyresources" element={<StudyResources />} />
                     <Route path="/quizresults" element={<QuizResults />} />
                     <Route path="/createquestion" element={<CreateQuestion />} />
                     <Route path="/questions/:questionId/:title" element={<QDetails />} />
